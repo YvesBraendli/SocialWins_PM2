@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="32.0" layoutY="28.0" mnemonicParsing="false" text="Neues Spiel" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button layoutX="105.0" layoutY="2.0" mnemonicParsing="false" text="Hilfe" AnchorPane.leftAnchor="79.0" AnchorPane.topAnchor="0.0" />
+      <TextArea layoutX="400.0" layoutY="72.0" prefHeight="77.0" prefWidth="200.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+      <TextArea layoutX="644.0" layoutY="233.0" prefHeight="77.0" prefWidth="200.0" AnchorPane.bottomAnchor="110.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0" />
+      <TextArea layoutX="644.0" layoutY="439.0" prefHeight="77.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <TextArea layoutX="46.0" layoutY="50.0" prefHeight="467.0" prefWidth="572.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="50.0" />
+   </children>
+</AnchorPane>
