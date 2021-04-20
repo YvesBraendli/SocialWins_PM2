@@ -1,0 +1,4 @@
+ch/zhaw/pm2/socialWins/App.java
+ ch.zhaw.pm2.socialWins.App
+ch/zhaw/pm2/socialWins/Test.java
+ ch.zhaw.pm2.socialWins.Test
