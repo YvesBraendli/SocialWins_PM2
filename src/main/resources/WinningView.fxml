@@ -4,12 +4,11 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="50.0" layoutY="361.0" mnemonicParsing="false" text="Neues Spiel" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
-      <Button layoutX="97.0" layoutY="365.0" mnemonicParsing="false" text="Beenden" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="100.0" />
-      <TextArea layoutX="360.0" layoutY="27.0" minWidth="-Infinity" prefHeight="200.0" prefWidth="380.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <TextArea layoutX="10.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="410.0" AnchorPane.topAnchor="10.0" />
+      <Button fx:id="newGameButton" layoutX="50.0" layoutY="361.0" mnemonicParsing="false" text="Neues Spiel" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+      <Button fx:id="closeButton" layoutX="97.0" layoutY="365.0" mnemonicParsing="false" text="Beenden" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="100.0" />
+      <TextArea fx:id="showGameFieldTextArea" layoutX="360.0" layoutY="27.0" minWidth="-Infinity" prefHeight="200.0" prefWidth="380.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <TextArea fx:id="winningTextTextArea" layoutX="10.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="410.0" AnchorPane.topAnchor="10.0" />
    </children>
 </AnchorPane>
