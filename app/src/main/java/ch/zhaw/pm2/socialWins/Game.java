@@ -10,6 +10,7 @@ public class Game {
 	
 	public Game(int winningLineLength) {
 		this.winningLineLength = winningLineLength;
-		board = new Board();
+		int rows = 10; // refactor
+		board = new Board(rows);
 	}
 }
