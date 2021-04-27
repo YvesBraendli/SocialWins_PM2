@@ -13,8 +13,8 @@ public class GameStarter {
 	 * 
 	 * @param args The application, which should be launched.
 	 */
-	public static void main([]String args) {
-		Application.launch(Game.class, args);
+	public static void main(String[] args) {
+		Application.launch(GameUI.class, args);
 	}
 
 }
