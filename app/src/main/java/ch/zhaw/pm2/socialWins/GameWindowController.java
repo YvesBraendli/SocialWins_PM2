@@ -68,33 +68,12 @@ public class GameWindowController {
 //		});
 //	}
 
-	private void setupGameField(int numberOfRows, int numberOfColumns) {
-		double gridElementHeight = GRID_PANE_HEIGHT/numberOfColumns;
-		double gridElementWidth = GRID_PANE_WIDTH/numberOfRows;
-		for (int i = 0; i<numberOfRows; i++) {
-			for(int z = 0; z<numberOfColumns; z++) {
-				TextArea newGridElement = new TextArea();
-				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
-				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
-				gameAreaGridPane.add(newGridElement, z, i);
-			}
-		}
-	}
-
-	private void writeInPlayerPromptTextField(String text) {
-		gamePromptTextArea.setText(text);
-	}
-
+	/**
+	 * Sets the ParentSceneGraph for this controller.
+	 * @param parentSceneGraph The ParentSceneGraph, which should be used with this class.
+	 */
 	public void setParentSceneGraph(Parent parentSceneGraph) {
 		this.parentSceneGraph = parentSceneGraph;
-	}
-
-	private void setWinningQueueText() {
-		winningQueueInformationTextArea.setText("bla"); // Add game.setWinningQueueText as parameter
-	}
-
-	private void setGameInformationText() {
-		gameInformationTextArea.setText("bla1"); // Add game.setGameInformationText as parameter
 	}
 
 	@FXML
@@ -129,6 +108,32 @@ public class GameWindowController {
 			System.err.println("Failed to load FXML resource: " + e.getMessage());
 		}
 
+	}
+	
+	private void setupGameField(int numberOfRows, int numberOfColumns) {
+		double gridElementHeight = GRID_PANE_HEIGHT/numberOfColumns;
+		double gridElementWidth = GRID_PANE_WIDTH/numberOfRows;
+		for (int i = 0; i<numberOfRows; i++) {
+			for(int z = 0; z<numberOfColumns; z++) {
+				TextArea newGridElement = new TextArea();
+				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
+				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
+				gameAreaGridPane.add(newGridElement, z, i);
+			}
+		}
+	}
+
+	private void writeInPlayerPromptTextField(String text) {
+		gamePromptTextArea.setText(text);
+	}
+	
+
+	private void setWinningQueueText() {
+		winningQueueInformationTextArea.setText("bla"); // Add game.setWinningQueueText as parameter
+	}
+
+	private void setGameInformationText() {
+		gameInformationTextArea.setText("bla1"); // Add game.setGameInformationText as parameter
 	}
 
 }
