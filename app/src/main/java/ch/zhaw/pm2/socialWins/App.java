@@ -10,5 +10,7 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+        Test test = new Test();
+        test.test();
     }
 }
