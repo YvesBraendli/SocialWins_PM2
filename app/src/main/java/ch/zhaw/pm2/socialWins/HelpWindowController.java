@@ -1,16 +1,17 @@
 package ch.zhaw.pm2.socialWins;
 
-import javafx.scene.control.TextArea;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.TextArea;
+
 
 public class HelpWindowController {
 	
 	private Game game; 
 	private Parent parentSceneGraph;
 	
-	@FXML private TextArea showHelpTextArea;
+	@FXML TextArea showHelpTextArea;
 
 	/**
 	 * Is called from GameUI to connect the Controller to the game model.

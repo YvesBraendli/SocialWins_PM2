@@ -10,14 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -87,7 +82,7 @@ public class GameWindowController {
 	private void showHelp() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("HelpView.fxml"));
-			Pane rootPane = loader.load();
+			AnchorPane rootPane = loader.load();
 			// fill in scene and stage setup
 			Scene scene = new Scene(rootPane);
 			// new stage for a new window
@@ -95,7 +90,7 @@ public class GameWindowController {
 			// the controller has to know about the model and the stage
 			HelpWindowController helpWindowController = loader.getController();
 			helpWindowController.setModel(game);
-			helpWindowController.setParentSceneGraph(parentSceneGraph);
+			helpWindowController.setParentSceneGraph(rootPane);
 
 			// configure and show stage
 			inputWindow.setScene(scene);
