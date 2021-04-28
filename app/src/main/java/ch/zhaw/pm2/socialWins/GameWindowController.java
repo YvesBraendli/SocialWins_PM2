@@ -10,8 +10,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -23,6 +29,8 @@ import javafx.stage.Stage;
 public class GameWindowController {
 	private Game game;
 	private Parent parentSceneGraph;
+	private static final int GRID_PANE_HEIGHT = 850;
+	private static final int GRID_PANE_WIDTH = 850;
 
 	@FXML
 	private Button newGameButton;
@@ -48,7 +56,7 @@ public class GameWindowController {
 		setGameInformationText();
 		setWinningQueueText();
 //		createListener();
-		setupGameField(5, 6); // Add game.getNumberOfRows and game.getNumberOfLines as Parameters
+		setupGameField(25, 25); // Add game.getNumberOfRows and game.getNumberOfLines as Parameters
 	}
 
 //	private void createListener() {
@@ -61,9 +69,16 @@ public class GameWindowController {
 //	}
 
 	private void setupGameField(int numberOfRows, int numberOfColumns) {
-		
-		gameAreaGridPane.addColumn(numberOfColumns, null);
-		gameAreaGridPane.addRow(numberOfRows, null);
+		double gridElementHeight = GRID_PANE_HEIGHT/numberOfColumns;
+		double gridElementWidth = GRID_PANE_WIDTH/numberOfRows;
+		for (int i = 0; i<numberOfRows; i++) {
+			for(int z = 0; z<numberOfColumns; z++) {
+				TextArea newGridElement = new TextArea();
+				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
+				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
+				gameAreaGridPane.add(newGridElement, z, i);
+			}
+		}
 	}
 
 	private void writeInPlayerPromptTextField(String text) {
