@@ -32,7 +32,7 @@ public class GameUI extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("GameView.fxml"));
 			Pane rootPane = loader.load();
 			GameWindowController gameWindowController = loader.getController();
-			gameWindowController.setModel(game);
+			gameWindowController.setUpGameView(game);
 			gameWindowController.setParentSceneGraph(rootPane);
 			// fill in scene and stage setup
 			Scene scene = new Scene(rootPane);

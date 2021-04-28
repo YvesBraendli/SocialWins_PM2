@@ -1,6 +1,6 @@
 package ch.zhaw.pm2.socialWins;
 
-import java.awt.TextArea;
+import javafx.scene.control.TextArea;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -9,6 +9,7 @@ public class HelpWindowController {
 	
 	private Game game; 
 	private Parent parentSceneGraph;
+	
 	@FXML private TextArea showHelpTextArea;
 
 	/**
