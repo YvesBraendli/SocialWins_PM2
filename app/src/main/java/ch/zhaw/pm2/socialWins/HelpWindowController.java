@@ -9,7 +9,6 @@ import javafx.scene.control.TextArea;
 public class HelpWindowController {
 	
 	private Game game; 
-	private Parent parentSceneGraph;
 	
 	@FXML TextArea showHelpTextArea;
 
@@ -19,10 +18,11 @@ public class HelpWindowController {
 	 */
 	public void setModel(Game model) {
 		game = model;
+		showHelp();
 	}
 	
-	public void setParentSceneGraph(Parent parentSceneGraph) {
-		this.parentSceneGraph = parentSceneGraph;
+	private void showHelp() {
+		showHelpTextArea.setText("Endlich funktioniert dieser Kack!"); // Add import of help text from game class.
 	}
 
 }

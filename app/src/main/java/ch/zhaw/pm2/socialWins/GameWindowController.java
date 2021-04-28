@@ -23,7 +23,6 @@ import javafx.stage.Stage;
  */
 public class GameWindowController {
 	private Game game;
-	private Parent parentSceneGraph;
 	private static final int GRID_PANE_HEIGHT = 850;
 	private static final int GRID_PANE_WIDTH = 850;
 
@@ -63,14 +62,6 @@ public class GameWindowController {
 //		});
 //	}
 
-	/**
-	 * Sets the ParentSceneGraph for this controller.
-	 * @param parentSceneGraph The ParentSceneGraph, which should be used with this class.
-	 */
-	public void setParentSceneGraph(Parent parentSceneGraph) {
-		this.parentSceneGraph = parentSceneGraph;
-	}
-
 	@FXML
 	private void startNewGame() {
 		game = new Game(5);
@@ -90,7 +81,6 @@ public class GameWindowController {
 			// the controller has to know about the model and the stage
 			HelpWindowController helpWindowController = loader.getController();
 			helpWindowController.setModel(game);
-			helpWindowController.setParentSceneGraph(rootPane);
 
 			// configure and show stage
 			inputWindow.setScene(scene);

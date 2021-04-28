@@ -33,7 +33,6 @@ public class GameUI extends Application {
 			Pane rootPane = loader.load();
 			GameWindowController gameWindowController = loader.getController();
 			gameWindowController.setUpGameView(game);
-			gameWindowController.setParentSceneGraph(rootPane);
 			// fill in scene and stage setup
 			Scene scene = new Scene(rootPane);
 			
