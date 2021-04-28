@@ -14,12 +14,20 @@ public class WinningViewController {
 	@FXML TextArea showGameFieldTextArea;
 	@FXML TextArea winningTextTextArea;
 	
+	/**
+	 * Sets up the winning view with the current parameters.
+	 * @param model The game class with the current game-status.
+	 */
 	public void setUpWinningView(Game model) {
 		game = model;
 		showGameField();
 		showWinningText();
 	}
 	
+	/**
+	 * Sets the ParentSceneGraph for the controller.
+	 * @param parentSceneGraph The ParentSceneGraph, that needs to be connected with the controller.
+	 */
 	public void setParentSceneGraph(Parent parentSceneGraph) {
 		this.parentSceneGraph = parentSceneGraph;
 	}
