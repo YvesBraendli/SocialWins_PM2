@@ -31,7 +31,6 @@ public class GameUI extends Application {
 			Pane rootPane = loader.load();
 			WinningViewController winningViewController = loader.getController();
 			winningViewController.setUpWinningView(game);
-			winningViewController.setParentSceneGraph(rootPane);
 			Scene scene = new Scene(rootPane);
 			primaryStage.setScene(scene);
 			primaryStage.setMinWidth(420);

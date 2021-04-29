@@ -1,11 +1,7 @@
 package ch.zhaw.pm2.socialWins;
 
-import java.awt.Insets;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,7 +19,6 @@ import javafx.stage.Stage;
 
 public class WinningViewController {
 	private Game game;
-	private Parent parentSceneGraph;
 	private static final int GRID_PANE_HEIGHT = 380;
 	private static final int GRID_PANE_WIDTH = 380;
 	@FXML Button newGameButton;
@@ -39,14 +34,6 @@ public class WinningViewController {
 		game = model;
 		showGameField(10,10);
 		showWinningText();
-	}
-	
-	/**
-	 * Sets the ParentSceneGraph for the controller.
-	 * @param parentSceneGraph The ParentSceneGraph, that needs to be connected with the controller.
-	 */
-	public void setParentSceneGraph(Parent parentSceneGraph) {
-		this.parentSceneGraph = parentSceneGraph;
 	}
 	
 	@FXML
