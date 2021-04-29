@@ -24,3 +24,4 @@ ch/zhaw/pm2/socialWins/GameUI.java
  ch.zhaw.pm2.socialWins.GameUI
 ch/zhaw/pm2/socialWins/setupWindowController.java
  ch.zhaw.pm2.socialWins.setupWindowController
+ ch.zhaw.pm2.socialWins.setupWindowController$1
