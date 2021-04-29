@@ -24,12 +24,14 @@ public class GameUI extends Application {
 
 	private void setupWindow(Stage primaryStage) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("SetupViewA.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("setupViewA.fxml"));
 			Pane rootPane = loader.load();
 			Scene scene = new Scene(rootPane);
 			primaryStage.setScene(scene);
-			primaryStage.setMinWidth(420);
-			primaryStage.setMinHeight(250);
+			primaryStage.setMinWidth(328);
+			primaryStage.setMinHeight(310);
+			primaryStage.setMaxWidth(328);
+			primaryStage.setMaxHeight(310);
 			primaryStage.setTitle("SocialWins - New Game");
 			primaryStage.show();
 		} catch (Exception e) {
