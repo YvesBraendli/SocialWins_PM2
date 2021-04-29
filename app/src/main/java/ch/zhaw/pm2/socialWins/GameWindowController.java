@@ -5,6 +5,8 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
+import com.sun.prism.paint.Color;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -103,19 +106,18 @@ public class GameWindowController {
 	}
 	
 	private void setupGameField(int numberOfRows, int numberOfColumns) {
-		gameAreaGridPane.setGridLinesVisible(true);
 		double gridElementHeight = GRID_PANE_HEIGHT/numberOfColumns;
 		double gridElementWidth = GRID_PANE_WIDTH/numberOfRows;
 		for (int i = 0; i<numberOfRows; i++) {
 			for(int z = 0; z<numberOfColumns; z++) {
+				Group group = new Group();
 				Button newGridElement = new Button("i");
-				newGridElement.setMouseTransparent(true);
 				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
 				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
 				newGridElement.setOnAction(new EventHandler<ActionEvent>() {
 		            @Override
 		            public void handle(ActionEvent event) {
-		                System.out.println("Hello World!");
+		                newGridElement.setText("Nope");
 		            }
 		        });
 				GridPane.setRowIndex(newGridElement, i);
@@ -128,7 +130,7 @@ public class GameWindowController {
 //			@Override
 //			public void handle(MouseEvent event) {
 //				for(Node node: gameAreaGridPane.getChildren()) {
-//					if(node instanceof Label) {
+//					if(node instanceof Button) {
 //						if(node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
 //							System.out.println("At position: " + GridPane.getRowIndex(node) + "-Y" + "/n" + GridPane.getColumnIndex(node) + "-X");
 //						}
