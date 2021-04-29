@@ -17,7 +17,14 @@ import javafx.scene.layout.BorderPane;
 
 public class setupWindowController {
 	@FXML private ChoiceBox<Integer> playerNumberChoiceBox;
-	@FXML private TextField playerOneNameTextfield;
+	@FXML private TextField playerOneNameTextField;
+	@FXML private TextField playerTwoNameTextField;
+	@FXML private TextField playerThreeNameTextField;
+	@FXML private TextField playerFourNameTextField;
+	@FXML private TextField playerFiveNameTextField;
+	@FXML private TextField playerSixNameTextField;
+	@FXML private TextField playerSevenNameTextField;
+	@FXML private TextField playerEightNameTextField;
 	@FXML private RadioButton computerLevelOneRadioButton;
 	@FXML private RadioButton computerLevelTwoTadioButton;
 	@FXML private RadioButton computerLevelThreeRadioButton;

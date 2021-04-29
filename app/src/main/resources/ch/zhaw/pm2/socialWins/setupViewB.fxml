@@ -31,7 +31,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <ScrollPane fitToWidth="true" prefHeight="136.0" prefWidth="215.0" GridPane.columnIndex="1">
+            <ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="136.0" prefWidth="164.0" GridPane.columnIndex="1">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="266.0" prefWidth="148.0">
                      <children>
