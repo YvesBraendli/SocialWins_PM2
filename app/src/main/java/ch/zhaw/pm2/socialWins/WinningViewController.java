@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class WinningViewController {
@@ -11,7 +12,7 @@ public class WinningViewController {
 	private Parent parentSceneGraph;
 	@FXML Button newGameButton;
 	@FXML Button closeButton;
-	@FXML TextArea showGameFieldTextArea;
+	@FXML GridPane showGameFieldGridPane;
 	@FXML TextArea winningTextTextArea;
 	
 	/**
@@ -45,7 +46,7 @@ public class WinningViewController {
 	}
 	
 	private void showGameField() {
-		showGameFieldTextArea.setText("bla");
+		
 	}
 	
 	private void showWinningText() {
