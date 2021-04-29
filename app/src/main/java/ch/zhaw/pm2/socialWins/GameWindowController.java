@@ -108,29 +108,35 @@ public class GameWindowController {
 		double gridElementWidth = GRID_PANE_WIDTH/numberOfRows;
 		for (int i = 0; i<numberOfRows; i++) {
 			for(int z = 0; z<numberOfColumns; z++) {
-				Label newGridElement = new Label("");
+				Button newGridElement = new Button("i");
 				newGridElement.setMouseTransparent(true);
 				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
 				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
+				newGridElement.setOnAction(new EventHandler<ActionEvent>() {
+		            @Override
+		            public void handle(ActionEvent event) {
+		                System.out.println("Hello World!");
+		            }
+		        });
 				GridPane.setRowIndex(newGridElement, i);
 				GridPane.setColumnIndex(newGridElement, z);
 				gameAreaGridPane.getChildren().add(newGridElement);
 			}
 		}
-		gameAreaGridPane.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				for(Node node: gameAreaGridPane.getChildren()) {
-					if(node instanceof Label) {
-						if(node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
-							System.out.println("At position: " + GridPane.getRowIndex(node) + "-Y" + "/n" + GridPane.getColumnIndex(node) + "-X");
-						}
-					}
-				}
-				
-			}
-		});
+//		gameAreaGridPane.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+//
+//			@Override
+//			public void handle(MouseEvent event) {
+//				for(Node node: gameAreaGridPane.getChildren()) {
+//					if(node instanceof Label) {
+//						if(node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
+//							System.out.println("At position: " + GridPane.getRowIndex(node) + "-Y" + "/n" + GridPane.getColumnIndex(node) + "-X");
+//						}
+//					}
+//				}
+//				
+//			}
+//		});
 	}
 
 	private void writeInPlayerPromptTextField(String text) {
