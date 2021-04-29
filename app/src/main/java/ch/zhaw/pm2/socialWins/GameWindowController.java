@@ -1,15 +1,22 @@
 package ch.zhaw.pm2.socialWins;
 
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
+
 import java.io.IOException;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -50,7 +57,7 @@ public class GameWindowController {
 		setGameInformationText();
 		setWinningQueueText();
 //		createListener();
-		setupGameField(25, 25); // Add game.getNumberOfRows and game.getNumberOfLines as Parameters
+		setupGameField(10, 10); // Add game.getNumberOfRows and game.getNumberOfLines as Parameters
 	}
 
 //	private void createListener() {
@@ -96,16 +103,34 @@ public class GameWindowController {
 	}
 	
 	private void setupGameField(int numberOfRows, int numberOfColumns) {
+		gameAreaGridPane.setGridLinesVisible(true);
 		double gridElementHeight = GRID_PANE_HEIGHT/numberOfColumns;
 		double gridElementWidth = GRID_PANE_WIDTH/numberOfRows;
 		for (int i = 0; i<numberOfRows; i++) {
 			for(int z = 0; z<numberOfColumns; z++) {
-				TextArea newGridElement = new TextArea();
+				Label newGridElement = new Label("");
+				newGridElement.setMouseTransparent(true);
 				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
 				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
-				gameAreaGridPane.add(newGridElement, z, i);
+				GridPane.setRowIndex(newGridElement, i);
+				GridPane.setColumnIndex(newGridElement, z);
+				gameAreaGridPane.getChildren().add(newGridElement);
 			}
 		}
+		gameAreaGridPane.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				for(Node node: gameAreaGridPane.getChildren()) {
+					if(node instanceof Label) {
+						if(node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
+							System.out.println("At position: " + GridPane.getRowIndex(node) + "-Y" + "/n" + GridPane.getColumnIndex(node) + "-X");
+						}
+					}
+				}
+				
+			}
+		});
 	}
 
 	private void writeInPlayerPromptTextField(String text) {
