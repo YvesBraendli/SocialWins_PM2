@@ -125,20 +125,6 @@ public class GameWindowController {
 				gameAreaGridPane.getChildren().add(newGridElement);
 			}
 		}
-//		gameAreaGridPane.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-//
-//			@Override
-//			public void handle(MouseEvent event) {
-//				for(Node node: gameAreaGridPane.getChildren()) {
-//					if(node instanceof Button) {
-//						if(node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
-//							System.out.println("At position: " + GridPane.getRowIndex(node) + "-Y" + "/n" + GridPane.getColumnIndex(node) + "-X");
-//						}
-//					}
-//				}
-//				
-//			}
-//		});
 	}
 
 	private void writeInPlayerPromptTextField(String text) {
