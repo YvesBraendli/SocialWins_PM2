@@ -59,11 +59,23 @@ public class GameWindowController {
 		game = model;
 		setGameInformationText();
 		setWinningQueueText();
-//		createListener();
+//		createListenerForPlayerPrompt();
+//		createListenerForGameField();
 		setupGameField(10, 10); // Add game.getNumberOfRows and game.getNumberOfLines as Parameters
 	}
 
-//	private void createListener() {
+//	private void createListenerForGameField() {
+//	game.gameFieldBoundProperty().addListener(new ChangeListener<Color>() {
+//
+//		@Override
+//		public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//	});
+//}
+	
+//	private void createListenerForPlayerPrompt() {
 //		game.playerPromptBoundProperty().addListener(new ChangeListener<String>() {
 //			@Override
 //			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -114,10 +126,11 @@ public class GameWindowController {
 				Button newGridElement = new Button("i");
 				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
 				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
+				newGridElement.setId(String.valueOf(i)+String.valueOf(z));
 				newGridElement.setOnAction(new EventHandler<ActionEvent>() {
 		            @Override
 		            public void handle(ActionEvent event) {
-		                newGridElement.setText("Nope");
+		            	//game.buttonIsPressed(newGridElement.getId())
 		            }
 		        });
 				GridPane.setRowIndex(newGridElement, i);
