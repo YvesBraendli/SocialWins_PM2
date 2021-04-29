@@ -9,6 +9,8 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    // Apply the javafx plugin to support javafx in the project.
+    id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
 repositories {
@@ -40,4 +42,9 @@ application {
 tasks.named('test') {
     // Use junit platform for unit tests.
     useJUnitPlatform()
+}
+
+javafx {
+    version = '11.0.2'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
