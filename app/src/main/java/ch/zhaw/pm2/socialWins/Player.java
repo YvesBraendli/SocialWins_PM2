@@ -8,4 +8,14 @@ public class Player {
 	private String name;
 	private Strategy strategy;
 	private Color color;
+	
+	public Player(String name, Color color) {
+		super();
+		this.name = name;
+		this.color = color;
+	}
+	
+	public Color getColor() {
+		return color;
+	}
 }
