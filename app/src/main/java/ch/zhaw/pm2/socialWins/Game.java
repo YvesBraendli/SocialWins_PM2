@@ -29,5 +29,10 @@ public class Game {
 	}
 	
 	public Player getWinner() {
+		return winner;
+	}
+	
+	private boolean hasWinner() {
+		return false;
 	}
 }
