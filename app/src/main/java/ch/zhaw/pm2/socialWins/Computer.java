@@ -31,4 +31,8 @@ public class Computer extends Player {
 			// throw new exception, invalid level.
 		}
 	}
+	
+	public void nextMove() {
+		strategy.nextMove();
+	}
 }

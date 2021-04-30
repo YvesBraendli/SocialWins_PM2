@@ -35,5 +35,11 @@ public class SocialWinsBoard implements Board{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean addChip(int x, int y, Color color) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
