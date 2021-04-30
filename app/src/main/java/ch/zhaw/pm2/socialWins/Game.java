@@ -39,8 +39,8 @@ public class Game {
 			return false;
 
 		for (int i = 0; i < players.length; i++) {
-			if (players[i].getColor() == color) {
-				return false; // because color allready exists
+			if (players[i] != null && (players[i].getColor() == color || players[i].getName().equals(name))) {
+				return false; // because color or name already exists
 			}
 		}
 		
