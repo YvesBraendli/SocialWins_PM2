@@ -82,7 +82,8 @@ public class Game {
 		if (color == null)
 			return false;
 
-		// check level.
+		if(level < 1 || level > 3) return false;
+		
 		if(!isSinglePlay) return false;
 		
 		// check if no other computer exists
