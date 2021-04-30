@@ -43,6 +43,7 @@ public class Game {
 				return false; // because color allready exists
 			}
 		}
+		
 		for (int i = 0; i < players.length; i++) {
 			if (players[i] == null) {
 				players[i] = new Player(name, color);
@@ -53,6 +54,11 @@ public class Game {
 		return false;
 	}
 
+	/**
+	 * get Winner() returns the player that has won the game.
+	 * @return 	the Player that has won the game. 
+	 * 			returns null if no player has won yet.
+	 */
 	public Player getWinner() {
 		return winner;
 	}
