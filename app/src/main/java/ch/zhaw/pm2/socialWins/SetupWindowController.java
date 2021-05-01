@@ -33,7 +33,6 @@ public class SetupWindowController {
 	@FXML private AnchorPane playerNameScrollAnchor;
 	@FXML private ScrollPane playerNameScrollPane;
 	@FXML private VBox playerNameVBox;
-	private SetupWindowController setupWindowController = this;
 	
 	ArrayList<TextField> playerNames;
 		
@@ -84,7 +83,7 @@ public class SetupWindowController {
 	private void loadSetupView(char viewLetter) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("SetupView"+viewLetter+".fxml"));
-			loader.setController(setupWindowController);
+			loader.setController(this);
 			alternateView.setCenter(loader.load());
 		}
 		catch(IOException e) {
