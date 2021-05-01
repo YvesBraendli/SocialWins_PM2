@@ -1,7 +1,6 @@
 package ch.zhaw.pm2.socialWins;
 
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
@@ -33,8 +32,6 @@ import javafx.stage.Stage;
  */
 public class GameWindowController {
 	private Game game;
-	private static final int GRID_PANE_HEIGHT = 850;
-	private static final int GRID_PANE_WIDTH = 850;
 
 	@FXML
 	private Button newGameButton;
@@ -61,7 +58,7 @@ public class GameWindowController {
 		setWinningQueueText();
 //		createListenerForPlayerPrompt();
 //		createListenerForGameField();
-		setupGameField(10, 10); // Add game.getNumberOfRows and game.getNumberOfLines as Parameters
+		setupGameField(15, 15); // Add game.getNumberOfRows and game.getNumberOfLines as Parameters
 	}
 
 //	private void createListenerForGameField() {
@@ -118,11 +115,13 @@ public class GameWindowController {
 	}
 	
 	private void setupGameField(int numberOfRows, int numberOfColumns) {
-		double gridElementHeight = GRID_PANE_HEIGHT/numberOfColumns;
-		double gridElementWidth = GRID_PANE_WIDTH/numberOfRows;
+		int gridPaneHeight = (int) gameAreaGridPane.getPrefHeight()/numberOfColumns*numberOfColumns;
+		int gridPaneWidth = (int) gameAreaGridPane.getPrefWidth()/numberOfColumns*numberOfColumns;
+		gameAreaGridPane.setPrefSize(gridPaneWidth, gridPaneHeight);
+		double gridElementHeight = gridPaneHeight/numberOfColumns;
+		double gridElementWidth = gridPaneWidth/numberOfRows;
 		for (int i = 0; i<numberOfRows; i++) {
 			for(int z = 0; z<numberOfColumns; z++) {
-				Group group = new Group();
 				Button newGridElement = new Button("i");
 				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
 				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
