@@ -24,7 +24,7 @@ public class GameUI extends Application {
 
 	private void setupWindow(Stage primaryStage) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("setupView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("SetupView.fxml"));
 			Pane rootPane = loader.load();
 			Scene scene = new Scene(rootPane);
 			primaryStage.setScene(scene);

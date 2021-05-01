@@ -40,7 +40,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <TextField fx:id="playerOneNameTextField" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" promptText="Player name" GridPane.columnIndex="1" />
+            <TextField fx:id="singlePlayerNameTextField" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" promptText="Player name" GridPane.columnIndex="1" />
             <HBox prefHeight="40.0" prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <RadioButton fx:id="computerLevelOneRadioButton" mnemonicParsing="false" text="1">
