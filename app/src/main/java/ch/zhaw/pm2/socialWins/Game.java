@@ -12,9 +12,17 @@ public class Game {
 	private boolean isSinglePlay;
 	private int currentCarIndex;
 
+	/**
+	 * Constructs a Game object for a social wins game.
+	 * 
+	 * @param winningLineLength	inidcates the number of chips that have to be in a row to win the game
+	 * @param numberOfPlayers	number of the players
+	 * @throws IllegalArgumentsException if winningline is not between 3 and 6 or numerofplayers is not between 1 and 8
+	 */
 	public Game(int winningLineLength, int numberOfPlayers) {
-		// if winningLine is not in range throw exception
-		// if numberofplayer is not in range throw exception
+		if (winningLineLength < 3 || winningLineLength > 6 || numberOfPlayers < 1 || numberOfPlayers > 8) {
+			throw new IllegalArgumentException();
+		}
 
 		this.winningLineLength = winningLineLength;
 
@@ -43,7 +51,6 @@ public class Game {
 	 */
 	public boolean start() {
 		// have all players been set? otherwise stop.
-
 		currentCarIndex = 0;
 		return true;
 	}
@@ -104,7 +111,7 @@ public class Game {
 
 		for (int i = 0; i < players.length; i++) {
 			if (players[i] == null) {
-				players[i] = new RealPlayer(name, color);
+				players[i] = new HumanPlayer(name, color);
 				return true;
 			}
 		}
@@ -157,9 +164,9 @@ public class Game {
 		if (hasWinner) {
 			winnerColor = board.getColorWithChipsInARow(winningLineLength);
 		}
-		
+
 		for (int i = 0; i < players.length; i++) {
-			if(players[i] != null && players[i].getColor() == winnerColor) {
+			if (players[i] != null && players[i].getColor() == winnerColor) {
 				winner = players[i];
 				return;
 			}
