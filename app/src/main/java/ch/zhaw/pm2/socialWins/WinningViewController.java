@@ -32,7 +32,7 @@ public class WinningViewController {
 	 */
 	public void setUpWinningView(Game model) {
 		game = model;
-		showGameField(10,10);
+		showGameField(15,15);
 		showWinningText();
 	}
 	
