@@ -24,7 +24,7 @@ public class WinningViewController {
 	@FXML Button newGameButton;
 	@FXML Button closeButton;
 	@FXML GridPane showGameFieldGridPane;
-	@FXML TextArea winningTextTextArea;
+	@FXML Label winningTextLabel;
 	
 	/**
 	 * Sets up the winning view with the current parameters.
@@ -60,7 +60,7 @@ public class WinningViewController {
 				Label newGridElement = new Label("");
 				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
 				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
-				newGridElement.setBackground(new Background(new BackgroundFill(Color.PINK, new CornerRadii(0.0), new javafx.geometry.Insets(0.0)))); // Get Color from game
+				newGridElement.setBackground(new Background(new BackgroundFill(Color.DEEPPINK, new CornerRadii(0.0), new javafx.geometry.Insets(0.0)))); // Get Color from game
 				newGridElement.setBorder(new Border(
 	                    new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 				GridPane.setRowIndex(newGridElement, i);
@@ -71,7 +71,9 @@ public class WinningViewController {
 	}
 	
 	private void showWinningText() {
-		winningTextTextArea.setText("");
+		winningTextLabel.setWrapText(true);
+		winningTextLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
+		winningTextLabel.setText("Spieler KarottenNase hat das Spiel gewonnen. Herzliche Gratulation!");
 	}
 
 }

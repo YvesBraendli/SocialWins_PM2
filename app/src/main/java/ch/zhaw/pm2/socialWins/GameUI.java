@@ -33,8 +33,8 @@ public class GameUI extends Application {
 			winningViewController.setUpWinningView(game);
 			Scene scene = new Scene(rootPane);
 			primaryStage.setScene(scene);
-			primaryStage.setMinWidth(420);
-			primaryStage.setMinHeight(250);
+			primaryStage.setMinWidth(600);
+			primaryStage.setMinHeight(430);
 			primaryStage.setTitle("SocialWins - Game ended");
 			primaryStage.show();
 		} catch (Exception e) {
