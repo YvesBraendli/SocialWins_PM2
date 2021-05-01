@@ -49,9 +49,12 @@ public class WinningViewController {
 	}
 	
 	private void showGameField(int numberOfColumns, int numberOfRows) {
+		int gridPaneHeight = (int) showGameFieldGridPane.getPrefHeight()/numberOfColumns*numberOfColumns;
+		int gridPaneWidth = (int) showGameFieldGridPane.getPrefWidth()/numberOfColumns*numberOfColumns;
 		showGameFieldGridPane.setGridLinesVisible(true);
-		double gridElementHeight = GRID_PANE_HEIGHT/numberOfColumns;
-		double gridElementWidth = GRID_PANE_WIDTH/numberOfRows;
+		showGameFieldGridPane.setPrefSize(gridPaneWidth, gridPaneHeight);
+		double gridElementHeight = gridPaneHeight/numberOfColumns;
+		double gridElementWidth = gridPaneWidth/numberOfRows;
 		for (int i = 0; i<numberOfRows; i++) {
 			for(int z = 0; z<numberOfColumns; z++) {
 				Label newGridElement = new Label("");
@@ -68,7 +71,7 @@ public class WinningViewController {
 	}
 	
 	private void showWinningText() {
-		winningTextTextArea.setText("bla2");
+		winningTextTextArea.setText("");
 	}
 
 }
