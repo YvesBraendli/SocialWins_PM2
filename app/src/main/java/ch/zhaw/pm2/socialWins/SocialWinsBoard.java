@@ -37,7 +37,7 @@ public class SocialWinsBoard implements Board{
 	}
 
 	@Override
-	public boolean addChip(int x, int y, Color color) {
+	public boolean addChip(int y, Color color) {
 		// TODO Auto-generated method stub
 		return false;
 	}

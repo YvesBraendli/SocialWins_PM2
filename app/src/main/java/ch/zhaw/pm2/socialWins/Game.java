@@ -19,7 +19,7 @@ public class Game {
 	 *                          row to win the game
 	 * @param numberOfPlayers   number of the players
 	 * @throws IllegalArgumentsException if winning line is not between 3 and 6 or
-	 *                                   numer of players is not between 1 and 8
+	 *                                   number of players is not between 1 and 8
 	 */
 	public Game(int winningLineLength, int numberOfPlayers) {
 		if (winningLineLength < 3 || winningLineLength > 6 || numberOfPlayers < 1 || numberOfPlayers > 8) {
@@ -32,12 +32,8 @@ public class Game {
 		if (numberOfPlayers == 1) {
 			initializeSinglePlayerGame();
 		}
-		// multiplayer
 		else {
-			players = new Player[numberOfPlayers];
-			int rows = 10; // refactor
-			board = new SocialWinsBoard(rows);
-			isSinglePlay = false;
+			initializeMultiPlayerGame(numberOfPlayers);
 		}
 	}
 
@@ -46,6 +42,13 @@ public class Game {
 		isSinglePlay = true;
 	}
 
+	private void initializeMultiPlayerGame(int numberOfPlayers) {
+		players = new Player[numberOfPlayers];
+		int rows = 10; // refactor?
+		board = new SocialWinsBoard(rows);
+		isSinglePlay = false;
+	}
+	
 	/**
 	 * the start method starts the game if all player have been initialized and
 	 * added correctly
@@ -80,8 +83,8 @@ public class Game {
 	 * @param column column to throw chip in
 	 * @return true if chip has been added to board
 	 */
-	public boolean nextMove(int row, int column) {
-		boolean isAdded = board.addChip(row, column, players[currentPlayerIndex].getColor());
+	public boolean nextMove(int column) {
+		boolean isAdded = board.addChip(column, players[currentPlayerIndex].getColor());
 
 		if (!isAdded)
 			return false;

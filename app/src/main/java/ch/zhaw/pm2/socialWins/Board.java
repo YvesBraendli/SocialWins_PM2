@@ -7,5 +7,5 @@ public interface Board {
 	boolean isFull();
 	boolean hasChipsInARow(int amount);
 	Color getColorWithChipsInARow(int amount);
-	boolean addChip(int x, int y, Color color);
+	boolean addChip(int y, Color color);
 }
