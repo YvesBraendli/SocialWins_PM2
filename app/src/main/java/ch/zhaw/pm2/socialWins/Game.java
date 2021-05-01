@@ -54,9 +54,9 @@ public class Game {
 	 * if the game is started in single player modus, the computer will do its turn
 	 * immediately afterwards.
 	 * 
-	 * @param row		row to throw chip in
-	 * @param column	column to throw chip in
-	 * @return			true if chip has been added to board
+	 * @param row    row to throw chip in
+	 * @param column column to throw chip in
+	 * @return true if chip has been added to board
 	 */
 	public boolean nextMove(int row, int column) {
 		boolean isAdded = board.addChip(row, column, players[currentCarIndex].getColor());
@@ -69,6 +69,7 @@ public class Game {
 		} else {
 			switchToNextPlayer();
 		}
+		updateWinner();
 		return true;
 	}
 
@@ -150,7 +151,18 @@ public class Game {
 		return winner;
 	}
 
-	private boolean hasWinner() {
-		return false;
+	private void updateWinner() {
+		boolean hasWinner = board.hasChipsInARow(winningLineLength);
+		Color winnerColor = null;
+		if (hasWinner) {
+			winnerColor = board.getColorWithChipsInARow(winningLineLength);
+		}
+		
+		for (int i = 0; i < players.length; i++) {
+			if(players[i] != null && players[i].getColor() == winnerColor) {
+				winner = players[i];
+				return;
+			}
+		}
 	}
 }
