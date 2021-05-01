@@ -14,7 +14,7 @@ public class GameTests {
 
 	@BeforeEach
 	private void setup() {
-		testGame = new Game(10, 4);
+		testGame = new Game(5, 4);
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class GameTests {
 	@Test
 	public void addComputer_invalidArgumentNameIsNull_returnsFalse() {
 		// Arrange
-		testGame = new Game(10, 1);
+		testGame = new Game(5, 1);
 
 		// Act
 		boolean result = testGame.addComputer(null, Color.BLUE, 1);
@@ -167,7 +167,7 @@ public class GameTests {
 	@Test
 	public void addComputer_invalidArgumentNameIsEmpty_returnsFalse() {
 		// Arrange
-		testGame = new Game(10, 1);
+		testGame = new Game(5, 1);
 
 		// Act
 		boolean result = testGame.addComputer("", Color.BLUE, 1);
@@ -185,7 +185,7 @@ public class GameTests {
 	@Test
 	public void addComputer_invalidArgumentColorIsNull_returnsFalse() {
 		// Arrange
-		testGame = new Game(10, 1);
+		testGame = new Game(5, 1);
 
 		// Act
 		boolean result = testGame.addComputer("max", null, 1);
@@ -204,7 +204,7 @@ public class GameTests {
 	@Test
 	public void addComputer_invalidArgumentLevelToHigh_returnsFalse() {
 		// Arrange
-		testGame = new Game(10, 1);
+		testGame = new Game(5, 1);
 
 		// Act
 		boolean result = testGame.addComputer("max", Color.BLUE, 4);
@@ -223,7 +223,7 @@ public class GameTests {
 	@Test
 	public void addComputer_invalidArgumentLevelToLow_returnsFalse() {
 		// Arrange
-		testGame = new Game(10, 1);
+		testGame = new Game(5, 1);
 
 		// Act
 		boolean result = testGame.addComputer("max", Color.BLUE, 0);
@@ -242,7 +242,7 @@ public class GameTests {
 	@Test
 	public void addComputer_OtherCoputerAlreadyExists_returnsFalse() {
 		// Arrange
-		testGame = new Game(10, 1);
+		testGame = new Game(5, 1);
 		testGame.addComputer("max", Color.YELLOW, 1);
 
 		// Act
@@ -262,7 +262,7 @@ public class GameTests {
 	@Test
 	public void addComputer_NoSinglePlayerModus_returnsFalse() {
 		// Arrange
-		testGame = new Game(10, 2);
+		testGame = new Game(5, 2);
 
 		// Act
 		boolean result = testGame.addComputer("max", Color.BLUE, 2);
@@ -281,7 +281,7 @@ public class GameTests {
 	@Test
 	public void addComputer_CorrectAndUniqueArguments_returnsTrue() {
 		// Arrange
-		testGame = new Game(10, 1);
+		testGame = new Game(5, 1);
 
 		// Act
 		boolean result = testGame.addComputer("max", Color.BLUE, 2);
@@ -290,4 +290,97 @@ public class GameTests {
 		assertTrue(result);
 	}
 
+	/**
+	 * Equivalence Partitioning S1<br>
+	 * Not expected number of players are added, game can't be started. <br>
+	 * Expected result: return false, game not started
+	 */
+	@Test
+	public void start_MulitPlayerNotAllPlayerAdded_returnFalse() {
+		// Act
+		boolean result = testGame.start();
+
+		// Assert
+		assertFalse(result);
+	}
+
+	/**
+	 * Equivalence Partitioning S2<br>
+	 * Not correct type of players are added, game can't be started. <br>
+	 * Expected result: return false, game not started
+	 */
+	@Test
+	public void start_SinglePlayOnlyHumanPlayerAdded_returnFalse() {
+		// Arrange
+		testGame = new Game(5, 1);
+		testGame.addPlayer("tim", Color.RED);
+		testGame.addPlayer("max", Color.YELLOW);
+
+		// Act
+		boolean result = testGame.start();
+
+		// Assert
+		assertFalse(result);
+	}
+
+	/**
+	 * Equivalence Partitioning S2<br>
+	 * Not correct type of players are added, game can't be started. <br>
+	 * Expected result: return false, game not started
+	 */
+	@Test
+	public void start_MulitPlayerComputerAdded_returnFalse() {
+		// Arrange
+		testGame.addPlayer("tim", Color.RED);
+		testGame.addComputer("tim", Color.BLACK, 2);
+		testGame.addPlayer("max", Color.YELLOW);
+		testGame.addPlayer("tim", Color.ORANGE);
+
+		// Act
+		boolean result = testGame.start();
+
+		// Assert
+		assertFalse(result);
+	}
+
+	/**
+	 * Equivalence Partitioning S3<br>
+	 * Correct number of and correct type of players are added. in multi player only
+	 * humanPlayer instances are allowed. Expected result: return false, game not
+	 * started
+	 */
+	@Test
+	public void start_MulitPlayOnlyHumanPlayerAdded_returnTrue() {
+		// Arrange
+		testGame.addPlayer("tim", Color.RED);
+		testGame.addPlayer("moritz", Color.GREEN);
+		testGame.addPlayer("max", Color.YELLOW);
+		testGame.addPlayer("franz", Color.ORANGE);
+
+		// Act
+		boolean result = testGame.start();
+
+		// Assert
+		assertTrue(result);
+	}
+
+	/**
+	 * Equivalence Partitioning S2<br>
+	 * Correct number of and correct type of players are added. in single player
+	 * only one humanPlayer instance and one computer instance are allowed.<br>
+	 * Expected result: return false, game not started
+	 */
+	@Test
+	public void start_SinglePlayerComputerAdded_returnTrue() {
+		// Arrange
+		testGame = new Game(6, 1);
+		testGame.addPlayer("tim", Color.RED);
+		testGame.addComputer("tim", Color.BLACK, 2);
+
+		// Act
+		boolean result = testGame.start();
+
+		// Assert
+		assertTrue(result);
+	}
 }

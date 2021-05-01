@@ -10,7 +10,7 @@ public class Game {
 	private int winningLineLength;
 	private Player winner;
 	private boolean isSinglePlay;
-	private int currentCarIndex;
+	private int currentPlayerIndex;
 
 	/**
 	 * Constructs a Game object for a social wins game.
@@ -27,7 +27,8 @@ public class Game {
 		}
 
 		this.winningLineLength = winningLineLength;
-
+		currentPlayerIndex = 0;
+		
 		if (numberOfPlayers == 1) {
 			initializeSinglePlayerGame();
 		}
@@ -56,8 +57,16 @@ public class Game {
 			if (players[i] == null) {
 				return false;
 			}
+			if(!isSinglePlay && players[i] instanceof Computer) {
+				return false;
+			}
 		}
-		currentCarIndex = 0;
+		
+		if(isSinglePlay) {
+			if(!(players[0] instanceof HumanPlayer && players[1] instanceof Computer)) {
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -72,7 +81,7 @@ public class Game {
 	 * @return true if chip has been added to board
 	 */
 	public boolean nextMove(int row, int column) {
-		boolean isAdded = board.addChip(row, column, players[currentCarIndex].getColor());
+		boolean isAdded = board.addChip(row, column, players[currentPlayerIndex].getColor());
 
 		if (!isAdded)
 			return false;
@@ -87,12 +96,12 @@ public class Game {
 	}
 
 	private void switchToNextPlayer() {
-		if (currentCarIndex == (players.length - 1)) {
-			currentCarIndex = 0;
+		if (currentPlayerIndex == (players.length - 1)) {
+			currentPlayerIndex = 0;
 			return;
 		}
 
-		currentCarIndex++;
+		currentPlayerIndex++;
 	}
 
 	/**
