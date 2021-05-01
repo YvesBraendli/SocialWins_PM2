@@ -385,24 +385,26 @@ public class GameTests {
 		// Assert
 		assertTrue(result);
 	}
-	
+
 	/**
 	 * Equivalence Partitioning S1<br>
-	 * if no player is added yet and method gets called, the return value is null<br>
+	 * if no player is added yet and method gets called, the return value is
+	 * null<br>
 	 * Expected result: return null
 	 */
 	@Test
 	public void getColorFromCurrentPlayer_NoPlayerAdded_returnNull() {
 		// Act
 		Color result = testGame.getColorFromCurrentPlayer();
-		
+
 		// Assert
 		assertNull(result);
 	}
-	
+
 	/**
 	 * Equivalence Partitioning S3<br>
-	 * if player added  and method gets called, the return value is the color from the current player.<br>
+	 * if player added and method gets called, the return value is the color from
+	 * the current player.<br>
 	 * Expected result: return color from current player
 	 */
 	@Test
@@ -411,28 +413,30 @@ public class GameTests {
 		testGame.addPlayer("max", Color.YELLOW);
 		// Act
 		Color result = testGame.getColorFromCurrentPlayer();
-		
+
 		// Assert
 		assertEquals(Color.YELLOW, result);
 	}
-	
+
 	/**
 	 * Equivalence Partitioning S1<br>
-	 * if no player is added yet and method gets called, the return value is null<br>
+	 * if no player is added yet and method gets called, the return value is
+	 * null<br>
 	 * Expected result: return null
 	 */
 	@Test
 	public void getNameFromCurrentPlayer_NoPlayerAdded_returnNull() {
 		// Act
 		String result = testGame.getNameFromCurrentPlayer();
-		
+
 		// Assert
 		assertNull(result);
 	}
 
 	/**
 	 * Equivalence Partitioning S3<br>
-	 * if player added  and method gets called, the return value is the name from the current player.<br>
+	 * if player added and method gets called, the return value is the name from the
+	 * current player.<br>
 	 * Expected result: return name from current player
 	 */
 	@Test
@@ -440,11 +444,71 @@ public class GameTests {
 		// Arrange
 		String name = "max";
 		testGame.addPlayer(name, Color.YELLOW);
-		
+
 		// Act
 		String result = testGame.getNameFromCurrentPlayer();
-		
+
 		// Assert
 		assertTrue(name.equals(result));
+	}
+
+	/**
+	 * Equivalence Partitioning M1<br>
+	 * Chip can't be added to board if column is invalid. nextmove method terminates early.<br>
+	 * Expected result: returns false, chip has not been added to board
+	 */
+	@Test
+	public void nextMove_InvalidColumn_returnFalse() {
+		// Act
+		boolean result = testGame.nextMove(-5);
+
+		// Assert
+		assertFalse(result);
+	}
+
+	/**
+	 * Equivalence Partitioning M2<br>
+	 * Chip can't be added to board if column is already full. nextmove method terminates early.<br>
+	 * Expected result: returns false, chip has not been added to board
+	 */
+	@Test
+	public void nextMove_BoardIsFull_returnFalse() {
+		// Assert
+		testGame.nextMove(0);
+		testGame.nextMove(0);
+		testGame.nextMove(0);
+		testGame.nextMove(0);
+		testGame.nextMove(0);
+		testGame.nextMove(0);
+		testGame.nextMove(0);
+		testGame.nextMove(0);
+		testGame.nextMove(0);
+		testGame.nextMove(0);
+
+		// Act
+		boolean result = testGame.nextMove(0);
+
+		// Assert
+		assertFalse(result);
+	}
+
+	/**
+	 * Equivalence Partitioning M3, M4<br>
+	 * Column argument is valid and board has still empty space in that column. The chip can be placed.<br>
+	 * Expected result: returns true, chip has been added to board
+	 */
+	@Test
+	public void nextMove_emptyBoard_returnTrue() {
+		testGame.addPlayer("tim", Color.RED);
+		testGame.addPlayer("max", Color.BLUE);
+		String oldPlayer = testGame.getNameFromCurrentPlayer();
+		
+		// Act
+		boolean result = testGame.nextMove(0);
+		String newPlayer = testGame.getNameFromCurrentPlayer();
+		
+		// Assert
+		assertTrue(result);
+		assertTrue(!oldPlayer.equals(newPlayer));
 	}
 }
