@@ -13,6 +13,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -20,6 +21,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -42,7 +48,7 @@ public class GameWindowController {
 	@FXML
 	private TextArea gameInformationTextArea;
 	@FXML
-	private TextArea gamePromptTextArea;
+	private Label gamePromptLabel;
 	@FXML
 	private GridPane gameAreaGridPane;
 
@@ -56,6 +62,7 @@ public class GameWindowController {
 		game = model;
 		setGameInformationText();
 		setWinningQueueText();
+		writeInPlayerPromptTextField();
 //		createListenerForPlayerPrompt();
 //		createListenerForGameField();
 		setupGameField(15, 15); // Add game.getNumberOfRows and game.getNumberOfLines as Parameters
@@ -129,7 +136,12 @@ public class GameWindowController {
 				newGridElement.setOnAction(new EventHandler<ActionEvent>() {
 		            @Override
 		            public void handle(ActionEvent event) {
-		            	//game.buttonIsPressed(newGridElement.getId())
+		            	int row = Integer.parseInt(newGridElement.getId().substring(0, 1));
+		            	int column = Integer.parseInt(newGridElement.getId().substring(1));
+//		            	Color player = game.getColorFromCurrentPlayer;
+//		            	if(game.nextMove(row, column)){
+//		            	writeInPlayerPromptTextField();
+//		            }
 		            }
 		        });
 				GridPane.setRowIndex(newGridElement, i);
@@ -139,17 +151,19 @@ public class GameWindowController {
 		}
 	}
 
-	private void writeInPlayerPromptTextField(String text) {
-		gamePromptTextArea.setText(text);
+	private void writeInPlayerPromptTextField() {
+		//gamePromptLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+		gamePromptLabel.setWrapText(true);
+		gamePromptLabel.setText("Spieler Lollipoppolizei ist an der Reihe.");
 	}
 	
 
 	private void setWinningQueueText() {
-		winningQueueInformationTextArea.setText("bla"); // Add game.setWinningQueueText as parameter
+		winningQueueInformationTextArea.setText("Erstelle eine Reihe von 5 Chips aneinander, um das Spiel zu gewinnen."); 
 	}
 
 	private void setGameInformationText() {
-		gameInformationTextArea.setText("bla1"); // Add game.setGameInformationText as parameter
+		gameInformationTextArea.setText("Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben clicken."); 
 	}
 
 }
