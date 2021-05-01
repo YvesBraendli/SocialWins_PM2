@@ -2,7 +2,7 @@ package ch.zhaw.pm2.socialWins;
 
 import java.awt.Color;
 
-public class RealPlayer extends Player {
+public class HumanPlayer extends Player {
 
 	/**
 	 * Constructor for RealPlayer that initializes the selected name and color for
@@ -12,7 +12,7 @@ public class RealPlayer extends Player {
 	 * @param name  name of the player
 	 * @param color color of the player
 	 */
-	public RealPlayer(String name, Color color) {
+	public HumanPlayer(String name, Color color) {
 		super(name, color);
 	}
 
