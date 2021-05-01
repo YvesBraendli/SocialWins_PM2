@@ -187,4 +187,22 @@ public class Game {
 			}
 		}
 	}
+	
+	/**
+	 * this method provides the color from the current player.
+	 * @return color from current player
+	 */
+	public Color getColorFromCurrentPlayer() {
+		if(players[currentPlayerIndex] == null) return null;
+		return players[currentPlayerIndex].getColor();
+	}
+	
+	/**
+	 * this method provides the name from the current player.
+	 * @return name from current player
+	 */
+	public String getNameFromCurrentPlayer() {
+		if(players[currentPlayerIndex] == null) return null;
+		return players[currentPlayerIndex].getName();
+	}
 }

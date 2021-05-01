@@ -3,7 +3,9 @@ package ch.zhaw.pm2.socialWins;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Color;
@@ -382,5 +384,67 @@ public class GameTests {
 
 		// Assert
 		assertTrue(result);
+	}
+	
+	/**
+	 * Equivalence Partitioning S1<br>
+	 * if no player is added yet and method gets called, the return value is null<br>
+	 * Expected result: return null
+	 */
+	@Test
+	public void getColorFromCurrentPlayer_NoPlayerAdded_returnNull() {
+		// Act
+		Color result = testGame.getColorFromCurrentPlayer();
+		
+		// Assert
+		assertNull(result);
+	}
+	
+	/**
+	 * Equivalence Partitioning S3<br>
+	 * if player added  and method gets called, the return value is the color from the current player.<br>
+	 * Expected result: return color from current player
+	 */
+	@Test
+	public void getColorFromCurrentPlayer_PlayerAdded_returnColor() {
+		// Arrange
+		testGame.addPlayer("max", Color.YELLOW);
+		// Act
+		Color result = testGame.getColorFromCurrentPlayer();
+		
+		// Assert
+		assertEquals(Color.YELLOW, result);
+	}
+	
+	/**
+	 * Equivalence Partitioning S1<br>
+	 * if no player is added yet and method gets called, the return value is null<br>
+	 * Expected result: return null
+	 */
+	@Test
+	public void getNameFromCurrentPlayer_NoPlayerAdded_returnNull() {
+		// Act
+		String result = testGame.getNameFromCurrentPlayer();
+		
+		// Assert
+		assertNull(result);
+	}
+
+	/**
+	 * Equivalence Partitioning S3<br>
+	 * if player added  and method gets called, the return value is the name from the current player.<br>
+	 * Expected result: return name from current player
+	 */
+	@Test
+	public void getColorFromCurrentPlayer_PlayerAdded_returnString() {
+		// Arrange
+		String name = "max";
+		testGame.addPlayer(name, Color.YELLOW);
+		
+		// Act
+		String result = testGame.getNameFromCurrentPlayer();
+		
+		// Assert
+		assertTrue(name.equals(result));
 	}
 }
