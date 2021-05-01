@@ -15,9 +15,11 @@ public class Game {
 	/**
 	 * Constructs a Game object for a social wins game.
 	 * 
-	 * @param winningLineLength	inidcates the number of chips that have to be in a row to win the game
-	 * @param numberOfPlayers	number of the players
-	 * @throws IllegalArgumentsException if winningline is not between 3 and 6 or numerofplayers is not between 1 and 8
+	 * @param winningLineLength indicates the number of chips that have to be in a
+	 *                          row to win the game
+	 * @param numberOfPlayers   number of the players
+	 * @throws IllegalArgumentsException if winning line is not between 3 and 6 or
+	 *                                   numer of players is not between 1 and 8
 	 */
 	public Game(int winningLineLength, int numberOfPlayers) {
 		if (winningLineLength < 3 || winningLineLength > 6 || numberOfPlayers < 1 || numberOfPlayers > 8) {
@@ -50,7 +52,11 @@ public class Game {
 	 * @return true if the game has been started
 	 */
 	public boolean start() {
-		// have all players been set? otherwise stop.
+		for (int i = 0; i < players.length; i++) {
+			if (players[i] == null) {
+				return false;
+			}
+		}
 		currentCarIndex = 0;
 		return true;
 	}
