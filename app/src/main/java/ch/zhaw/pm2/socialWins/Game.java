@@ -31,7 +31,7 @@ public class Game {
 	}
 
 	private void initializeSinglePlayerGame() {
-		players = new Player[1]; // 2 is magic number
+		players = new Player[2]; // 2 is magic number
 		isSinglePlay = true;
 	}
 
@@ -133,10 +133,10 @@ public class Game {
 			return false;
 
 		// check if no other computer exists
-		if (players[2] != null && players[2] instanceof Computer)
+		if (players[1] != null && players[1] instanceof Computer)
 			return false;
 
-		players[2] = new Computer(name, color, level);
+		players[1] = new Computer(name, color, level);
 		return true;
 	}
 
