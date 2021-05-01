@@ -511,4 +511,48 @@ public class GameTests {
 		assertTrue(result);
 		assertTrue(!oldPlayer.equals(newPlayer));
 	}
+	
+	/**
+	 * Equivalence Partitioning W1<br>
+	 * return null if no player has requested number of chips in a row.<br>
+	 * Expected result: returns null, no winner
+	 */
+	@Test
+	public void getWinner_hasNoWinner_returnsNull() {
+		// Act
+		Player winner = testGame.getWinner();
+		
+		//Assert
+		assertNull(winner);
+	}
+	
+	/**
+	 * Equivalence Partitioning W2<br>
+	 * return player if player has requested number of chips in a row.<br>
+	 * Expected result: returns player, the winner
+	 */
+	@Test
+	public void getWinner_hasWinner_returnsWinner() {
+		// Arrange
+		String name = "tim";
+		Color color = Color.YELLOW;
+		testGame.addPlayer(name, color);
+		testGame.addPlayer("moritz", Color.GREEN);
+		testGame.addPlayer("max", Color.YELLOW);
+		testGame.addPlayer("franz", Color.ORANGE);
+		
+		for(int i = 0; i < 5; i++) {
+			testGame.nextMove(0);
+			testGame.nextMove(1);
+			testGame.nextMove(2);
+			testGame.nextMove(3);
+		}
+		
+		// Act
+		Player winner = testGame.getWinner();
+
+		// Assert
+		assertEquals(name, winner.getName());
+		assertEquals(color, winner.getColor());
+	}
 }
