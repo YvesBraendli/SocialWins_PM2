@@ -4,7 +4,7 @@ import javafx.scene.control.TextArea;
 
 import java.io.IOException;
 
-import com.sun.prism.paint.Color;
+
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -28,6 +28,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -44,9 +45,9 @@ public class GameWindowController {
 	@FXML
 	private Button helpButton;
 	@FXML
-	private TextArea winningQueueInformationTextArea;
+	private Label winningQueueInformationLabel;
 	@FXML
-	private TextArea gameInformationTextArea;
+	private Label gameInformationLabel;
 	@FXML
 	private Label gamePromptLabel;
 	@FXML
@@ -129,7 +130,7 @@ public class GameWindowController {
 		double gridElementWidth = gridPaneWidth/numberOfRows;
 		for (int i = 0; i<numberOfRows; i++) {
 			for(int z = 0; z<numberOfColumns; z++) {
-				Button newGridElement = new Button("i");
+				Button newGridElement = new Button("");
 				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
 				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
 				newGridElement.setId(String.valueOf(i)+String.valueOf(z));
@@ -152,18 +153,22 @@ public class GameWindowController {
 	}
 
 	private void writeInPlayerPromptTextField() {
-		//gamePromptLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+		gamePromptLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
 		gamePromptLabel.setWrapText(true);
 		gamePromptLabel.setText("Spieler Lollipoppolizei ist an der Reihe.");
 	}
 	
 
 	private void setWinningQueueText() {
-		winningQueueInformationTextArea.setText("Erstelle eine Reihe von 5 Chips aneinander, um das Spiel zu gewinnen."); 
+		winningQueueInformationLabel.setText("Erstelle eine Reihe von 5 Chips aneinander, um das Spiel zu gewinnen."); 
+		winningQueueInformationLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+		winningQueueInformationLabel.setWrapText(true);
 	}
 
 	private void setGameInformationText() {
-		gameInformationTextArea.setText("Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben clicken."); 
+		gameInformationLabel.setText("Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben clicken."); 
+		gameInformationLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+		gameInformationLabel.setWrapText(true);
 	}
 
 }

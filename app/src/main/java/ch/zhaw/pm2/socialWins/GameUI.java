@@ -38,12 +38,10 @@ public class GameUI extends Application {
 			
 			// configure and show stage
 			primaryStage.setScene(scene);
-			primaryStage.setMinWidth(1100);
-			primaryStage.setMinHeight(950);
-			primaryStage.setWidth(1100);
-			primaryStage.setHeight(950);
-			primaryStage.setMaxWidth(1100);
-			primaryStage.setMaxHeight(950);
+			primaryStage.setMinWidth(750);
+			primaryStage.setMinHeight(600);
+			primaryStage.setWidth(750);
+			primaryStage.setHeight(700);
 			primaryStage.setTitle("SocialWins - New Game");
 			primaryStage.show();
 		} catch (Exception e) {
