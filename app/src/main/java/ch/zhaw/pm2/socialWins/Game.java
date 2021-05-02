@@ -28,9 +28,7 @@ public class Game {
 	 *                                   is not between 1 and 3
 	 */
 	public Game(int winningLineLength, String userName, int level, int columns, int rows) {
-		if (!isValidWinningLineLength(winningLineLength) 
-				|| !isValidUserName(userName) 
-				|| !isValidLevel(level)) {
+		if (!isValidWinningLineLength(winningLineLength) || !isValidName(userName) || !isValidLevel(level)) {
 			throw new IllegalArgumentException();
 		}
 
@@ -63,7 +61,7 @@ public class Game {
 	 * 
 	 */
 	public Game(int winningLineLength, HashMap<Color, String> users, int columns, int rows) {
-		if (!isValidWinningLineLength(winningLineLength)) {
+		if (!isValidWinningLineLength(winningLineLength) || !isValidPlayerAmount(users)) {
 			throw new IllegalArgumentException();
 		}
 		players = new Player[users.size()];
@@ -90,8 +88,12 @@ public class Game {
 		return !(level < 1 || level > 3);
 	}
 
-	private boolean isValidUserName(String userName) {
-		return !(userName == null || userName.isEmpty());
+	private boolean isValidName(String name) {
+		return !(name == null || name.isEmpty() || name.isBlank());
+	}
+
+	private boolean isValidPlayerAmount(HashMap<Color, String> users) {
+		return !(users.size() < 2 || users.size() > 8);
 	}
 
 	/**
@@ -128,9 +130,10 @@ public class Game {
 	}
 
 	private boolean addPlayer(String name, Color color) {
-		if (name == null || name.isEmpty())
+		if(!isValidName(name)) {
 			return false;
-
+		}
+		
 		for (int i = 0; i < players.length; i++) {
 			if (players[i] != null && (players[i].getColor() == color || players[i].getName().equals(name))) {
 				return false;

@@ -1,8 +1,12 @@
 package ch.zhaw.pm2.socialWins;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -10,11 +14,160 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Color;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 public class GameTests {
 
 	private Game testGame;
 
+	static Stream<String> blankStrings() {
+		return Stream.of("", "   ", null);
+	}
+
+	/**
+	 * Equivalence Partitioning G1<br>
+	 * if game constructor for SinglePlayer is called with invalid winninglinelength
+	 * argument and exception is thrown.<br>
+	 * Expected result: throws an illegal argument exception
+	 */
+	@ParameterizedTest
+	@ValueSource(ints = { 2, 7 })
+	public void game_SinglePlayerInvalidWinningLineThrowsIllegalArgumentException(int winningLine) {
+		// Act & Assert
+		assertThrows(IllegalArgumentException.class, () -> new Game(winningLine, "max", 2, 6, 6));
+	}
+
+	/**
+	 * Equivalence Partitioning G1<br>
+	 * if game constructor for SinglePlayer is called with invalid userName argument
+	 * and exception is thrown.<br>
+	 * Expected result: throws an illegal argument exception
+	 */
+	@ParameterizedTest
+	@MethodSource("blankStrings")
+	public void game_SinglePlayerInvalidUserName_ThrowsIllegalArgumentException(String name) {
+		// Act & Assert
+		assertThrows(IllegalArgumentException.class, () -> new Game(5, name, 2, 6, 6));
+	}
+
+	/**
+	 * Equivalence Partitioning G1<br>
+	 * if game constructor for SinglePlayer is called with invalid level argument
+	 * and exception is thrown.<br>
+	 * Expected result: throws an illegal argument exception
+	 */
+	@ParameterizedTest
+	@ValueSource(ints = { 0, 4 })
+	public void game_SinglePlayerInvalidLevel_ThrowsIllegalArgumentException(int level) {
+		// Act & Assert
+		assertThrows(IllegalArgumentException.class, () -> new Game(5, "max", level, 6, 6));
+	}
+
+	/**
+	 * Equivalence Partitioning G3<br>
+	 * if game constructor for SinglePlayer is called with valid arguments,
+	 * everything is will be initialized and no exception is thrown. <br>
+	 * Expected result : no exception is thrown.
+	 */
+	@Test
+	public void game_SinglePlayerValidArguments_NoExceptionIsThrown() {
+		// Act
+		testGame = new Game(5, "max", 2, 6, 2);
+
+		try {
+			testGame = new Game(5, "max", 2, 6, 2);
+		} catch (Exception e) {
+			fail();
+		}
+	}
+
+	/**
+	 * Equivalence Partitioning G1<br>
+	 * if game constructor for MultiPlayer is called with invalid winninglinelength
+	 * argument and exception is thrown.<br>
+	 * Expected result: throws an illegal argument exception
+	 */
+	@ParameterizedTest
+	@ValueSource(ints = { 2, 7 })
+	public void game_MultiPlayerInvalidWinningLineThrowsIllegalArgumentException(int winningLine) {
+		// Act & Assert
+		assertThrows(IllegalArgumentException.class, () -> new Game(winningLine, "max", 2, 6, 6));
+	}
+
+	/**
+	 * Equivalence Partitioning G1<br>
+	 * if game constructor for MultiPlayer is called with invalid userName argument
+	 * and exception is thrown.<br>
+	 * Expected result: throws an illegal argument exception
+	 */
+	@ParameterizedTest
+	@MethodSource("blankStrings")
+	public void game_MultiPlayerInvalidUserName_ThrowsIllegalArgumentException(String name) {
+		HashMap<Color, String> players = new HashMap<>();
+		players.put(Color.YELLOW, name);
+		players.put(Color.BLUE, "max");
+		players.put(Color.BLACK, "laura");
+		players.put(Color.WHITE, "olga");
+		
+		// Act & Assert
+		assertThrows(IllegalArgumentException.class, () -> new Game(5, players, 5, 5));
+	}
+	
+	/**
+	 * Equivalence Partitioning G2<br>
+	 * if game constructor for MultiPlayer is called with invalid userName argument
+	 * and exception is thrown.<br>
+	 * Expected result: throws an illegal argument exception
+	 */
+	@Test
+	public void game_MultiPlayerDublicateUserName_ThrowsIllegalArgumentException() {
+		HashMap<Color, String> players = new HashMap<>();
+		players.put(Color.YELLOW, "max");
+		players.put(Color.BLUE, "max");
+		players.put(Color.BLACK, "laura");
+		players.put(Color.WHITE, "olga");
+		
+		// Act & Assert
+		assertThrows(IllegalArgumentException.class, () -> new Game(5, players, 5, 5));
+	}
+	
+	/**
+	 * Equivalence Partitioning G1<br>
+	 * if game constructor for MultiPlayer is called with invalid amount of users argument
+	 * and exception is thrown.<br>
+	 * Expected result: throws an illegal argument exception
+	 */
+	@Test
+	public void game_MultiPlayerInvalidPlayerAmount_ThrowsIllegalArgumentException() {
+		HashMap<Color, String> players = new HashMap<>();
+		players.put(Color.YELLOW, "tim");
+		
+		// Act & Assert
+		assertThrows(IllegalArgumentException.class, () -> new Game(5, players, 5, 5));
+	}
+
+	/**
+	 * Equivalence Partitioning G3, G4<br>
+	 * if game constructor for MulitPlayer is called with valid arguments,
+	 * everything is will be initialized and no exception is thrown. <br>
+	 * Expected result : no exception is thrown.
+	 */
+	@Test
+	public void game_MultiPlayerValidArguments_NoExceptionIsThrown() {
+		// Act
+		HashMap<Color, String> players = new HashMap<>();
+		players.put(Color.YELLOW, "tim");
+		players.put(Color.BLUE, "max");
+		players.put(Color.BLACK, "laura");
+		players.put(Color.WHITE, "olga");
+
+		try {
+			testGame = new Game(5, players, 5, 5);
+		} catch (Exception e) {
+			fail();
+		}
+	}
+	
 	/**
 	 * Equivalence Partitioning S3<br>
 	 * if player added and method gets called, the return value is the color from
