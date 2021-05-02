@@ -1,4 +1,32 @@
+ch/zhaw/pm2/socialWins/GameUI.java
+ ch.zhaw.pm2.socialWins.GameUI
+ch/zhaw/pm2/socialWins/strategy/Strategy.java
+ ch.zhaw.pm2.socialWins.strategy.Strategy
+ch/zhaw/pm2/socialWins/strategy/ComputerBeginnerStrategy.java
+ ch.zhaw.pm2.socialWins.strategy.ComputerBeginnerStrategy
+ch/zhaw/pm2/socialWins/strategy/ComputerIntermediateStrategy.java
+ ch.zhaw.pm2.socialWins.strategy.ComputerIntermediateStrategy
+ch/zhaw/pm2/socialWins/GameStarter.java
+ ch.zhaw.pm2.socialWins.GameStarter
+ch/zhaw/pm2/socialWins/Chip.java
+ ch.zhaw.pm2.socialWins.Chip
+ch/zhaw/pm2/socialWins/strategy/UserInputStrategy.java
+ ch.zhaw.pm2.socialWins.strategy.UserInputStrategy
+ch/zhaw/pm2/socialWins/strategy/ComputerAdvancedStrategy.java
+ ch.zhaw.pm2.socialWins.strategy.ComputerAdvancedStrategy
 ch/zhaw/pm2/socialWins/App.java
  ch.zhaw.pm2.socialWins.App
 ch/zhaw/pm2/socialWins/Test.java
  ch.zhaw.pm2.socialWins.Test
+ch/zhaw/pm2/socialWins/Computer.java
+ ch.zhaw.pm2.socialWins.Computer
+ch/zhaw/pm2/socialWins/Player.java
+ ch.zhaw.pm2.socialWins.Player
+ch/zhaw/pm2/socialWins/Board.java
+ ch.zhaw.pm2.socialWins.Board
+ch/zhaw/pm2/socialWins/Game.java
+ ch.zhaw.pm2.socialWins.Game
+ch/zhaw/pm2/socialWins/SocialWinsBoard.java
+ ch.zhaw.pm2.socialWins.SocialWinsBoard
+ch/zhaw/pm2/socialWins/HumanPlayer.java
+ ch.zhaw.pm2.socialWins.HumanPlayer
