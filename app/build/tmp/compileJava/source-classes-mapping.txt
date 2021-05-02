@@ -20,14 +20,16 @@ ch/zhaw/pm2/socialWins/Test.java
  ch.zhaw.pm2.socialWins.Test
 ch/zhaw/pm2/socialWins/Computer.java
  ch.zhaw.pm2.socialWins.Computer
-ch/zhaw/pm2/socialWins/Player.java
- ch.zhaw.pm2.socialWins.Player
 ch/zhaw/pm2/socialWins/Board.java
  ch.zhaw.pm2.socialWins.Board
+ch/zhaw/pm2/socialWins/Player.java
+ ch.zhaw.pm2.socialWins.Player
 ch/zhaw/pm2/socialWins/Game.java
  ch.zhaw.pm2.socialWins.Game
 ch/zhaw/pm2/socialWins/SocialWinsBoard.java
  ch.zhaw.pm2.socialWins.SocialWinsBoard
 ch/zhaw/pm2/socialWins/HumanPlayer.java
  ch.zhaw.pm2.socialWins.HumanPlayer
->>>>>>> master
+ch/zhaw/pm2/socialWins/SetupWindowController.java
+ ch.zhaw.pm2.socialWins.SetupWindowController
+ ch.zhaw.pm2.socialWins.SetupWindowController$1
