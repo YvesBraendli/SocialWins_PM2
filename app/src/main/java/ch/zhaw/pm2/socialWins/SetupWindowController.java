@@ -1,7 +1,5 @@
 package ch.zhaw.pm2.socialWins;
 
-
-
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,6 +22,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+
+/**
+ * This class is the controller for the setup view.
+ * 
+ * @author Moser Nadine, Meier Robin and Braendli Yves.
+ *
+ */
 public class SetupWindowController {
 	@FXML private ChoiceBox<Integer> playerNumberChoiceBox;
 	@FXML private ChoiceBox<Integer> winningRowChoiceBox;
@@ -42,8 +47,9 @@ public class SetupWindowController {
 	
 	ArrayList<TextField> playerNamesTextFields;
 	ArrayList<ColorPicker> playerColorPickers;
-		
-	private static final int DEFAULT_NUMBER_OF_PLAYERS = 1;
+	
+	// TODO export to config
+	private static final int DEFAULT_NUMBER_OF_PLAYERS = 1; 
 	private static final int MAX_NUMBER_OF_PLAYERS = 8;
 	private static final int DEFAULT_WINNINGROW = 4;
 	private static final int LOWEST_POSSIBLE_WINNINGROW = 3;
@@ -54,8 +60,15 @@ public class SetupWindowController {
 	private double rowSize;
 	private double columnSize; 
 	
+	
+	/**
+	 * Fills the player number choicebox and winning row choicebox 
+	 * and loads the initial singleplayer setup view (A).
+	 * 
+	 * Also implements a listener to switch between 
+	 * multiplayer and singleplayer options when a number higher than one is selected in the player number choice box
+	 */
 	@FXML public void initialize() {
-		System.out.println("why does this get loaded so many times...pls help");
 		
 		if(playerNumberChoiceBox.getItems().isEmpty()) {
 			for(int i = 1; i <= MAX_NUMBER_OF_PLAYERS; i++) {
@@ -113,20 +126,35 @@ public class SetupWindowController {
 
 	@FXML
 	private void startGame() {
-		int selectedwinningRowSize = winningRowChoiceBox.getSelectionModel().getSelectedItem();
-		int selectedplayerNumber = playerNumberChoiceBox.getSelectionModel().getSelectedItem();
+		int selectedWinningRowSize = winningRowChoiceBox.getSelectionModel().getSelectedItem();
+		int selectedPlayerNumber = playerNumberChoiceBox.getSelectionModel().getSelectedItem();
 				
-		calculateBoardSize(selectedwinningRowSize, selectedplayerNumber);
+		calculateBoardSize(selectedWinningRowSize, selectedPlayerNumber);
 		
-		if(selectedplayerNumber > 1) {
-			startMultiplayerGame(selectedplayerNumber);
+		if(selectedPlayerNumber > 1) {
+			startMultiplayerGame(selectedPlayerNumber, selectedWinningRowSize);
 		}
 		else {	
-			startSinglePlayerGame();
+			startSinglePlayerGame(selectedWinningRowSize);
 		}
+		// TODO possibly load game view
 	}
 
+	/**
+	 * Calculates the board size depending on number of players and winning row size.
+	 * 
+	 * The Winningrow size - 2 (default player number) + the selected player number is multiplied by a fixed value. (1.5 by default)
+	 * If the resulting number is not an int it gets rounded up to the next higher number. This is the row size.
+	 * The columnSize is the rowSize+1
+	 * 
+	 * If Singleplayer is selected, then selectedplayerNumber gets set to 2
+	 * @param selectedwinningRowSize number between 3-6
+	 * @param selectedplayerNumber number between 1-8
+	 */
 	private void calculateBoardSize(int selectedwinningRowSize, int selectedplayerNumber) {
+		if(selectedplayerNumber == 1) {
+			selectedplayerNumber = 2;
+		}
 		rowSize = BOARDSIZE_MULTIPLIKATOR * (selectedwinningRowSize-2+selectedplayerNumber);
 		if(!(rowSize%1==0)) {
 			rowSize=Math.ceil(rowSize);
@@ -134,7 +162,7 @@ public class SetupWindowController {
 		columnSize=rowSize+1;
 	}
 
-	private void startSinglePlayerGame() {
+	private void startSinglePlayerGame(int selectedWinningRowSize) {
 		String playerName = singlePlayerNameTextField.getText();
 		if(!playerName.matches(ALLOWED_PLAYERNAME_PATTERN)) {
 			errorMessageLabel.setText("Invalid name");
@@ -143,12 +171,12 @@ public class SetupWindowController {
 		
 		RadioButton selectedAiDifficulty = (RadioButton) aiDifficulty.getSelectedToggle();
 		int level = Integer.parseInt(selectedAiDifficulty.getText());
-		//Game game = new Game(selectedwinningRowSize, playerName, (int) columnSize, (int) rowSize);
+		Game game = new Game(selectedWinningRowSize, playerName, level, (int) columnSize, (int) rowSize);
 	}
 
-	private void startMultiplayerGame(int selectedplayerNumber) {
+	private void startMultiplayerGame(int selectedPlayerNumber, int selectedWinningRowSize) {
 		HashMap<Color, String> playerData = new HashMap<Color, String>();
-		for(int i = 0; i < selectedplayerNumber; i++) {
+		for(int i = 0; i < selectedPlayerNumber; i++) {
 			Color playerColor = new Color((float) playerColorPickers.get(i).getValue().getRed(),
 		            (float) playerColorPickers.get(i).getValue().getGreen(),
 		            (float) playerColorPickers.get(i).getValue().getBlue(),
@@ -171,6 +199,6 @@ public class SetupWindowController {
 			}
 			playerData.put(playerColor, playerName);
 		}
-		//Game game = new Game(selectedwinningRowSize, playerData, (int) columnSize, (int) rowSize);
+		Game game = new Game(selectedWinningRowSize, playerData, (int) columnSize, (int) rowSize);
 	}
 }
