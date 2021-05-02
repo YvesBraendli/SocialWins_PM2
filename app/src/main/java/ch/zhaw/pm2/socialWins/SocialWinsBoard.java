@@ -6,10 +6,8 @@ public class SocialWinsBoard implements Board{
 	private boolean isFull = false;
 	private Chip[][] chips;
 	
-	private static int height = 8;
-	
-	public SocialWinsBoard(int rows) {
-		chips = new Chip[rows][height];
+	public SocialWinsBoard(int columns, int rows) {
+		chips = new Chip[columns][rows];
 	}
 
 	@Override

@@ -2,7 +2,9 @@ package ch.zhaw.pm2.socialWins;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class Game {
 	private Player[] players;
@@ -13,64 +15,83 @@ public class Game {
 	private int currentPlayerIndex;
 
 	/**
-	 * Constructs a Game object for a social wins game.
+	 * Constructs a SinglePlayer Game for a social wins game.
 	 * 
 	 * @param winningLineLength indicates the number of chips that have to be in a
 	 *                          row to win the game
-	 * @param numberOfPlayers   number of the players
+	 * @param userName          name of the user
+	 * @param level             difficulty for the computer strategy
+	 * @param columns           width of the board
+	 * @param rows              height of the board
 	 * @throws IllegalArgumentsException if winning line is not between 3 and 6 or
-	 *                                   number of players is not between 1 and 8
+	 *                                   userName is null or empty or computer level
+	 *                                   is not between 1 and 3
 	 */
-	public Game(int winningLineLength, int numberOfPlayers) {
-		if (winningLineLength < 3 || winningLineLength > 6 || numberOfPlayers < 1 || numberOfPlayers > 8) {
+	public Game(int winningLineLength, String userName, int level, int columns, int rows) {
+		if (!isValidWinningLineLength(winningLineLength) 
+				|| !isValidUserName(userName) 
+				|| !isValidLevel(level)) {
 			throw new IllegalArgumentException();
 		}
 
 		this.winningLineLength = winningLineLength;
 		currentPlayerIndex = 0;
-		
-		if (numberOfPlayers == 1) {
-			initializeSinglePlayerGame();
-		}
-		else {
-			initializeMultiPlayerGame(numberOfPlayers);
-		}
-	}
 
-	private void initializeSinglePlayerGame() {
-		players = new Player[2]; // 2 is magic number
+		players = new Player[2];
+		board = new SocialWinsBoard(columns, rows);
 		isSinglePlay = true;
+
+		Color userColor = Color.RED; // TODO config file
+		Color computerColor = Color.BLUE; // TODO config file
+		String computerName = "george"; // TODO config file
+		addPlayer(userName, userColor);
+		players[1] = new Computer(computerName, computerColor, level);
+
 	}
 
-	private void initializeMultiPlayerGame(int numberOfPlayers) {
-		players = new Player[numberOfPlayers];
-		int rows = 10; // refactor?
-		board = new SocialWinsBoard(rows);
-		isSinglePlay = false;
-	}
-	
 	/**
-	 * the start method starts the game if all player have been initialized and
-	 * added correctly
+	 * Constructs a MultiPlayer game for a social wins game.
 	 * 
-	 * @return true if the game has been started
+	 * @param winningLineLength indicates the number of chips that have to be in a
+	 *                          row to win the game
+	 * @param users             contains all userColor and userNames from players
+	 * @param columns           width of the board
+	 * @param rows              height of the board
+	 * @throws IllegalArgumentsException if winning line is not between 3 and 6 or
+	 *                                   name from players are null, empty or aren't
+	 *                                   unique
+	 * 
 	 */
-	public boolean start() {
-		for (int i = 0; i < players.length; i++) {
-			if (players[i] == null) {
-				return false;
-			}
-			if(!isSinglePlay && players[i] instanceof Computer) {
-				return false;
+	public Game(int winningLineLength, HashMap<Color, String> users, int columns, int rows) {
+		if (!isValidWinningLineLength(winningLineLength)) {
+			throw new IllegalArgumentException();
+		}
+		players = new Player[users.size()];
+		board = new SocialWinsBoard(columns, rows);
+		isSinglePlay = false;
+
+		this.winningLineLength = winningLineLength;
+		currentPlayerIndex = 0;
+
+		for (Entry<Color, String> entry : users.entrySet()) {
+			boolean isAdded = addPlayer(entry.getValue(), entry.getKey());
+			if (!isAdded) {
+				throw new IllegalArgumentException();
 			}
 		}
-		
-		if(isSinglePlay) {
-			if(!(players[0] instanceof HumanPlayer && players[1] instanceof Computer)) {
-				return false;
-			}
-		}
-		return true;
+
+	}
+
+	private boolean isValidWinningLineLength(int winningLineLength) {
+		return !(winningLineLength < 3 || winningLineLength > 6); // TODO configFile
+	}
+
+	private boolean isValidLevel(int level) {
+		return !(level < 1 || level > 3);
+	}
+
+	private boolean isValidUserName(String userName) {
+		return !(userName == null || userName.isEmpty());
 	}
 
 	/**
@@ -79,15 +100,14 @@ public class Game {
 	 * if the game is started in single player modus, the computer will do its turn
 	 * immediately afterwards.
 	 * 
-	 * @param row    row to throw chip in
 	 * @param column column to throw chip in
 	 * @return true if chip has been added to board
 	 */
 	public boolean nextMove(int column) {
 		boolean isAdded = board.addChip(column, players[currentPlayerIndex].getColor());
-
-		if (!isAdded)
+		if (!isAdded) {
 			return false;
+		}
 
 		if (isSinglePlay) {
 			((Computer) players[1]).nextMove();
@@ -107,23 +127,13 @@ public class Game {
 		currentPlayerIndex++;
 	}
 
-	/**
-	 * AddPlayer Method provides the functionality to add Players to the game.
-	 * Parameters must contain values and can't be null.
-	 * 
-	 * @param name  name of the player
-	 * @param color color of the player
-	 * @return return true if player has been successfully been added
-	 */
-	public boolean addPlayer(String name, Color color) {
+	private boolean addPlayer(String name, Color color) {
 		if (name == null || name.isEmpty())
-			return false;
-		if (color == null)
 			return false;
 
 		for (int i = 0; i < players.length; i++) {
 			if (players[i] != null && (players[i].getColor() == color || players[i].getName().equals(name))) {
-				return false; // because color or name already exists
+				return false;
 			}
 		}
 
@@ -135,35 +145,6 @@ public class Game {
 		}
 
 		return false;
-	}
-
-	/**
-	 * AddComputer Method provides functionality to add a ComputerPlayer to the
-	 * game. The Parameters must contain Values and can't be null.
-	 * 
-	 * @param name  name of the computer
-	 * @param color name of the computer
-	 * @param level level of the computer, level 1-3 are possible
-	 * @return return true if computer has successfully been added
-	 */
-	public boolean addComputer(String name, Color color, int level) {
-		if (name == null || name.isEmpty())
-			return false;
-		if (color == null)
-			return false;
-
-		if (level < 1 || level > 3)
-			return false;
-
-		if (!isSinglePlay)
-			return false;
-
-		// check if no other computer exists
-		if (players[1] != null && players[1] instanceof Computer)
-			return false;
-
-		players[1] = new Computer(name, color, level);
-		return true;
 	}
 
 	/**
@@ -190,22 +171,26 @@ public class Game {
 			}
 		}
 	}
-	
+
 	/**
 	 * this method provides the color from the current player.
+	 * 
 	 * @return color from current player
 	 */
 	public Color getColorFromCurrentPlayer() {
-		if(players[currentPlayerIndex] == null) return null;
+		if (players[currentPlayerIndex] == null)
+			return null;
 		return players[currentPlayerIndex].getColor();
 	}
-	
+
 	/**
 	 * this method provides the name from the current player.
+	 * 
 	 * @return name from current player
 	 */
 	public String getNameFromCurrentPlayer() {
-		if(players[currentPlayerIndex] == null) return null;
+		if (players[currentPlayerIndex] == null)
+			return null;
 		return players[currentPlayerIndex].getName();
 	}
 }
