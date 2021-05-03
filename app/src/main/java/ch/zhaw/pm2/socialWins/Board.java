@@ -43,7 +43,12 @@ public class Board {
 	}
 
 	public boolean addChip(int column, Color color) {
-		// TODO Auto-generated method stub
+		for(int row = 0; row < chips.length; row++) {
+			if(chips[row][column] == null) {
+				chips[row][column] = new Chip(color);
+				return true;
+			}
+		}
 		return false;
 	}
 
