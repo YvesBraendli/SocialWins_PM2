@@ -116,15 +116,7 @@ public class GameWindowController {
 				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
 				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
 				newGridElement.setPrefSize(gridElementWidth, gridElementHeight);
-				String columnIndex = String.valueOf(z);
-				if (z < 10) {
-					columnIndex = "0" + String.valueOf(z);
-				}
-				String rowIndex = String.valueOf(i);
-				if (i < 10) {
-					rowIndex = "0" + String.valueOf(i);
-				}
-				newGridElement.setId(columnIndex + rowIndex);
+				newGridElement.setId(createIndex(z, i));
 				newGridElement.setBackground(
 						new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 				newGridElement.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
@@ -145,22 +137,7 @@ public class GameWindowController {
 									}
 								}
 							}
-							boolean isFirstElementInRow = true;
-							for (int z = 0; z < buttonsInOneColumn.size(); z++) {
-								int previousButtonIndex = z - 1;
-								Button currentButton = buttonsInOneColumn.get(z);
-								if (currentButton.getBackground().getFills().get(0).getFill() != Color.WHITE) {
-									buttonsInOneColumn.get(previousButtonIndex)
-											.setBackground(new Background(new BackgroundFill(colorFromCurrentPlayer,
-													CornerRadii.EMPTY, Insets.EMPTY)));
-									isFirstElementInRow = false;
-								}
-							}
-							if (isFirstElementInRow) {
-								int lastElementIndex = buttonsInOneColumn.size() - 1;
-								buttonsInOneColumn.get(lastElementIndex).setBackground(new Background(
-										new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));
-							}
+							addColorToLastFreeButtonInColumn(buttonsInOneColumn, colorFromCurrentPlayer);
 							writeInPlayerPromptTextField();
 						}
 					}
@@ -170,6 +147,38 @@ public class GameWindowController {
 				gameAreaGridPane.getChildren().add(newGridElement);
 			}
 		}
+	}
+
+	private void addColorToLastFreeButtonInColumn(ArrayList<Button> buttonsInColumn, Color playerColor) {
+		boolean isFirstElementInRow = true;
+		for (int z = 0; z < buttonsInColumn.size(); z++) {
+			int previousButtonIndex = z - 1;
+			Button currentButton = buttonsInColumn.get(z);
+			if (currentButton.getBackground().getFills().get(0).getFill() != Color.WHITE) {
+				buttonsInColumn.get(previousButtonIndex).setBackground(
+						new Background(new BackgroundFill(playerColor, CornerRadii.EMPTY, Insets.EMPTY)));
+				isFirstElementInRow = false;
+			}
+		}
+		if (isFirstElementInRow) {
+			int lastElementIndex = buttonsInColumn.size() - 1;
+			buttonsInColumn.get(lastElementIndex)
+					.setBackground(new Background(new BackgroundFill(playerColor, CornerRadii.EMPTY, Insets.EMPTY)));
+		}
+	}
+
+	private String createIndex(int z, int i) {
+		int indicatorForMultiDigitNumber = 10;
+		String columnIndex = String.valueOf(z);
+		if (z < indicatorForMultiDigitNumber) {
+			columnIndex = "0" + String.valueOf(z);
+		}
+		String rowIndex = String.valueOf(i);
+		if (i < indicatorForMultiDigitNumber) {
+			rowIndex = "0" + String.valueOf(i);
+		}
+		String index = columnIndex + rowIndex;
+		return index;
 	}
 
 	private Color getColor() {
