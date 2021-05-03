@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.awt.Color;
 
@@ -162,5 +163,86 @@ public class BoardTests {
 
 		// Assert
 		assertTrue(result);
+	}
+
+	/**
+	 * Equivalence Partitioning C1<br>
+	 * If column argument is invalid, the chip can't be added.<br>
+	 * Expected result: returns false, chip is not added
+	 */
+	@Test
+	public void addChip_InvalidColumnArgument_returnFalse() {
+		// Act
+		boolean result = testBoard.addChip(-1, Color.RED);
+
+		// Assert
+		assertFalse(result);
+	}
+
+	/**
+	 * Equivalence Partitioning C1<br>
+	 * If color argument is null, the chip can't be added.<br>
+	 * Expected result: returns false, chip is not added
+	 */
+	@Test
+	public void addChip_InvalidColorArgument_returnFalse() {
+		// Act
+		boolean result = testBoard.addChip(0, null);
+
+		// Assert
+		assertFalse(result);
+	}
+
+	/**
+	 * Equivalence Partitioning C2, C3<br>
+	 * If requested column is already full, the chip can't be added.<br>
+	 * Expected result: returns false, chip is not added
+	 */
+	@Test
+	public void addChip_columnIsFull_returnFalse() {
+		// Arrange
+		int column = 0;
+		fillColumn(column, Color.RED);
+		
+		// Act
+		boolean result = testBoard.addChip(column, Color.BLUE);
+
+		// Assert
+		assertFalse(result);
+	}
+
+	/**
+	 * Equivalence Partitioning C3, C4<br>
+	 * If requested column is empty, the chip can be added.<br>
+	 * Expected result: returns true, chip is added
+	 */
+	@Test
+	public void addChip_columnIsEmpty_returnTrue() {
+		// Act
+		boolean result = testBoard.addChip(0, Color.BLUE);
+
+		// Assert
+		assertTrue(result);
+		assertEquals(Color.BLUE, testBoard.getBoard()[0][0].getColor());
+	}
+
+	/**
+	 * Equivalence Partitioning C3, C5<br>
+	 * If requested column is not empty but still has place for a chip, the chip can
+	 * be added.<br>
+	 * Expected result: returns true, chip is added
+	 */
+	@Test
+	public void addChip_columnHasPlace_returnTrue() {
+		// Arrange
+		testBoard.addChip(0, Color.RED);
+		testBoard.addChip(0, Color.RED);
+		
+		// Act
+		boolean result = testBoard.addChip(0, Color.BLUE);
+
+		// Assert
+		assertTrue(result);
+		assertEquals(Color.BLUE, testBoard.getBoard()[2][0].getColor());
 	}
 }
