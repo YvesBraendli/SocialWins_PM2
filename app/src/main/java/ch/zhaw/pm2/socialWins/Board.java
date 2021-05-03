@@ -7,6 +7,9 @@ public class Board {
 	private Chip[][] chips;
 
 	public Board(int rows, int columns) {
+		if(!isValidRow(rows) || !isValidColumn(columns)) {
+			throw new IllegalArgumentException();
+		}
 		chips = new Chip[rows][columns];
 	}
 
@@ -16,7 +19,7 @@ public class Board {
 
 	public boolean isBoardFull() {
 		for (int i = 0; i < chips[0].length; i++) {
-			if(!isColumnFull(i)) {
+			if (!isColumnFull(i)) {
 				return false;
 			}
 		}
@@ -24,8 +27,12 @@ public class Board {
 	}
 
 	public boolean isColumnFull(int column) {
-		for(int row = 0; row < chips.length; row++) {
-			if(chips[row][column] == null) {
+		if(!isValidColumn(column)) {
+			return false;
+		}
+		
+		for (int row = 0; row < chips.length; row++) {
+			if (chips[row][column] == null) {
 				return false;
 			}
 		}
@@ -43,8 +50,12 @@ public class Board {
 	}
 
 	public boolean addChip(int column, Color color) {
-		for(int row = 0; row < chips.length; row++) {
-			if(chips[row][column] == null) {
+		if(!isValidColumn(column) || color == null) {
+			return false;
+		}
+		
+		for (int row = 0; row < chips.length; row++) {
+			if (chips[row][column] == null) {
 				chips[row][column] = new Chip(color);
 				return true;
 			}
@@ -52,4 +63,11 @@ public class Board {
 		return false;
 	}
 
+	private boolean isValidColumn(int column) {
+		return column < 1;
+	}
+
+	private boolean isValidRow(int row) {
+		return row < 1;
+	}
 }
