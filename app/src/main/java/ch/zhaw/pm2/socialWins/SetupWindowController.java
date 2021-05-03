@@ -45,7 +45,6 @@ public class SetupWindowController {
 	ArrayList<TextField> playerNamesTextFields;
 	ArrayList<ColorPicker> playerColorPickers;
 	
-	// TODO export to config
 	private static final int PLAYER_INFORMATIONFIELD_HEIGHT = 61;
 	private static final int PLAYER_COLORPICKER_HEIGHT = 24;
 	
@@ -79,7 +78,7 @@ public class SetupWindowController {
 		
 		playerNumberChoiceBox.setOnAction((event)-> {
 				int selectedValue = playerNumberChoiceBox.getSelectionModel().getSelectedItem(); 
-				if (selectedValue == 0) {
+				if (selectedValue == 1) {
 					loadSetupView('A');
 				} else {
 					loadSetupView('B');
@@ -88,11 +87,11 @@ public class SetupWindowController {
 		});
 	}
 	
-	private void generatePlayerDataFields(Number new_value) {
+	private void generatePlayerDataFields(int selectedValue) {
 		playerNamesTextFields  = new ArrayList<TextField>();
 		playerColorPickers = new ArrayList<ColorPicker>();
 		int scrollPaneSize = 0;
-		for (int i = 0; i <= new_value.intValue(); i++) {
+		for (int i = 0; i <= selectedValue-1; i++) {
 			playerNamesTextFields.add(new TextField());
 			playerNamesTextFields.get(i).setPromptText("Player " + (i + 1) + " name");
 			playerNameVBox.getChildren().add(playerNamesTextFields.get(i));
@@ -140,13 +139,13 @@ public class SetupWindowController {
 	 * 
 	 * If Singleplayer is selected, then selectedplayerNumber gets set to 2
 	 * @param selectedwinningRowSize number between 3-6
-	 * @param selectedplayerNumber number between 1-8
+	 * @param selectedPlayerNumber number between 1-8
 	 */
-	private void calculateBoardSize(int selectedwinningRowSize, int selectedplayerNumber) {
-		if(selectedplayerNumber == 1) {
-			selectedplayerNumber = 2;
+	private void calculateBoardSize(int selectedwinningRowSize, int selectedPlayerNumber) {
+		if(selectedPlayerNumber == 1) {
+			selectedPlayerNumber = 2;
 		}
-		rowSize = Config.BOARDSIZE_MULTIPLIKATOR * (selectedwinningRowSize-2+selectedplayerNumber);
+		rowSize = Config.BOARDSIZE_MULTIPLIKATOR * (selectedwinningRowSize-2+selectedPlayerNumber);
 		if(!(rowSize%1==0)) {
 			rowSize=Math.ceil(rowSize);
 		}
