@@ -46,14 +46,8 @@ public class SetupWindowController {
 	ArrayList<ColorPicker> playerColorPickers;
 	
 	// TODO export to config
-	private static final int DEFAULT_NUMBER_OF_PLAYERS = 1; 
-	private static final int MAX_NUMBER_OF_PLAYERS = 8;
-	private static final int DEFAULT_WINNINGROW = 4;
-	private static final int LOWEST_POSSIBLE_WINNINGROW = 3;
-	private static final int HIGHEST_POSSIBLE_WINNINGROW = 6;
-	private static final double BOARDSIZE_MULTIPLIKATOR = 1.5;
-	private static final String ALLOWED_PLAYERNAME_PATTERN = "^\\w+(-\\w+)*$";
 	private static final int PLAYER_INFORMATIONFIELD_HEIGHT = 61;
+	private static final int PLAYER_COLORPICKER_HEIGHT = 24;
 	
 	private double rowSize;
 	private double columnSize; 
@@ -69,16 +63,16 @@ public class SetupWindowController {
 	@FXML public void initialize() {
 		
 		if(playerNumberChoiceBox.getItems().isEmpty()) {
-			for(int i = 1; i <= MAX_NUMBER_OF_PLAYERS; i++) {
+			for(int i = 1; i <= Config.MAX_NUMBER_OF_PLAYERS; i++) {
 				playerNumberChoiceBox.getItems().add(i);
 			}
-			playerNumberChoiceBox.setValue(DEFAULT_NUMBER_OF_PLAYERS);
+			playerNumberChoiceBox.setValue(Config.DEFAULT_NUMBER_OF_PLAYERS);
 			
-			for(int i = LOWEST_POSSIBLE_WINNINGROW; i <= HIGHEST_POSSIBLE_WINNINGROW; i++) {
+			for(int i = Config.LOWEST_POSSIBLE_WINNINGROW; i <= Config.HIGHEST_POSSIBLE_WINNINGROW; i++) {
 				winningRowChoiceBox.getItems().add(i);
 			}
-			playerNumberChoiceBox.setValue(DEFAULT_NUMBER_OF_PLAYERS);
-			winningRowChoiceBox.setValue(DEFAULT_WINNINGROW);
+			playerNumberChoiceBox.setValue(Config.DEFAULT_NUMBER_OF_PLAYERS);
+			winningRowChoiceBox.setValue(Config.DEFAULT_WINNINGROW);
 
 			loadSetupView('A');
 		}
@@ -103,7 +97,7 @@ public class SetupWindowController {
 			playerNamesTextFields.get(i).setPromptText("Player " + (i + 1) + " name");
 			playerNameVBox.getChildren().add(playerNamesTextFields.get(i));
 			playerColorPickers.add(new ColorPicker());
-			playerColorPickers.get(i).setMinHeight(24);
+			playerColorPickers.get(i).setMinHeight(PLAYER_COLORPICKER_HEIGHT);
 			playerNameVBox.getChildren().add(playerColorPickers.get(i));
 			scrollPaneSize += PLAYER_INFORMATIONFIELD_HEIGHT;
 		}
@@ -152,7 +146,7 @@ public class SetupWindowController {
 		if(selectedplayerNumber == 1) {
 			selectedplayerNumber = 2;
 		}
-		rowSize = BOARDSIZE_MULTIPLIKATOR * (selectedwinningRowSize-2+selectedplayerNumber);
+		rowSize = Config.BOARDSIZE_MULTIPLIKATOR * (selectedwinningRowSize-2+selectedplayerNumber);
 		if(!(rowSize%1==0)) {
 			rowSize=Math.ceil(rowSize);
 		}
@@ -161,7 +155,7 @@ public class SetupWindowController {
 
 	private void startSinglePlayerGame(int selectedWinningRowSize) {
 		String playerName = singlePlayerNameTextField.getText();
-		if(!playerName.matches(ALLOWED_PLAYERNAME_PATTERN)) {
+		if(!playerName.matches(Config.ALLOWED_PLAYERNAME_PATTERN)) {
 			errorMessageLabel.setText("Invalid name");
 			return;
 		}
@@ -180,7 +174,7 @@ public class SetupWindowController {
 		            (float) playerColorPickers.get(i).getValue().getOpacity());
 			String playerName = playerNamesTextFields.get(i).getText();
 			
-			if(!playerName.matches(ALLOWED_PLAYERNAME_PATTERN)) {
+			if(!playerName.matches(Config.ALLOWED_PLAYERNAME_PATTERN)) {
 				errorMessageLabel.setText("Invalid names");
 				return;
 			}
