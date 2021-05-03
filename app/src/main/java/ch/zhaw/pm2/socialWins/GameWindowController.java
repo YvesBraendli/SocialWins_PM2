@@ -136,12 +136,8 @@ public class GameWindowController {
 				newGridElement.setOnAction(new EventHandler<ActionEvent>() {
 		            @Override
 		            public void handle(ActionEvent event) {
-		            	int row = Integer.parseInt(newGridElement.getId().substring(0, 1));
 		            	int column = Integer.parseInt(newGridElement.getId().substring(1));
-//		            	Color player = game.getColorFromCurrentPlayer;
-//		            	if(game.nextMove(row, column)){
-//		            	writeInPlayerPromptTextField();
-//		            }
+		            	game.nextMove(column);
 		            }
 		        });
 				GridPane.setRowIndex(newGridElement, i);
