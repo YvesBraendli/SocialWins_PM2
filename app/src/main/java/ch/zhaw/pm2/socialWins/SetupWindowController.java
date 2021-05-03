@@ -21,6 +21,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 
 /**
@@ -57,7 +58,12 @@ public class SetupWindowController {
 	
 	private double rowSize;
 	private double columnSize; 
+	private Game game;
+	private GameUI gameUI;
 	
+	public void setGameUI(GameUI gameUI) {
+		this.gameUI = gameUI;
+	}
 	
 	/**
 	 * Fills the player number choicebox and winning row choicebox 
@@ -134,7 +140,9 @@ public class SetupWindowController {
 		else {	
 			startSinglePlayerGame(selectedWinningRowSize);
 		}
-		// TODO possibly load game view
+		gameUI.switchToGameWindow(game);
+		Stage stage = (Stage) startButton.getScene().getWindow();
+		stage.close();
 	}
 
 	/**
@@ -168,7 +176,7 @@ public class SetupWindowController {
 		
 		RadioButton selectedAiDifficulty = (RadioButton) aiDifficulty.getSelectedToggle();
 		int level = Integer.parseInt(selectedAiDifficulty.getText());
-		Game game = new Game(selectedWinningRowSize, playerName, level, (int) columnSize, (int) rowSize);
+		game = new Game(selectedWinningRowSize, playerName, level, (int) columnSize, (int) rowSize);
 	}
 
 	private void startMultiplayerGame(int selectedPlayerNumber, int selectedWinningRowSize) {
@@ -196,6 +204,6 @@ public class SetupWindowController {
 			}
 			playerData.put(playerColor, playerName);
 		}
-		Game game = new Game(selectedWinningRowSize, playerData, (int) columnSize, (int) rowSize);
+		game = new Game(selectedWinningRowSize, playerData, (int) columnSize, (int) rowSize);
 	}
 }
