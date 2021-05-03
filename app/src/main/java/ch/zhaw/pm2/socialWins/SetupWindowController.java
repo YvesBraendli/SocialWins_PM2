@@ -85,7 +85,7 @@ public class SetupWindowController {
 		
 		playerNumberChoiceBox.setOnAction((event)-> {
 				int selectedValue = playerNumberChoiceBox.getSelectionModel().getSelectedItem(); 
-				if (selectedValue == 0) {
+				if (selectedValue == 1) {
 					loadSetupView('A');
 				} else {
 					loadSetupView('B');
@@ -98,7 +98,7 @@ public class SetupWindowController {
 		playerNamesTextFields  = new ArrayList<TextField>();
 		playerColorPickers = new ArrayList<ColorPicker>();
 		int scrollPaneSize = 0;
-		for (int i = 0; i <= new_value.intValue(); i++) {
+		for (int i = 0; i < new_value.intValue(); i++) {
 			playerNamesTextFields.add(new TextField());
 			playerNamesTextFields.get(i).setPromptText("Player " + (i + 1) + " name");
 			playerNameVBox.getChildren().add(playerNamesTextFields.get(i));
