@@ -37,9 +37,6 @@ public class SetupWindowController {
 	@FXML private Label errorMessageLabel;
 
 	@FXML private TextField singlePlayerNameTextField;
-	@FXML private RadioButton computerLevelOneRadioButton;
-	@FXML private RadioButton computerLevelTwoTadioButton;
-	@FXML private RadioButton computerLevelThreeRadioButton;
 	@FXML private ToggleGroup aiDifficulty;
 	@FXML private AnchorPane playerNameScrollAnchor;
 	@FXML private ScrollPane playerNameScrollPane;
@@ -172,6 +169,7 @@ public class SetupWindowController {
 		RadioButton selectedAiDifficulty = (RadioButton) aiDifficulty.getSelectedToggle();
 		int level = Integer.parseInt(selectedAiDifficulty.getText());
 		Game game = new Game(selectedWinningRowSize, playerName, level, (int) columnSize, (int) rowSize);
+		System.out.println(level);
 	}
 
 	private void startMultiplayerGame(int selectedPlayerNumber, int selectedWinningRowSize) {
