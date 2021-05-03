@@ -1,14 +1,12 @@
 package ch.zhaw.pm2.socialWins;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map.Entry;
 
 public class Game {
 	private Player[] players;
-	private SocialWinsBoard board;
+	private Board board;
 	private int winningLineLength;
 	private Player winner;
 	private boolean isSinglePlay;
@@ -36,7 +34,7 @@ public class Game {
 		currentPlayerIndex = 0;
 
 		players = new Player[2];
-		board = new SocialWinsBoard(columns, rows);
+		board = new Board(columns, rows);
 		isSinglePlay = true;
 
 		Color userColor = Color.RED; // TODO config file
@@ -65,7 +63,7 @@ public class Game {
 			throw new IllegalArgumentException();
 		}
 		players = new Player[users.size()];
-		board = new SocialWinsBoard(columns, rows);
+		board = new Board(columns, rows);
 		isSinglePlay = false;
 
 		this.winningLineLength = winningLineLength;
