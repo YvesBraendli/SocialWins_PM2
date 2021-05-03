@@ -15,19 +15,21 @@ public class Board {
 	}
 
 	public boolean isBoardFull() {
-		for (int row = 0; row < chips.length; row++) {
-			for (int column = 0; column < chips[row].length; column++) {
-				if(chips[row][column] == null) {
-					return false;
-				}
+		for (int i = 0; i < chips[0].length; i++) {
+			if(!isColumnFull(i)) {
+				return false;
 			}
 		}
 		return true;
 	}
 
 	public boolean isColumnFull(int column) {
-		// TODO Auto-generated method stub
-		return false;
+		for(int row = 0; row < chips.length; row++) {
+			if(chips[row][column] == null) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public boolean hasChipsInARow(int amount) {

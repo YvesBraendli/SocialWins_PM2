@@ -146,7 +146,6 @@ public class BoardTests {
 		assertFalse(result);
 	}
 
-	// test for every column
 	/**
 	 * Equivalence Partitioning F6<br>
 	 * If board is full and the method gets called, it returns true.<br>
