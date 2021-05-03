@@ -178,7 +178,7 @@ public class GameTests {
 	public void getColorFromCurrentPlayer_PlayerAdded_returnColor() {
 		// Arrange
 		testGame = new Game(5, "max", 2, 6, 6);
-		Color expectedColor = Color.RED; // TODO get form configFile
+		Color expectedColor = Config.SINGLEPLAYER_USERCOLOR;
 
 		// Act
 		Color result = testGame.getColorFromCurrentPlayer();
