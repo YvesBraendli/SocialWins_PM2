@@ -145,7 +145,7 @@ public class SetupWindowController {
 		if(selectedPlayerNumber == 1) {
 			selectedPlayerNumber = 2;
 		}
-		rowSize = Config.BOARDSIZE_MULTIPLIKATOR * (selectedwinningRowSize-2+selectedPlayerNumber);
+		rowSize = Config.BOARDSIZE_MULTIPLICATOR * (selectedwinningRowSize-2+selectedPlayerNumber);
 		if(!(rowSize%1==0)) {
 			rowSize=Math.ceil(rowSize);
 		}

@@ -15,7 +15,7 @@ public class Config {
 	public static final int DEFAULT_WINNINGROW = 4;
 	public static final int LOWEST_POSSIBLE_WINNINGROW = 3;
 	public static final int HIGHEST_POSSIBLE_WINNINGROW = 6;
-	public static final double BOARDSIZE_MULTIPLIKATOR = 1.5;
+	public static final double BOARDSIZE_MULTIPLICATOR = 1.5;
 	
 	public static final String ALLOWED_PLAYERNAME_PATTERN = "^\\w+(-\\w+)*$";
 	
