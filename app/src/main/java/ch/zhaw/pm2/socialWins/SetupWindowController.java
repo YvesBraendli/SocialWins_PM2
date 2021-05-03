@@ -140,7 +140,7 @@ public class SetupWindowController {
 		else {	
 			startSinglePlayerGame(selectedWinningRowSize);
 		}
-		gameUI.switchToGameWindow(game);
+		gameUI.switchToGameWindow(game, (int)rowSize, (int)columnSize);
 		Stage stage = (Stage) startButton.getScene().getWindow();
 		stage.close();
 	}

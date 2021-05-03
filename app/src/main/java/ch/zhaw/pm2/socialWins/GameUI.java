@@ -46,12 +46,12 @@ public class GameUI extends Application {
 		}
 	}
 	
-	public void switchToGameWindow(Game game) {
+	public void switchToGameWindow(Game game, int rowLength, int columnLength) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("GameView.fxml"));
 			AnchorPane rootPane = loader.load();
 			GameWindowController gameWindowController = loader.getController();
-			gameWindowController.setUpGameView(game);
+			gameWindowController.setUpGameView(game, rowLength, columnLength);
 			// fill in scene and stage setup
 			Scene scene = new Scene(rootPane);
 			// new stage for new window

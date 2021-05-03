@@ -59,14 +59,14 @@ public class GameWindowController {
 	 * 
 	 * @param model The current model of the game class.
 	 */
-	public void setUpGameView(Game model) {
+	public void setUpGameView(Game model, int rowLength, int columnLength) {
 		game = model;
 		setGameInformationText();
 		setWinningQueueText();
 		writeInPlayerPromptTextField();
 //		createListenerForPlayerPrompt();
 //		createListenerForGameField();
-		setupGameField(15, 15); // Add game.getNumberOfRows and game.getNumberOfLines as Parameters
+		setupGameField(rowLength, columnLength); // Add game.getNumberOfRows and game.getNumberOfLines as Parameters
 	}
 
 //	private void createListenerForGameField() {
@@ -123,10 +123,10 @@ public class GameWindowController {
 	
 	private void setupGameField(int numberOfRows, int numberOfColumns) {
 		int gridPaneHeight = (int) gameAreaGridPane.getPrefHeight()/numberOfColumns*numberOfColumns;
-		int gridPaneWidth = (int) gameAreaGridPane.getPrefWidth()/numberOfColumns*numberOfColumns;
+		int gridPaneWidth = (int) gameAreaGridPane.getPrefWidth()/numberOfRows*numberOfRows;
 		gameAreaGridPane.setPrefSize(gridPaneWidth, gridPaneHeight);
-		double gridElementHeight = gridPaneHeight/numberOfColumns;
-		double gridElementWidth = gridPaneWidth/numberOfRows;
+		double gridElementWidth = gridPaneHeight/numberOfColumns;
+		double gridElementHeight = gridPaneWidth/numberOfRows;
 		for (int i = 0; i<numberOfRows; i++) {
 			for(int z = 0; z<numberOfColumns; z++) {
 				Button newGridElement = new Button("");
