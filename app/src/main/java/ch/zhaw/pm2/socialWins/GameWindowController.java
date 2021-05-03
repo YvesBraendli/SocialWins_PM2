@@ -4,6 +4,7 @@ import java.awt.color.*;
 import javafx.scene.control.TextArea;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -134,7 +135,7 @@ public class GameWindowController {
 				Button newGridElement = new Button("");
 				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
 				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
-				newGridElement.setId(String.valueOf(i) + String.valueOf(z));
+				newGridElement.setId(String.valueOf(z) + String.valueOf(i));
 				newGridElement.setBackground(
 						new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 				newGridElement.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
@@ -142,37 +143,35 @@ public class GameWindowController {
 				newGridElement.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						Button[] buttonsInOneColumn = new Button[numberOfRows+1];
-						int columnIndexOfCurrentButton = Integer.parseInt(newGridElement.getId().substring(1));
-						System.out.println(columnIndexOfCurrentButton);
-						game.nextMove(columnIndexOfCurrentButton);
+						ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
+						int columnIndexOfCurrentButton = Integer.parseInt(newGridElement.getId().substring(0, 1));
 						Color colorFromCurrentPlayer = getColor();
-						int i = 0;
-						for (Node node : gameAreaGridPane.getChildren()) {
-							if (node instanceof Button) {
-								Button button = (Button) node;
-								int columnIndexOfCheckedButton = Integer.parseInt(button.getId().substring(0, 1));
-								if (columnIndexOfCheckedButton == columnIndexOfCurrentButton) {
-									buttonsInOneColumn[i] = button;
-									System.out.println(i);
-									i++;
+						if (true) { // add game.nextMove(columnIndexOfCurrentButton)
+							for (Node node : gameAreaGridPane.getChildren()) {
+								if (node instanceof Button) {
+									Button button = (Button) node;
+									int columnIndexOfCheckedButton = Integer.parseInt(button.getId().substring(0, 1));
+									if (columnIndexOfCheckedButton == columnIndexOfCurrentButton) {
+										buttonsInOneColumn.add(button);
+									}
 								}
 							}
 						}
 						boolean isFirstElementInRow = true;
-						for (int z = 0; z < buttonsInOneColumn.length; z++) {
-							Button currentButton = buttonsInOneColumn[z];
+						for (int z = 0; z < buttonsInOneColumn.size(); z++) {
+							int previousButtonIndex = z - 1;
+							Button currentButton = buttonsInOneColumn.get(z);
 							if ((Color) currentButton.getBackground().getFills().get(0).getFill() != Color.WHITE) {
-								buttonsInOneColumn[z - 1].setBackground(new Background(
+								buttonsInOneColumn.get(previousButtonIndex).setBackground(new Background(
 										new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));
 								isFirstElementInRow = false;
 							}
-
 						}
-						if (isFirstElementInRow)
-							buttonsInOneColumn[Integer.parseInt(newGridElement.getId().substring(0, 1)) + 1]
-									.setBackground(new Background(new BackgroundFill(colorFromCurrentPlayer,
-											CornerRadii.EMPTY, Insets.EMPTY)));
+						if (isFirstElementInRow) {
+							int lastElementIndex = buttonsInOneColumn.size() - 1;
+							buttonsInOneColumn.get(lastElementIndex).setBackground(new Background(
+									new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));
+						}
 					}
 				});
 				GridPane.setRowIndex(newGridElement, i);
