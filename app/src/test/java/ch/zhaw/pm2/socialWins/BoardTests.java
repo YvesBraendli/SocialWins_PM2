@@ -19,14 +19,14 @@ public class BoardTests {
 	}
 
 	private void fillColumn(int column, Color color) {
-		for (int i = 0; i < testBoard.getBoard().length; i++) {
+		for (int row = 0; row < testBoard.getBoard().length; row++) {
 			testBoard.addChip(column, color);
 		}
 	}
 
 	private void fillBoard(Color color) {
-		for (int i = 0; i < testBoard.getBoard()[0].length; i++) {
-			fillColumn(i, color);
+		for (int column = 0; column < testBoard.getBoard()[0].length; column++) {
+			fillColumn(column, color);
 		}
 	}
 

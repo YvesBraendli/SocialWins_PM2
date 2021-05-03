@@ -7,7 +7,7 @@ public class Board {
 	private Chip[][] chips;
 
 	public Board(int rows, int columns) {
-		if(!isValidRow(rows) || !isValidColumn(columns)) {
+		if(!isValidBoard(rows, columns)) {
 			throw new IllegalArgumentException();
 		}
 		chips = new Chip[rows][columns];
@@ -39,11 +39,6 @@ public class Board {
 		return true;
 	}
 
-	public boolean hasChipsInARow(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	public Color getColorWithChipsInARow(int amount) {
 		// TODO Auto-generated method stub
 		return null;
@@ -64,10 +59,10 @@ public class Board {
 	}
 
 	private boolean isValidColumn(int column) {
-		return column < 1;
+		return column >= 0;
 	}
-
-	private boolean isValidRow(int row) {
-		return row < 1;
+	
+	private boolean isValidBoard(int rows, int columns) {
+		return rows > 0 && columns > 0;
 	}
 }

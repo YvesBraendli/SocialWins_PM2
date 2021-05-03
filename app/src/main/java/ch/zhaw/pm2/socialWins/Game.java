@@ -159,10 +159,9 @@ public class Game {
 	}
 
 	private void updateWinner() {
-		boolean hasWinner = board.hasChipsInARow(winningLineLength);
-		Color winnerColor = null;
-		if (hasWinner) {
-			winnerColor = board.getColorWithChipsInARow(winningLineLength);
+		Color winnerColor = board.getColorWithChipsInARow(winningLineLength);
+		if(winnerColor == null) {
+			return;
 		}
 
 		for (int i = 0; i < players.length; i++) {
