@@ -1,10 +1,9 @@
 package ch.zhaw.pm2.socialWins;
 
+import java.awt.color.*;
 import javafx.scene.control.TextArea;
 
 import java.io.IOException;
-
-
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,6 +12,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -21,6 +21,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -79,7 +81,7 @@ public class GameWindowController {
 //		}
 //	});
 //}
-	
+
 //	private void createListenerForPlayerPrompt() {
 //		game.playerPromptBoundProperty().addListener(new ChangeListener<String>() {
 //			@Override
@@ -120,26 +122,59 @@ public class GameWindowController {
 		}
 
 	}
-	
+
 	private void setupGameField(int numberOfRows, int numberOfColumns) {
-		int gridPaneHeight = (int) gameAreaGridPane.getPrefHeight()/numberOfColumns*numberOfColumns;
-		int gridPaneWidth = (int) gameAreaGridPane.getPrefWidth()/numberOfRows*numberOfRows;
+		int gridPaneHeight = (int) gameAreaGridPane.getPrefHeight() / numberOfColumns * numberOfColumns;
+		int gridPaneWidth = (int) gameAreaGridPane.getPrefWidth() / numberOfRows * numberOfRows;
 		gameAreaGridPane.setPrefSize(gridPaneWidth, gridPaneHeight);
-		double gridElementWidth = gridPaneHeight/numberOfColumns;
-		double gridElementHeight = gridPaneWidth/numberOfRows;
-		for (int i = 0; i<numberOfRows; i++) {
-			for(int z = 0; z<numberOfColumns; z++) {
+		double gridElementWidth = gridPaneHeight / numberOfColumns;
+		double gridElementHeight = gridPaneWidth / numberOfRows;
+		for (int i = 0; i < numberOfRows; i++) {
+			for (int z = 0; z < numberOfColumns; z++) {
 				Button newGridElement = new Button("");
 				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
 				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
-				newGridElement.setId(String.valueOf(i)+String.valueOf(z));
+				newGridElement.setId(String.valueOf(i) + String.valueOf(z));
+				newGridElement.setBackground(
+						new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+				newGridElement.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
+						CornerRadii.EMPTY, new BorderWidths(1))));
 				newGridElement.setOnAction(new EventHandler<ActionEvent>() {
-		            @Override
-		            public void handle(ActionEvent event) {
-		            	int column = Integer.parseInt(newGridElement.getId().substring(1));
-		            	game.nextMove(column);
-		            }
-		        });
+					@Override
+					public void handle(ActionEvent event) {
+						Button[] buttonsInOneColumn = new Button[numberOfRows+1];
+						int columnIndexOfCurrentButton = Integer.parseInt(newGridElement.getId().substring(1));
+						System.out.println(columnIndexOfCurrentButton);
+						game.nextMove(columnIndexOfCurrentButton);
+						Color colorFromCurrentPlayer = getColor();
+						int i = 0;
+						for (Node node : gameAreaGridPane.getChildren()) {
+							if (node instanceof Button) {
+								Button button = (Button) node;
+								int columnIndexOfCheckedButton = Integer.parseInt(button.getId().substring(0, 1));
+								if (columnIndexOfCheckedButton == columnIndexOfCurrentButton) {
+									buttonsInOneColumn[i] = button;
+									System.out.println(i);
+									i++;
+								}
+							}
+						}
+						boolean isFirstElementInRow = true;
+						for (int z = 0; z < buttonsInOneColumn.length; z++) {
+							Button currentButton = buttonsInOneColumn[z];
+							if ((Color) currentButton.getBackground().getFills().get(0).getFill() != Color.WHITE) {
+								buttonsInOneColumn[z - 1].setBackground(new Background(
+										new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));
+								isFirstElementInRow = false;
+							}
+
+						}
+						if (isFirstElementInRow)
+							buttonsInOneColumn[Integer.parseInt(newGridElement.getId().substring(0, 1)) + 1]
+									.setBackground(new Background(new BackgroundFill(colorFromCurrentPlayer,
+											CornerRadii.EMPTY, Insets.EMPTY)));
+					}
+				});
 				GridPane.setRowIndex(newGridElement, i);
 				GridPane.setColumnIndex(newGridElement, z);
 				gameAreaGridPane.getChildren().add(newGridElement);
@@ -147,22 +182,36 @@ public class GameWindowController {
 		}
 	}
 
+	private Color getColor() {
+		java.awt.Color colorFromCurrentPlayerAsColor = game.getColorFromCurrentPlayer();
+		int r = colorFromCurrentPlayerAsColor.getRed();
+		int g = colorFromCurrentPlayerAsColor.getGreen();
+		int b = colorFromCurrentPlayerAsColor.getBlue();
+		int a = colorFromCurrentPlayerAsColor.getAlpha();
+		double opacity = a / 255.0;
+		Color colorFromCurrentPlayerAsPaint = javafx.scene.paint.Color.rgb(r, g, b, opacity);
+		return colorFromCurrentPlayerAsPaint;
+	}
+
 	private void writeInPlayerPromptTextField() {
-		gamePromptLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+		gamePromptLabel.setBorder(new Border(
+				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
 		gamePromptLabel.setWrapText(true);
 		gamePromptLabel.setText("Spieler Lollipoppolizei ist an der Reihe.");
 	}
-	
 
 	private void setWinningQueueText() {
-		winningQueueInformationLabel.setText("Erstelle eine Reihe von 5 Chips aneinander, um das Spiel zu gewinnen."); 
-		winningQueueInformationLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+		winningQueueInformationLabel.setText("Erstelle eine Reihe von 5 Chips aneinander, um das Spiel zu gewinnen.");
+		winningQueueInformationLabel.setBorder(new Border(
+				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
 		winningQueueInformationLabel.setWrapText(true);
 	}
 
 	private void setGameInformationText() {
-		gameInformationLabel.setText("Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben clicken."); 
-		gameInformationLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+		gameInformationLabel.setText(
+				"Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben clicken.");
+		gameInformationLabel.setBorder(new Border(
+				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
 		gameInformationLabel.setWrapText(true);
 	}
 
