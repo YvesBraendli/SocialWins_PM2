@@ -91,7 +91,6 @@ public class GameWindowController {
 
 	@FXML
 	private void startNewGame() {
-		game = new Game(5);
 		Stage stage = (Stage) newGameButton.getScene().getWindow();
 		stage.close();
 	}

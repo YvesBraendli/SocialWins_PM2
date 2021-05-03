@@ -33,7 +33,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'ch.zhaw.pm2.socialWins.App'
+    mainClass = 'ch.zhaw.pm2.socialWins.GameStarter'
 }
 
     sourceCompatibility = JavaVersion.VERSION_11
