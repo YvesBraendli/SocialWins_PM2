@@ -103,17 +103,28 @@ public class GameWindowController {
 	}
 
 	private void setupGameField(int numberOfRows, int numberOfColumns) {
-		int gridPaneHeight = (int) gameAreaGridPane.getPrefHeight() / numberOfColumns * numberOfColumns;
-		int gridPaneWidth = (int) gameAreaGridPane.getPrefWidth() / numberOfRows * numberOfRows;
+		double gridPaneHeight = gameAreaGridPane.getPrefHeight() / numberOfColumns * numberOfColumns;
+		double gridPaneWidth = gameAreaGridPane.getPrefWidth() / numberOfRows * numberOfRows;
 		gameAreaGridPane.setPrefSize(gridPaneWidth, gridPaneHeight);
-		double gridElementWidth = gridPaneHeight / numberOfColumns;
-		double gridElementHeight = gridPaneWidth / numberOfRows;
+		gameAreaGridPane.setMaxSize(gridPaneWidth, gridPaneHeight);
+		gameAreaGridPane.setMinSize(gridPaneWidth, gridPaneHeight);
+		double gridElementWidth = gameAreaGridPane.getPrefHeight() / numberOfColumns;
+		double gridElementHeight = gameAreaGridPane.getPrefWidth() / numberOfRows;
 		for (int i = 0; i < numberOfRows; i++) {
 			for (int z = 0; z < numberOfColumns; z++) {
 				Button newGridElement = new Button("");
 				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
 				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
-				newGridElement.setId(String.valueOf(z) + String.valueOf(i));
+				newGridElement.setPrefSize(gridElementWidth, gridElementHeight);
+				String columnIndex = String.valueOf(z);
+				if (z < 10) {
+					columnIndex = "0" + String.valueOf(z);
+				}
+				String rowIndex = String.valueOf(i);
+				if (i < 10) {
+					rowIndex = "0" + String.valueOf(i);
+				}
+				newGridElement.setId(columnIndex + rowIndex);
 				newGridElement.setBackground(
 						new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 				newGridElement.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
@@ -122,13 +133,13 @@ public class GameWindowController {
 					@Override
 					public void handle(ActionEvent event) {
 						ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
-						int columnIndexOfCurrentButton = Integer.parseInt(newGridElement.getId().substring(0, 1));
+						int columnIndexOfCurrentButton = Integer.parseInt(newGridElement.getId().substring(0, 2));
 						Color colorFromCurrentPlayer = getColor();
 						if (true) { // add game.nextMove(columnIndexOfCurrentButton)
 							for (Node node : gameAreaGridPane.getChildren()) {
 								if (node instanceof Button) {
 									Button button = (Button) node;
-									int columnIndexOfCheckedButton = Integer.parseInt(button.getId().substring(0, 1));
+									int columnIndexOfCheckedButton = Integer.parseInt(button.getId().substring(0, 2));
 									if (columnIndexOfCheckedButton == columnIndexOfCurrentButton) {
 										buttonsInOneColumn.add(button);
 									}
@@ -138,9 +149,10 @@ public class GameWindowController {
 							for (int z = 0; z < buttonsInOneColumn.size(); z++) {
 								int previousButtonIndex = z - 1;
 								Button currentButton = buttonsInOneColumn.get(z);
-								if ((Color) currentButton.getBackground().getFills().get(0).getFill() != Color.WHITE) {
-									buttonsInOneColumn.get(previousButtonIndex).setBackground(new Background(
-											new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));
+								if (currentButton.getBackground().getFills().get(0).getFill() != Color.WHITE) {
+									buttonsInOneColumn.get(previousButtonIndex)
+											.setBackground(new Background(new BackgroundFill(colorFromCurrentPlayer,
+													CornerRadii.EMPTY, Insets.EMPTY)));
 									isFirstElementInRow = false;
 								}
 							}

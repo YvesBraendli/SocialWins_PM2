@@ -62,7 +62,7 @@ public class GameUI extends Application {
 			inputWindow.setMinHeight(600);
 			inputWindow.setWidth(750);
 			inputWindow.setHeight(700);
-			inputWindow.setTitle("SocialWins - New Game");
+			inputWindow.setTitle("Willkommen beim SocialWins - Viel Spass");
 			inputWindow.show();
 		} catch (Exception e) {
 			System.err.println("Error starting up UI" + e.getMessage());
