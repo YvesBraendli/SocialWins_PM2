@@ -32,4 +32,3 @@ ch/zhaw/pm2/socialWins/HumanPlayer.java
  ch.zhaw.pm2.socialWins.HumanPlayer
 ch/zhaw/pm2/socialWins/SetupWindowController.java
  ch.zhaw.pm2.socialWins.SetupWindowController
- ch.zhaw.pm2.socialWins.SetupWindowController$1

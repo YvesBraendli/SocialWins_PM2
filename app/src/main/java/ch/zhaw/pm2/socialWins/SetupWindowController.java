@@ -53,6 +53,7 @@ public class SetupWindowController {
 	private static final int HIGHEST_POSSIBLE_WINNINGROW = 6;
 	private static final double BOARDSIZE_MULTIPLIKATOR = 1.5;
 	private static final String ALLOWED_PLAYERNAME_PATTERN = "^\\w+(-\\w+)*$";
+	private static final int PLAYER_INFORMATIONFIELD_HEIGHT = 61;
 	
 	private double rowSize;
 	private double columnSize; 
@@ -78,36 +79,35 @@ public class SetupWindowController {
 			}
 			playerNumberChoiceBox.setValue(DEFAULT_NUMBER_OF_PLAYERS);
 			winningRowChoiceBox.setValue(DEFAULT_WINNINGROW);
-			
+
 			loadSetupView('A');
 		}
 		
-		playerNumberChoiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-			public void changed(ObservableValue ov, Number value, Number new_value) {
-				if (new_value.intValue() == 0) {
+		playerNumberChoiceBox.setOnAction((event)-> {
+				int selectedValue = playerNumberChoiceBox.getSelectionModel().getSelectedItem(); 
+				if (selectedValue == 0) {
 					loadSetupView('A');
 				} else {
 					loadSetupView('B');
-					generatePlayerDataFields(new_value);
+					generatePlayerDataFields(selectedValue);
 				}
-			}
-
-			private void generatePlayerDataFields(Number new_value) {
-				playerNamesTextFields  = new ArrayList<TextField>();
-				playerColorPickers = new ArrayList<ColorPicker>();
-				int scrollPaneSize = 0;
-				for (int i = 0; i <= new_value.intValue(); i++) {
-					playerNamesTextFields.add(new TextField());
-					playerNamesTextFields.get(i).setPromptText("Player " + (i + 1) + " name");
-					playerNameVBox.getChildren().add(playerNamesTextFields.get(i));
-					playerColorPickers.add(new ColorPicker());
-					playerColorPickers.get(i).setMinHeight(24);
-					playerNameVBox.getChildren().add(playerColorPickers.get(i));
-					scrollPaneSize += 61;
-				}
-				playerNameScrollAnchor.setPrefHeight(scrollPaneSize);
-			}
 		});
+	}
+	
+	private void generatePlayerDataFields(Number new_value) {
+		playerNamesTextFields  = new ArrayList<TextField>();
+		playerColorPickers = new ArrayList<ColorPicker>();
+		int scrollPaneSize = 0;
+		for (int i = 0; i <= new_value.intValue(); i++) {
+			playerNamesTextFields.add(new TextField());
+			playerNamesTextFields.get(i).setPromptText("Player " + (i + 1) + " name");
+			playerNameVBox.getChildren().add(playerNamesTextFields.get(i));
+			playerColorPickers.add(new ColorPicker());
+			playerColorPickers.get(i).setMinHeight(24);
+			playerNameVBox.getChildren().add(playerColorPickers.get(i));
+			scrollPaneSize += PLAYER_INFORMATIONFIELD_HEIGHT;
+		}
+		playerNameScrollAnchor.setPrefHeight(scrollPaneSize);
 	}
 
 	private void loadSetupView(char viewLetter) {
@@ -169,7 +169,6 @@ public class SetupWindowController {
 		RadioButton selectedAiDifficulty = (RadioButton) aiDifficulty.getSelectedToggle();
 		int level = Integer.parseInt(selectedAiDifficulty.getText());
 		Game game = new Game(selectedWinningRowSize, playerName, level, (int) columnSize, (int) rowSize);
-		System.out.println(level);
 	}
 
 	private void startMultiplayerGame(int selectedPlayerNumber, int selectedWinningRowSize) {
