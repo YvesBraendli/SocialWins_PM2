@@ -67,30 +67,8 @@ public class GameWindowController {
 		setGameInformationText();
 		setWinningQueueText();
 		writeInPlayerPromptTextField();
-//		createListenerForPlayerPrompt();
-//		createListenerForGameField();
-		setupGameField(rowLength, columnLength); // Add game.getNumberOfRows and game.getNumberOfLines as Parameters
+		setupGameField(rowLength, columnLength);
 	}
-
-//	private void createListenerForGameField() {
-//	game.gameFieldBoundProperty().addListener(new ChangeListener<Color>() {
-//
-//		@Override
-//		public void changed(ObservableValue<? extends Color> observable, Color oldValue, Color newValue) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//	});
-//}
-
-//	private void createListenerForPlayerPrompt() {
-//		game.playerPromptBoundProperty().addListener(new ChangeListener<String>() {
-//			@Override
-//			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//				writeInPlayerPromptTextField(newValue);
-//			}
-//		});
-//	}
 
 	@FXML
 	private void startNewGame() {
@@ -156,21 +134,22 @@ public class GameWindowController {
 									}
 								}
 							}
-						}
-						boolean isFirstElementInRow = true;
-						for (int z = 0; z < buttonsInOneColumn.size(); z++) {
-							int previousButtonIndex = z - 1;
-							Button currentButton = buttonsInOneColumn.get(z);
-							if ((Color) currentButton.getBackground().getFills().get(0).getFill() != Color.WHITE) {
-								buttonsInOneColumn.get(previousButtonIndex).setBackground(new Background(
-										new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));
-								isFirstElementInRow = false;
+							boolean isFirstElementInRow = true;
+							for (int z = 0; z < buttonsInOneColumn.size(); z++) {
+								int previousButtonIndex = z - 1;
+								Button currentButton = buttonsInOneColumn.get(z);
+								if ((Color) currentButton.getBackground().getFills().get(0).getFill() != Color.WHITE) {
+									buttonsInOneColumn.get(previousButtonIndex).setBackground(new Background(
+											new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));
+									isFirstElementInRow = false;
+								}
 							}
-						}
-						if (isFirstElementInRow) {
-							int lastElementIndex = buttonsInOneColumn.size() - 1;
-							buttonsInOneColumn.get(lastElementIndex).setBackground(new Background(
-									new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));
+							if (isFirstElementInRow) {
+								int lastElementIndex = buttonsInOneColumn.size() - 1;
+								buttonsInOneColumn.get(lastElementIndex).setBackground(new Background(
+										new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));
+							}
+							writeInPlayerPromptTextField();
 						}
 					}
 				});
@@ -196,7 +175,7 @@ public class GameWindowController {
 		gamePromptLabel.setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
 		gamePromptLabel.setWrapText(true);
-		gamePromptLabel.setText("Spieler Lollipoppolizei ist an der Reihe.");
+		gamePromptLabel.setText("Spieler " + game.getNameFromCurrentPlayer() + " ist an der Reihe.");
 	}
 
 	private void setWinningQueueText() {
