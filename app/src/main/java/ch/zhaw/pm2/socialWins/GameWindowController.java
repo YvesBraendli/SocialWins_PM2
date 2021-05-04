@@ -57,10 +57,11 @@ public class GameWindowController {
 	private GridPane gameAreaGridPane;
 
 	private GameUI gameUI;
-	
+
 	public void setGameUI(GameUI gameUI) {
 		this.gameUI = gameUI;
 	}
+
 	/**
 	 * Is called from GameUI to connect the Controller to the game model. And to set
 	 * the game view with the basic inserted parameters by the user.
@@ -119,28 +120,32 @@ public class GameWindowController {
 		double gridElementHeight = gameAreaGridPane.getPrefWidth() / numberOfRows;
 		for (int i = 0; i < numberOfRows; i++) {
 			for (int z = 0; z < numberOfColumns; z++) {
-				Button newGridElement = new Button("");
-				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
-				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
-				newGridElement.setPrefSize(gridElementWidth, gridElementHeight);
-				newGridElement.setId(createIndex(z, i));
-				newGridElement.setBackground(
-						new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-				newGridElement.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,
-						CornerRadii.EMPTY, new BorderWidths(1))));
-				newGridElement.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent event) {
-						handleActionForButton(newGridElement);
-					}
-				});
+				Button newGridElement = createAndManipulateButton(gridElementHeight, gridElementWidth, z, i);
 				GridPane.setRowIndex(newGridElement, i);
 				GridPane.setColumnIndex(newGridElement, z);
 				gameAreaGridPane.getChildren().add(newGridElement);
 			}
 		}
 	}
-	
+
+	private Button createAndManipulateButton(double buttonHeight, double buttonWidth, int columnIndex, int rowIndex) {
+		Button newGridElement = new Button("");
+		newGridElement.setMaxSize(buttonWidth, buttonHeight);
+		newGridElement.setMinSize(buttonWidth, buttonHeight);
+		newGridElement.setPrefSize(buttonWidth, buttonHeight);
+		newGridElement.setId(createIndex(columnIndex, rowIndex));
+		newGridElement.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+		newGridElement.setBorder(new Border(
+				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
+		newGridElement.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				handleActionForButton(newGridElement);
+			}
+		});
+		return newGridElement;
+	}
+
 	private void handleActionForButton(Button buttonToAdd) {
 		setGameInformationText(Config.INFORMATION_TEXT);
 		ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
