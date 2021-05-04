@@ -24,11 +24,13 @@ ch/zhaw/pm2/socialWins/Board.java
  ch.zhaw.pm2.socialWins.Board
 ch/zhaw/pm2/socialWins/Player.java
  ch.zhaw.pm2.socialWins.Player
-ch/zhaw/pm2/socialWins/Game.java
- ch.zhaw.pm2.socialWins.Game
-ch/zhaw/pm2/socialWins/SocialWinsBoard.java
- ch.zhaw.pm2.socialWins.SocialWinsBoard
 ch/zhaw/pm2/socialWins/HumanPlayer.java
  ch.zhaw.pm2.socialWins.HumanPlayer
+ch/zhaw/pm2/socialWins/SocialWinsBoard.java
+ ch.zhaw.pm2.socialWins.SocialWinsBoard
+ch/zhaw/pm2/socialWins/Game.java
+ ch.zhaw.pm2.socialWins.Game
+ch/zhaw/pm2/socialWins/Config.java
+ ch.zhaw.pm2.socialWins.Config
 ch/zhaw/pm2/socialWins/SetupWindowController.java
  ch.zhaw.pm2.socialWins.SetupWindowController

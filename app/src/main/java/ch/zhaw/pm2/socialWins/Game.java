@@ -1,14 +1,21 @@
 package ch.zhaw.pm2.socialWins;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map.Entry;
 
+/**
+ * Game class provides the logic for a social wins game. It works closely
+ * together with the board class to update the current game board. the game
+ * class also does the next move for the current player and switches to next
+ * player or requests the next move from the computer.
+ * 
+ * @author yves braendli, robin meier, nadine moser
+ *
+ */
 public class Game {
 	private Player[] players;
-	private SocialWinsBoard board;
+	private Board board;
 	private int winningLineLength;
 	private Player winner;
 	private boolean isSinglePlay;
@@ -36,12 +43,12 @@ public class Game {
 		currentPlayerIndex = 0;
 
 		players = new Player[2];
-		board = new SocialWinsBoard(columns, rows);
+		board = new Board(rows, columns);
 		isSinglePlay = true;
 
-		Color userColor = Color.RED; // TODO config file
-		Color computerColor = Color.BLUE; // TODO config file
-		String computerName = "george"; // TODO config file
+		Color userColor = Config.SINGLEPLAYER_USERCOLOR;
+		Color computerColor = Config.SINGLEPLAYER_COMPUTERCOLOR;
+		String computerName = Config.SINGLEPLAYER_COMPUTERNAME;
 		addPlayer(userName, userColor);
 		players[1] = new Computer(computerName, computerColor, level);
 
@@ -65,7 +72,7 @@ public class Game {
 			throw new IllegalArgumentException();
 		}
 		players = new Player[users.size()];
-		board = new SocialWinsBoard(columns, rows);
+		board = new Board(columns, rows);
 		isSinglePlay = false;
 
 		this.winningLineLength = winningLineLength;
@@ -81,7 +88,7 @@ public class Game {
 	}
 
 	private boolean isValidWinningLineLength(int winningLineLength) {
-		return !(winningLineLength < 3 || winningLineLength > 6); // TODO configFile
+		return !(winningLineLength < Config.LOWEST_POSSIBLE_WINNINGROW || winningLineLength > Config.HIGHEST_POSSIBLE_WINNINGROW);
 	}
 
 	private boolean isValidLevel(int level) {
@@ -130,10 +137,10 @@ public class Game {
 	}
 
 	private boolean addPlayer(String name, Color color) {
-		if(!isValidName(name)) {
+		if (!isValidName(name)) {
 			return false;
 		}
-		
+
 		for (int i = 0; i < players.length; i++) {
 			if (players[i] != null && (players[i].getColor() == color || players[i].getName().equals(name))) {
 				return false;
@@ -170,10 +177,9 @@ public class Game {
 	}
 
 	private void updateWinner() {
-		boolean hasWinner = board.hasChipsInARow(winningLineLength);
-		Color winnerColor = null;
-		if (hasWinner) {
-			winnerColor = board.getColorWithChipsInARow(winningLineLength);
+		Color winnerColor = board.getColorWithChipsInARow(winningLineLength);
+		if (winnerColor == null) {
+			return;
 		}
 
 		for (int i = 0; i < players.length; i++) {

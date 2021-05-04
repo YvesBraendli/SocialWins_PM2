@@ -58,7 +58,7 @@ public class GameWindowController {
 	private static final String WELCOME_TEXT = "Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben clicken.";
 	private static final String WRONG_QUEUE_TEXT = "Bitte wähle eine andere Spalte, diese ist schon gefüllt.";
 	private static final String INFORMATION_TEXT = "Bitte clicke auf ein Feld, welches sich in der Kolone befindet, in der du ein Spielstein hinzufügen möchtest.";
-	
+
 	/**
 	 * Is called from GameUI to connect the Controller to the game model. And to set
 	 * the game view with the basic inserted parameters by the user.
@@ -131,7 +131,7 @@ public class GameWindowController {
 						ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
 						int columnIndexOfCurrentButton = Integer.parseInt(newGridElement.getId().substring(0, 2));
 						Color colorFromCurrentPlayer = getColor();
-						if (game.nextMove(columnIndexOfCurrentButton)) {
+						if (game.nextMove(columnIndexOfCurrentButton)) { // game.nextMove(columnIndexOfCurrentButton)
 							for (Node node : gameAreaGridPane.getChildren()) {
 								if (node instanceof Button) {
 									Button button = (Button) node;
@@ -206,7 +206,8 @@ public class GameWindowController {
 	}
 
 	private void setWinningQueueText() {
-		winningQueueInformationLabel.setText("Erstelle eine Reihe von " + game.getWinningLineLength()+ " Chips aneinander, um das Spiel zu gewinnen.");
+		winningQueueInformationLabel.setText("Erstelle eine Reihe von " + game.getWinningLineLength()
+				+ " Chips aneinander, um das Spiel zu gewinnen.");
 		winningQueueInformationLabel.setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
 		winningQueueInformationLabel.setWrapText(true);
