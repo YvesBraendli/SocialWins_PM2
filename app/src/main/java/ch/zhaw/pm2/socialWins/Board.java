@@ -34,6 +34,21 @@ public class Board {
 		this.rows = rows;
 		this.columns = columns;
 	}
+	
+	/**
+	 * Constructor to create a game Board with an already existing array with chips.
+	 * @param chips that contains the existing board
+	 * @throws IllegalArgumentException if argument is null.
+	 */
+	public Board(Chip[][] chips) {
+		if(chips == null || chips[0] == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		this.chips = chips;
+		this.rows = chips.length;
+		this.columns = chips[0].length;		
+	}
 
 	/**
 	 * Getter for the Board. Return the current board ( no copy!)
