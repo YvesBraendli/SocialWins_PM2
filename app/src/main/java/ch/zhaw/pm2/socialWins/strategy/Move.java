@@ -4,11 +4,11 @@ public class Move {
 	private int score;
 	private int column;
 	
-	public Move(int column) {
-		int score = 0;
+	public Move(int column, int score) {
+		this.score = score;
 		this.column = column;
 	}
-	
+		
 	public int getColumn() {
 		return column;
 	}

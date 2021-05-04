@@ -7,38 +7,47 @@ import java.util.Arrays;
 import ch.zhaw.pm2.socialWins.Board;
 import ch.zhaw.pm2.socialWins.Chip;
 import ch.zhaw.pm2.socialWins.Config;
-import javafx.util.Pair;
 
 public class MoveCalculator {
 	int numberOfColumns;
 	int numberOfRows;
-	int resultColumn;
+
+	//TODO überall wo aktuell Config.POINT_BLOCK_SIZE müssti winning row stah
+	//TODO ich ha kei ahnig wie ich aktuell central row positions prüefe sött, machi spöter
 	
-	
-	public int calculateComputerMove(int depth, Board board, Boolean isMaximizing) {
+	public Move calculateComputerMove(int depth, Board board, Boolean isMaximizing, int setColumn) {
 		numberOfColumns = board.getBoard()[0].length;
 		numberOfRows = board.getBoard().length;
 	
 		ArrayList<Integer> validColumns = getValidColumns(board);
 		
 		if(depth == 0) {
-			return evaluateState(board.getBoard());
+				return new Move(setColumn, evaluateState(board.getBoard(), Config.SINGLEPLAYER_COMPUTERCOLOR));
 		}
 		
 		if(isMaximizing) {
-			int score = -100000;
+			Move move = new Move(0,-100000);
 			for(int column: validColumns) {
-				boardCopy = new Board(board.getBoard().clone());
-				boardCopy.addChip(column);
-				int newScore = calculateComputerMove(depth-1, boardCopy, false);
-				if(newScore > score) {
-					score = newScore;
+				Board boardCopy = new Board(board.getBoard().clone());
+				boardCopy.addChip(column, Config.SINGLEPLAYER_COMPUTERCOLOR);
+				Move nextMove = calculateComputerMove(depth-1, boardCopy, false, column);
+				if(nextMove.getScore() > move.getScore()) {
+					move = nextMove;
 				}
-				return score;
 			}
+			return move;
 		}
 		else {
-			
+			Move move = new Move(0,100000);
+			for(int column: validColumns) {
+				Board boardCopy = new Board(board.getBoard().clone());
+				boardCopy.addChip(column, Config.SINGLEPLAYER_USERCOLOR);
+				Move nextMove = calculateComputerMove(depth-1, boardCopy, true, column);
+				if(nextMove.getScore() < move.getScore()) {
+					move = nextMove;
+				}
+			}
+			return move;
 		}
 	}
 	
@@ -57,25 +66,26 @@ public class MoveCalculator {
 
 	private int evaluateState(Chip[][] board, Color playedChipColor) {
 		int score = 0;
-		int centerColumn = (int) Math.floor(numberOfColumns / 2);
 
-		score += checkIfCenterColumn(board, playedChipColor, numberOfColumns, centerColumn);
-		score += checkHorizontalBlocks(board, playedChipColor, numberOfColumns, numberOfRows);
-		score += checkVerticalBlocks(board, playedChipColor, numberOfColumns, numberOfRows);
-		score += checkDiagonalBlocks(board, playedChipColor, numberOfColumns, numberOfRows);
+		score += checkHorizontalBlocks(board, playedChipColor);
+		score += checkVerticalBlocks(board, playedChipColor);
+		score += checkDiagonalBlocks(board, playedChipColor);
 
+		//int centerColumn = (int) Math.floor(numberOfColumns / 2);
+		//score += checkIfCenterColumn(board, playedChip, centerColumn);
+		
 		return score;
 	}
 
-	private int checkIfCenterColumn(Chip[][] board, Color playedChipColor, int centerColumn) {
-		int score = 0;
-		for (int i = 0; i < numberOfRows; i++) {
-			if (board[i][centerColumn].getColor(playedChipColor)) {
-				return score += Config.CENTER_COLUMS_SCORE;
-			}
-		}
-		return score;
-	}
+//	private int checkIfCenterColumn(Chip[][] board, Chip playedChip, int centerColumn) {
+//		int score = 0;
+//		for (int i = 0; i < numberOfRows; i++) {
+//			if (board[i][centerColumn].equals(playedChip)) {
+//				return score += Config.CENTER_COLUMS_SCORE;
+//			}
+//		}
+//		return score;
+//	}
 
 	private int checkDiagonalBlocks(Chip[][] board, Color playedChipColor) {
 		int score = 0;
@@ -144,9 +154,7 @@ public class MoveCalculator {
 		} else if (elementsInBlock == 4) {
 			if (isComputerColor(playedChipColor)) {
 				score += Config.FOUR_IN_A_ROW_SCORE;
-			} else {
-				score += Config.OPPONENT_FOUR_IN_A_ROW_PENALTY;
-			}
+			} 
 		}
 		return score;
 	}
@@ -172,6 +180,6 @@ public class MoveCalculator {
 				numberOfElements += 1;
 			}
 		}
-		return 0;
+		return numberOfElements;
 	}
 }
