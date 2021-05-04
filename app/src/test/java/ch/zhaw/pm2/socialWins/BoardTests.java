@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -203,7 +204,7 @@ public class BoardTests {
 		// Arrange
 		int column = 0;
 		fillColumn(column, Color.RED);
-		
+
 		// Act
 		boolean result = testBoard.addChip(column, Color.BLUE);
 
@@ -237,12 +238,136 @@ public class BoardTests {
 		// Arrange
 		testBoard.addChip(0, Color.RED);
 		testBoard.addChip(0, Color.RED);
-		
+
 		// Act
 		boolean result = testBoard.addChip(0, Color.BLUE);
 
 		// Assert
 		assertTrue(result);
 		assertEquals(Color.BLUE, testBoard.getBoard()[2][0].getColor());
+	}
+
+	/**
+	 * Equivalence Partitioning G1<br>
+	 * If number of chips Argument is invalid, no winner can be found.<br>
+	 * Expected result: returns null, no winner found
+	 */
+	@ParameterizedTest
+	@ValueSource(ints = { Integer.MIN_VALUE, -1, 0 })
+	public void getColorWithChipsInARow_InvalidNumberOfChipsArgument_returnsNull(int number) {
+		// Act
+		Color result = testBoard.getColorWithChipsInARow(number);
+
+		// Assert
+		assertNull(result);
+	}
+
+	/**
+	 * Equivalence Partitioning G2<br>
+	 * If multiple chips with different color are in the board, but no row with
+	 * chips with same color, no winner can be found.<br>
+	 * Expected result: returns null, no winner found
+	 */
+	@Test
+	public void getColorWithChipsInARow_MultipleColorNoWinner_returnsNull() {
+		// Arrange
+		testBoard.addChip(0, Color.RED);
+		testBoard.addChip(0, Color.BLUE);
+		testBoard.addChip(0, Color.RED);
+
+		// Act
+		Color result = testBoard.getColorWithChipsInARow(3);
+
+		// Assert
+		assertNull(result);
+	}
+
+	/**
+	 * Equivalence Partitioning G3, G4<br>
+	 * If chips with same color are in the board and build a horizontal line, no
+	 * winner can be found.<br>
+	 * Expected result: returns color from winner
+	 */
+	@Test
+	public void getColorWithChipsInARow_OneColorHorizontal_returnsColor() {
+		// Arrange
+		Color winnerColor = Color.YELLOW;
+		testBoard.addChip(0, winnerColor);
+		testBoard.addChip(1, winnerColor);
+		testBoard.addChip(2, winnerColor);
+
+		// Act
+		Color result = testBoard.getColorWithChipsInARow(3);
+
+		// Assert
+		assertEquals(winnerColor, result);
+	}
+
+	/**
+	 * Equivalence Partitioning G3, G4<br>
+	 * If chips with same color are in the board and build a vertical line, no
+	 * winner can be found.<br>
+	 * Expected result: returns color from winner
+	 */
+	@Test
+	public void getColorWithChipsInARow_OneColorVertical_returnsColor() {
+		// Arrange
+		Color winnerColor = Color.YELLOW;
+		testBoard.addChip(0, winnerColor);
+		testBoard.addChip(0, winnerColor);
+		testBoard.addChip(0, winnerColor);
+
+		// Act
+		Color result = testBoard.getColorWithChipsInARow(3);
+
+		// Assert
+		assertEquals(winnerColor, result);
+	}
+
+	/**
+	 * Equivalence Partitioning G3, G4<br>
+	 * If chips with same color are in the board and build a diagonal (from left top
+	 * to right bottom) line, no winner can be found.<br>
+	 * Expected result: returns color from winner
+	 */
+	@Test
+	public void getColorWithChipsInARow_OneColorTopBottomDiagonal_returnsColor() {
+		// Arrange
+		Color winnerColor = Color.YELLOW;
+		testBoard.addChip(0, Color.RED);
+		testBoard.addChip(0, Color.RED);
+		testBoard.addChip(0, winnerColor);
+		testBoard.addChip(1, Color.RED);
+		testBoard.addChip(1, winnerColor);
+		testBoard.addChip(2, winnerColor);
+
+		// Act
+		Color result = testBoard.getColorWithChipsInARow(3);
+
+		// Assert
+		assertEquals(winnerColor, result);
+	}
+
+	/**
+	 * Equivalence Partitioning G3, G4<br>
+	 * If chips with same color are in the board and build a diagonal (from left
+	 * bottom to right top) line, no winner can be found.<br>
+	 * Expected result: returns color from winner
+	 */
+	@Test
+	public void getColorWithChipsInARow_OneColorBottomTopDiagonal_returnsColor() {
+		// Arrange
+		Color winnerColor = Color.YELLOW;
+		testBoard.addChip(0, winnerColor);
+		testBoard.addChip(1, Color.RED);
+		testBoard.addChip(1, winnerColor);
+		testBoard.addChip(2, Color.RED);
+		testBoard.addChip(2, Color.RED);
+		testBoard.addChip(2, winnerColor);
+		// Act
+		Color result = testBoard.getColorWithChipsInARow(3);
+
+		// Assert
+		assertEquals(winnerColor, result);
 	}
 }
