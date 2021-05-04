@@ -55,7 +55,10 @@ public class GameWindowController {
 	private Label gamePromptLabel;
 	@FXML
 	private GridPane gameAreaGridPane;
-
+	private static final String WELCOME_TEXT = "Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben clicken.";
+	private static final String WRONG_QEUEU_TEXT = "Bitte wähle eine andere Spalte, diese ist schon gefüllt.";
+	private static final String INFORMATION_TEXT = "Bitte clicke auf ein Feld, welches sich in der Kolone befindet, in der du ein Spielstein hinzufügen möchtest.";
+	
 	/**
 	 * Is called from GameUI to connect the Controller to the game model. And to set
 	 * the game view with the basic inserted parameters by the user.
@@ -64,7 +67,7 @@ public class GameWindowController {
 	 */
 	public void setUpGameView(Game model, int rowLength, int columnLength) {
 		game = model;
-		setGameInformationText();
+		setGameInformationText(WELCOME_TEXT);
 		setWinningQueueText();
 		writeInPlayerPromptTextField();
 		setupGameField(rowLength, columnLength);
@@ -124,10 +127,11 @@ public class GameWindowController {
 				newGridElement.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
+						setGameInformationText(INFORMATION_TEXT);
 						ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
 						int columnIndexOfCurrentButton = Integer.parseInt(newGridElement.getId().substring(0, 2));
 						Color colorFromCurrentPlayer = getColor();
-						if (true) { // add game.nextMove(columnIndexOfCurrentButton)
+						if (game.nextMove(columnIndexOfCurrentButton)) { // add game.nextMove(columnIndexOfCurrentButton)
 							for (Node node : gameAreaGridPane.getChildren()) {
 								if (node instanceof Button) {
 									Button button = (Button) node;
@@ -139,6 +143,8 @@ public class GameWindowController {
 							}
 							addColorToLastFreeButtonInColumn(buttonsInOneColumn, colorFromCurrentPlayer);
 							writeInPlayerPromptTextField();
+						} else {
+							//setGameInformationText(WRONG_QEUEU_TEXT);
 						}
 					}
 				});
@@ -206,9 +212,8 @@ public class GameWindowController {
 		winningQueueInformationLabel.setWrapText(true);
 	}
 
-	private void setGameInformationText() {
-		gameInformationLabel.setText(
-				"Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben clicken.");
+	private void setGameInformationText(String text) {
+		gameInformationLabel.setText(text);
 		gameInformationLabel.setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
 		gameInformationLabel.setWrapText(true);
