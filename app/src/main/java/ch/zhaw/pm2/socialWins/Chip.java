@@ -9,4 +9,8 @@ public class Chip {
 	public Chip(Color color) {
 		this.color = color;
 	}
+	
+	public Color getColor() {
+		return color;
+	}
 }
