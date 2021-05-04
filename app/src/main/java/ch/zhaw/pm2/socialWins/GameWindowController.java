@@ -200,7 +200,7 @@ public class GameWindowController {
 	}
 
 	private void setWinningQueueText() {
-		winningQueueInformationLabel.setText("Erstelle eine Reihe von 5 Chips aneinander, um das Spiel zu gewinnen.");
+		winningQueueInformationLabel.setText("Erstelle eine Reihe von " + game.getWinningLineLength()+ " Chips aneinander, um das Spiel zu gewinnen.");
 		winningQueueInformationLabel.setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
 		winningQueueInformationLabel.setWrapText(true);

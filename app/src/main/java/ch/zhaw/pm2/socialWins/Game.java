@@ -149,6 +149,15 @@ public class Game {
 
 		return false;
 	}
+	
+	/**
+	 * getWinningLineLength() returns the number value of the line length, that is necessary for a player, to win the game.
+	 * 
+	 * @return the length of the line, which a player has to build to win the game.
+	 */
+	public int getWinningLineLength() {
+		return winningLineLength;
+	}
 
 	/**
 	 * get Winner() returns the player that has won the game.
