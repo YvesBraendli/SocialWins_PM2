@@ -4,6 +4,15 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+/**
+ * Game class provides the logic for a social wins game. It works closely
+ * together with the board class to update the current game board. the game
+ * class also does the next move for the current player and switches to next
+ * player or requests the next move from the computer.
+ * 
+ * @author yves braendli, robin meier, nadine moser
+ *
+ */
 public class Game {
 	private Player[] players;
 	private Board board;
@@ -128,10 +137,10 @@ public class Game {
 	}
 
 	private boolean addPlayer(String name, Color color) {
-		if(!isValidName(name)) {
+		if (!isValidName(name)) {
 			return false;
 		}
-		
+
 		for (int i = 0; i < players.length; i++) {
 			if (players[i] != null && (players[i].getColor() == color || players[i].getName().equals(name))) {
 				return false;
@@ -160,7 +169,7 @@ public class Game {
 
 	private void updateWinner() {
 		Color winnerColor = board.getColorWithChipsInARow(winningLineLength);
-		if(winnerColor == null) {
+		if (winnerColor == null) {
 			return;
 		}
 
