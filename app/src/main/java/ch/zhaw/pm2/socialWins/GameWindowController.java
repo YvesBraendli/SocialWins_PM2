@@ -131,31 +131,35 @@ public class GameWindowController {
 				newGridElement.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						setGameInformationText(Config.INFORMATION_TEXT);
-						ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
-						int columnIndexOfCurrentButton = Integer.parseInt(newGridElement.getId().substring(0, 2));
-						Color colorFromCurrentPlayer = getColor();
-						if (game.nextMove(columnIndexOfCurrentButton)) { // game.nextMove(columnIndexOfCurrentButton)
-							for (Node node : gameAreaGridPane.getChildren()) {
-								if (node instanceof Button) {
-									Button button = (Button) node;
-									int columnIndexOfCheckedButton = Integer.parseInt(button.getId().substring(0, 2));
-									if (columnIndexOfCheckedButton == columnIndexOfCurrentButton) {
-										buttonsInOneColumn.add(button);
-									}
-								}
-							}
-							addColorToLastFreeButtonInColumn(buttonsInOneColumn, colorFromCurrentPlayer);
-							writeInPlayerPromptTextField();
-						} else {
-							setGameInformationText(Config.WRONG_QUEUE_TEXT);
-						}
+						handleActionForButton(newGridElement);
 					}
 				});
 				GridPane.setRowIndex(newGridElement, i);
 				GridPane.setColumnIndex(newGridElement, z);
 				gameAreaGridPane.getChildren().add(newGridElement);
 			}
+		}
+	}
+	
+	private void handleActionForButton(Button buttonToAdd) {
+		setGameInformationText(Config.INFORMATION_TEXT);
+		ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
+		int columnIndexOfCurrentButton = Integer.parseInt(buttonToAdd.getId().substring(0, 2));
+		Color colorFromCurrentPlayer = getColor();
+		if (game.nextMove(columnIndexOfCurrentButton)) { // game.nextMove(columnIndexOfCurrentButton)
+			for (Node node : gameAreaGridPane.getChildren()) {
+				if (node instanceof Button) {
+					Button button = (Button) node;
+					int columnIndexOfCheckedButton = Integer.parseInt(button.getId().substring(0, 2));
+					if (columnIndexOfCheckedButton == columnIndexOfCurrentButton) {
+						buttonsInOneColumn.add(button);
+					}
+				}
+			}
+			addColorToLastFreeButtonInColumn(buttonsInOneColumn, colorFromCurrentPlayer);
+			writeInPlayerPromptTextField();
+		} else {
+			setGameInformationText(Config.WRONG_QUEUE_TEXT);
 		}
 	}
 
