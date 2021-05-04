@@ -46,9 +46,9 @@ public class Game {
 		board = new Board(columns, rows);
 		isSinglePlay = true;
 
-		Color userColor = Color.RED; // TODO config file
-		Color computerColor = Color.BLUE; // TODO config file
-		String computerName = "george"; // TODO config file
+		Color userColor = Config.SINGLEPLAYER_USERCOLOR;
+		Color computerColor = Config.SINGLEPLAYER_COMPUTERCOLOR;
+		String computerName = Config.SINGLEPLAYER_COMPUTERNAME;
 		addPlayer(userName, userColor);
 		players[1] = new Computer(computerName, computerColor, level);
 
@@ -88,7 +88,7 @@ public class Game {
 	}
 
 	private boolean isValidWinningLineLength(int winningLineLength) {
-		return !(winningLineLength < 3 || winningLineLength > 6); // TODO configFile
+		return !(winningLineLength < Config.LOWEST_POSSIBLE_WINNINGROW || winningLineLength > Config.HIGHEST_POSSIBLE_WINNINGROW);
 	}
 
 	private boolean isValidLevel(int level) {
