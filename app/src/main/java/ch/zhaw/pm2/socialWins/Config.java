@@ -22,4 +22,16 @@ public class Config {
 	public static final Color SINGLEPLAYER_USERCOLOR = Color.RED;
 	public static final Color SINGLEPLAYER_COMPUTERCOLOR = Color.BLUE;
 	public static final String SINGLEPLAYER_COMPUTERNAME = "George";
+	
+	
+	
+	// AI Configurations
+	public static final int CENTER_COLUMS_SCORE = 4;
+	public static final int TWO_IN_A_ROW_SCORE = 2;
+	public static final int THREE_IN_A_ROW_SCORE = 6;
+	public static final int FOUR_IN_A_ROW_SCORE = 200;
+	public static final int OPPONENT_TWO_IN_A_ROW_PENALTY = -2;
+	public static final int OPPONENT_THREE_IN_A_ROW_PENALTY = -100;
+	
+	public static final int POINT_BLOCK_SIZE = 4;
 }
