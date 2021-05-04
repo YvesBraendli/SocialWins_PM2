@@ -22,4 +22,8 @@ public class Config {
 	public static final Color SINGLEPLAYER_USERCOLOR = Color.RED;
 	public static final Color SINGLEPLAYER_COMPUTERCOLOR = Color.BLUE;
 	public static final String SINGLEPLAYER_COMPUTERNAME = "George";
+	
+	public static final String WELCOME_TEXT = "Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben clicken.";
+	public static final String WRONG_QUEUE_TEXT = "Bitte wähle eine andere Spalte, diese ist schon gefüllt.";
+	public static final String INFORMATION_TEXT = "Bitte clicke auf ein Feld, welches sich in der Kolone befindet, in der du ein Spielstein hinzufügen möchtest.";
 }

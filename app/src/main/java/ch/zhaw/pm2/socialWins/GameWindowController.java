@@ -55,10 +55,12 @@ public class GameWindowController {
 	private Label gamePromptLabel;
 	@FXML
 	private GridPane gameAreaGridPane;
-	private static final String WELCOME_TEXT = "Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben clicken.";
-	private static final String WRONG_QUEUE_TEXT = "Bitte wähle eine andere Spalte, diese ist schon gefüllt.";
-	private static final String INFORMATION_TEXT = "Bitte clicke auf ein Feld, welches sich in der Kolone befindet, in der du ein Spielstein hinzufügen möchtest.";
 
+	private GameUI gameUI;
+	
+	public void setGameUI(GameUI gameUI) {
+		this.gameUI = gameUI;
+	}
 	/**
 	 * Is called from GameUI to connect the Controller to the game model. And to set
 	 * the game view with the basic inserted parameters by the user.
@@ -67,14 +69,16 @@ public class GameWindowController {
 	 */
 	public void setUpGameView(Game model, int rowLength, int columnLength) {
 		game = model;
-		setGameInformationText(WELCOME_TEXT);
+		setGameInformationText(Config.WELCOME_TEXT);
 		setWinningQueueText();
 		writeInPlayerPromptTextField();
 		setupGameField(rowLength, columnLength);
 	}
 
 	@FXML
-	private void startNewGame() {
+	private void startNewGame() throws InterruptedException {
+		Stage newStage = new Stage();
+		gameUI.showSetupWindow(newStage);
 		Stage stage = (Stage) newGameButton.getScene().getWindow();
 		stage.close();
 	}
@@ -127,7 +131,7 @@ public class GameWindowController {
 				newGridElement.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						setGameInformationText(INFORMATION_TEXT);
+						setGameInformationText(Config.INFORMATION_TEXT);
 						ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
 						int columnIndexOfCurrentButton = Integer.parseInt(newGridElement.getId().substring(0, 2));
 						Color colorFromCurrentPlayer = getColor();
@@ -144,7 +148,7 @@ public class GameWindowController {
 							addColorToLastFreeButtonInColumn(buttonsInOneColumn, colorFromCurrentPlayer);
 							writeInPlayerPromptTextField();
 						} else {
-							setGameInformationText(WRONG_QUEUE_TEXT);
+							setGameInformationText(Config.WRONG_QUEUE_TEXT);
 						}
 					}
 				});

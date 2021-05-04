@@ -25,7 +25,7 @@ public class GameUI extends Application {
 		showSetupWindow(primaryStage);
 	}
 
-	private void showSetupWindow(Stage primaryStage) {
+	public void showSetupWindow(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("SetupView.fxml"));
 			Pane rootPane = loader.load();
@@ -52,6 +52,7 @@ public class GameUI extends Application {
 			AnchorPane rootPane = loader.load();
 			GameWindowController gameWindowController = loader.getController();
 			gameWindowController.setUpGameView(game, rowLength, columnLength);
+			gameWindowController.setGameUI(this);
 			// fill in scene and stage setup
 			Scene scene = new Scene(rootPane);
 			// new stage for new window
