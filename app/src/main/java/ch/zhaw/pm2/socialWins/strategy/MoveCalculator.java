@@ -28,7 +28,7 @@ public class MoveCalculator {
 		}
 		
 		if(isMaximizing) {
-			Move move = new Move(setColumn,-100000);
+			Move move = new Move(setColumn, Integer.MIN_VALUE);
 			for(int column: validColumns) {
 				Board boardCopy = new Board(board.generateBoardCopy(board.getBoard()));
 				boardCopy.addChip(column, Config.SINGLEPLAYER_COMPUTERCOLOR);
@@ -40,7 +40,7 @@ public class MoveCalculator {
 			return move;
 		}
 		else {
-			Move move = new Move(setColumn,100000);
+			Move move = new Move(setColumn, Integer.MAX_VALUE);
 			for(int column: validColumns) {
 				Board boardCopy = new Board(board.generateBoardCopy(board.getBoard()));
 				boardCopy.addChip(column, Config.SINGLEPLAYER_USERCOLOR);
