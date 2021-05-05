@@ -43,7 +43,7 @@ public class Game {
 		currentPlayerIndex = 0;
 
 		players = new Player[2];
-		board = new Board(columns, rows);
+		board = new Board(rows, columns);
 		isSinglePlay = true;
 
 		Color userColor = Config.SINGLEPLAYER_USERCOLOR;
@@ -155,6 +155,15 @@ public class Game {
 		}
 
 		return false;
+	}
+	
+	/**
+	 * getWinningLineLength() returns the number value of the line length, that is necessary for a player, to win the game.
+	 * 
+	 * @return the length of the line, which a player has to build to win the game.
+	 */
+	public int getWinningLineLength() {
+		return winningLineLength;
 	}
 
 	/**
