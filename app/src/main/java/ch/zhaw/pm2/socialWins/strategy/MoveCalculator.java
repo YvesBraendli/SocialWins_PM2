@@ -13,7 +13,7 @@ public class MoveCalculator {
 	int numberOfRows;
 	int winningRowLength;
 
-	//TODO ich ha kei ahnig wie ich aktuell central row positions prüefe sött, machi spöter
+	//TODO Rename constants for higher winning row games 
 	
 	public MoveCalculator(int numberOfRows, int numberOfColumns, int winningRowLength) {
 		this.numberOfColumns = numberOfColumns;
@@ -24,7 +24,7 @@ public class MoveCalculator {
 	public Move calculateComputerMove(int depth, Board board, Boolean isMaximizing, int setColumn) {
 		ArrayList<Integer> validColumns = getValidColumns(board);
 		if(depth == 0 || board.isBoardFull() || Config.SINGLEPLAYER_COMPUTERCOLOR.equals(board.getColorWithChipsInARow(winningRowLength)) || Config.SINGLEPLAYER_USERCOLOR.equals(board.getColorWithChipsInARow(winningRowLength))) {
-				return new Move(setColumn, evaluateState(board.getBoard(), Config.SINGLEPLAYER_COMPUTERCOLOR));
+				return new Move(setColumn, evaluateState(board.getBoard(), Config.SINGLEPLAYER_COMPUTERCOLOR, setColumn));
 		}
 		
 		if(isMaximizing) {
@@ -65,28 +65,26 @@ public class MoveCalculator {
 		return validColums;
 	}
 	
-	private int evaluateState(Chip[][] board, Color playedChipColor) {
+	private int evaluateState(Chip[][] board, Color playedChipColor, int playedColumn) {
 		int score = 0;
 
 		score += checkHorizontalBlocks(board, playedChipColor);
 		score += checkVerticalBlocks(board, playedChipColor);
 		score += checkDiagonalBlocks(board, playedChipColor);
 
-		//int centerColumn = (int) Math.floor(numberOfColumns / 2);
-		//score += checkIfCenterColumn(board, playedChip, centerColumn);
+		int centerColumn = (int) Math.floor(numberOfColumns / 2);
+		score += checkIfCenterColumn(board, playedColumn, centerColumn);
 		
 		return score;
 	}
 
-//	private int checkIfCenterColumn(Chip[][] board, Chip playedChip, int centerColumn) {
-//		int score = 0;
-//		for (int i = 0; i < numberOfRows; i++) {
-//			if (board[i][centerColumn].equals(playedChip)) {
-//				return score += Config.CENTER_COLUMS_SCORE;
-//			}
-//		}
-//		return score;
-//	}
+	private int checkIfCenterColumn(Chip[][] board, int playerColumn, int centerColumn) {
+		int score = 0;
+		if (centerColumn == playerColumn) {
+				return score += Config.CENTER_COLUMS_SCORE;
+		}
+		return score;
+	}
 
 	private int checkDiagonalBlocks(Chip[][] board, Color playedChipColor) {
 		int score = 0;
