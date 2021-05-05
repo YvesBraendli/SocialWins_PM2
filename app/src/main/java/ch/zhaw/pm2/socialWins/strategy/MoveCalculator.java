@@ -27,7 +27,7 @@ public class MoveCalculator {
 //		}
 		
 //		if(isMaximizing) {
-//			Move move = new Move(0,-100000);
+//			Move move = new Move(setColumn,-100000);
 //			for(int column: validColumns) {
 //				Board boardCopy = new Board(board.getBoard().clone());
 //				boardCopy.addChip(column, Config.SINGLEPLAYER_COMPUTERCOLOR);
@@ -39,7 +39,7 @@ public class MoveCalculator {
 //			return move;
 //		}
 //		else {
-//			Move move = new Move(0,100000);
+//			Move move = new Move(setColumn,100000);
 //			for(int column: validColumns) {
 //				Board boardCopy = new Board(board.getBoard().clone());
 //				boardCopy.addChip(column, Config.SINGLEPLAYER_USERCOLOR);
