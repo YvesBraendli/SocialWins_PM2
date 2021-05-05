@@ -101,7 +101,7 @@ public class GameWindowController {
 			inputWindow.setScene(scene);
 			inputWindow.setMinWidth(300);
 			inputWindow.setMinHeight(385);
-			inputWindow.setTitle("Help Window");
+			inputWindow.setTitle(Config.HELP_WINDOW_TITEL);
 			inputWindow.show();
 
 		} catch (IOException e) {
@@ -134,9 +134,8 @@ public class GameWindowController {
 		newGridElement.setMinSize(buttonWidth, buttonHeight);
 		newGridElement.setPrefSize(buttonWidth, buttonHeight);
 		newGridElement.setId(createIndex(columnIndex, rowIndex));
-		newGridElement.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-		newGridElement.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
+		newGridElement.setBackground(new Background(new BackgroundFill(Config.DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD, CornerRadii.EMPTY, Insets.EMPTY)));
+		newGridElement.setBorder(new Border(Config.DEFAULT_BORDERSTROKE));
 		newGridElement.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -151,7 +150,7 @@ public class GameWindowController {
 		ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
 		int columnIndexOfCurrentButton = Integer.parseInt(buttonToAdd.getId().substring(0, 2));
 		Color colorFromCurrentPlayer = getColor();
-		if (game.nextMove(columnIndexOfCurrentButton)) { // game.nextMove(columnIndexOfCurrentButton)
+		if (true) { // game.nextMove(columnIndexOfCurrentButton)
 			for (Node node : gameAreaGridPane.getChildren()) {
 				if (node instanceof Button) {
 					Button button = (Button) node;
@@ -173,7 +172,7 @@ public class GameWindowController {
 		for (int z = 0; z < buttonsInColumn.size(); z++) {
 			int previousButtonIndex = z - 1;
 			Button currentButton = buttonsInColumn.get(z);
-			if (currentButton.getBackground().getFills().get(0).getFill() != Color.WHITE) {
+			if (currentButton.getBackground().getFills().get(0).getFill() != Config.DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD) {
 				buttonsInColumn.get(previousButtonIndex).setBackground(
 						new Background(new BackgroundFill(playerColor, CornerRadii.EMPTY, Insets.EMPTY)));
 				isFirstElementInRow = false;
@@ -187,13 +186,12 @@ public class GameWindowController {
 	}
 
 	private String createIndex(int z, int i) {
-		int indicatorForMultiDigitNumber = 10;
 		String columnIndex = String.valueOf(z);
-		if (z < indicatorForMultiDigitNumber) {
+		if (z < Config.INDICATOR_FOR_MULTIPLE_DIGIT_NUMBER) {
 			columnIndex = "0" + String.valueOf(z);
 		}
 		String rowIndex = String.valueOf(i);
-		if (i < indicatorForMultiDigitNumber) {
+		if (i < Config.INDICATOR_FOR_MULTIPLE_DIGIT_NUMBER) {
 			rowIndex = "0" + String.valueOf(i);
 		}
 		String index = columnIndex + rowIndex;
@@ -212,24 +210,21 @@ public class GameWindowController {
 	}
 
 	private void writeInPlayerPromptTextField() {
-		gamePromptLabel.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+		gamePromptLabel.setBorder(new Border(Config.DEFAULT_BORDERSTROKE));
 		gamePromptLabel.setWrapText(true);
-		gamePromptLabel.setText("Spieler " + game.getNameFromCurrentPlayer() + " ist an der Reihe.");
+		gamePromptLabel.setText(Config.PLAYER_PROMPT_TEXT_FRONT + game.getNameFromCurrentPlayer() + Config.PLAYER_PROMPT_TEXT_BACK);
 	}
 
 	private void setWinningQueueText() {
-		winningQueueInformationLabel.setText("Erstelle eine Reihe von " + game.getWinningLineLength()
-				+ " Chips aneinander, um das Spiel zu gewinnen.");
-		winningQueueInformationLabel.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+		winningQueueInformationLabel.setText(Config.WINNING_QUEUE_TEXT_FRONT + game.getWinningLineLength()
+				+ Config.WINNING_QUEUE_TEXT_BACK);
+		winningQueueInformationLabel.setBorder(new Border(Config.DEFAULT_BORDERSTROKE));
 		winningQueueInformationLabel.setWrapText(true);
 	}
 
 	private void setGameInformationText(String text) {
 		gameInformationLabel.setText(text);
-		gameInformationLabel.setBorder(new Border(
-				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+		gameInformationLabel.setBorder(new Border(Config.DEFAULT_BORDERSTROKE));
 		gameInformationLabel.setWrapText(true);
 	}
 

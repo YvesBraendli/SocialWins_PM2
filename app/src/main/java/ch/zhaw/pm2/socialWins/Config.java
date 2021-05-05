@@ -2,6 +2,12 @@ package ch.zhaw.pm2.socialWins;
 
 import java.awt.Color;
 
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Paint;
+
 /**
  * This class is adds constants used for the default game settings
  * 
@@ -23,7 +29,19 @@ public class Config {
 	public static final Color SINGLEPLAYER_COMPUTERCOLOR = Color.BLUE;
 	public static final String SINGLEPLAYER_COMPUTERNAME = "George";
 	
-	public static final String WELCOME_TEXT = "Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben clicken.";
+	public static final String WELCOME_TEXT = "Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben klicken.";
 	public static final String WRONG_QUEUE_TEXT = "Bitte wähle eine andere Spalte, diese ist schon gefüllt.";
-	public static final String INFORMATION_TEXT = "Bitte clicke auf ein Feld, welches sich in der Kolone befindet, in der du ein Spielstein hinzufügen möchtest.";
+	public static final String INFORMATION_TEXT = "Bitte klicke auf ein Feld, welches sich in der Kolone befindet, in der du ein Spielstein hinzufügen möchtest.";
+	public static final javafx.scene.paint.Color DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD = javafx.scene.paint.Color.WHITE;
+	public static final BorderStroke DEFAULT_BORDERSTROKE = new BorderStroke(javafx.scene.paint.Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1));
+	public static final int INDICATOR_FOR_MULTIPLE_DIGIT_NUMBER = 10;
+	public static final String PLAYER_PROMPT_TEXT_FRONT = "Spieler ";
+	public static final String PLAYER_PROMPT_TEXT_BACK = " ist an der Reihe.";
+	public static final String WINNING_QUEUE_TEXT_FRONT = "Erstelle eine Reihe von ";
+	public static final String WINNING_QUEUE_TEXT_BACK = " Chips aneinander, um das Spiel zu gewinnen.";
+	public static final String HELP_TEXT = "Dieser Text muss noch genauer definiert werden";
+	
+	public static final String SETUP_TITEL = "SocialWins - New Game";
+	public static final String GAME_TITEL= "Willkommen beim SocialWins - Viel Spass";
+	public static final String HELP_WINDOW_TITEL = "Help Window";
 }

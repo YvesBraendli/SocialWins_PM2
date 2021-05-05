@@ -31,7 +31,7 @@ public class HelpWindowController {
 	private void showHelp() {
 		showHelpLabel.setWrapText(true);
 		showHelpLabel.setBorder(new Border(new BorderStroke(Color.LIGHTGREEN, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
-		showHelpLabel.setText("Endlich funktioniert dieser Kack!"); // Add import of help text from game class.
+		showHelpLabel.setText(Config.HELP_TEXT); // Add import of help text from game class.
 	}
 
 }
