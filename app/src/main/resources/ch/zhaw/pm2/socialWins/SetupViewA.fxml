@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="143.0" prefWidth="328.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <GridPane prefHeight="143.0" prefWidth="306.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spielername:">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Computer-Level:" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <TextField fx:id="singlePlayerNameTextField" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" promptText="Player name" GridPane.columnIndex="1" />
+            <HBox prefHeight="40.0" prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <RadioButton fx:id="computerLevelOneRadioButton" mnemonicParsing="false" text="1">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="aiDifficulty" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="computerLevelTwoRadioButton" mnemonicParsing="false" selected="true" text="2" toggleGroup="$aiDifficulty">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </RadioButton>
+                  <RadioButton fx:id="computerLevelThreeRadioButton" mnemonicParsing="false" prefHeight="18.0" prefWidth="26.0" text="3" toggleGroup="$aiDifficulty" />
+               </children>
+               <padding>
+                  <Insets top="18.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets top="7.0" />
+               </GridPane.margin>
+            </HBox>
+         </children>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </GridPane>
+   </center>
+</BorderPane>
