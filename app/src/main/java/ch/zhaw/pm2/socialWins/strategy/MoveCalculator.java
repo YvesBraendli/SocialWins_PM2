@@ -20,37 +20,37 @@ public class MoveCalculator {
 		numberOfRows = board.getBoard().length;
 		ArrayList<Integer> validColumns = getValidColumns(board);
 		
-		
-		board.addChip(setColumn, Config.SINGLEPLAYER_COMPUTERCOLOR);
-//		if(depth == 0) {
+		System.out.println("Working in depth: "+depth);
+		if(depth == 0 || board.isBoardFull() || Config.SINGLEPLAYER_COMPUTERCOLOR.equals(board.getColorWithChipsInARow(Config.POINT_BLOCK_SIZE)) || Config.SINGLEPLAYER_USERCOLOR.equals(board.getColorWithChipsInARow(Config.POINT_BLOCK_SIZE))) {
 				return new Move(setColumn, evaluateState(board.getBoard(), Config.SINGLEPLAYER_COMPUTERCOLOR));
-//		}
+		}
 		
-//		if(isMaximizing) {
-//			Move move = new Move(setColumn,-100000);
-//			for(int column: validColumns) {
-//				Board boardCopy = new Board(board.getBoard().clone());
-//				boardCopy.addChip(column, Config.SINGLEPLAYER_COMPUTERCOLOR);
-//				Move nextMove = calculateComputerMove(depth-1, boardCopy, false, column);
-//				if(nextMove.getScore() > move.getScore()) {
-//					move = nextMove;
-//				}
-//			}
-//			return move;
-//		}
-//		else {
-//			Move move = new Move(setColumn,100000);
-//			for(int column: validColumns) {
-//				Board boardCopy = new Board(board.getBoard().clone());
-//				boardCopy.addChip(column, Config.SINGLEPLAYER_USERCOLOR);
-//				Move nextMove = calculateComputerMove(depth-1, boardCopy, true, column);
-//				if(nextMove.getScore() < move.getScore()) {
-//					move = nextMove;
-//				}
-//			}
-//			return move;
-//		}
+		if(isMaximizing) {
+			Move move = new Move(setColumn,-100000);
+			for(int column: validColumns) {
+				Board boardCopy = new Board(generateBoardCopy(board.getBoard()));
+				boardCopy.addChip(column, Config.SINGLEPLAYER_COMPUTERCOLOR);
+				Move nextMove = calculateComputerMove(depth-1, boardCopy, false, column);
+				if(nextMove.getScore() > move.getScore()) {
+					move = nextMove;
+				}
+			}
+			return move;
+		}
+		else {
+			Move move = new Move(setColumn,100000);
+			for(int column: validColumns) {
+				Board boardCopy = new Board(generateBoardCopy(board.getBoard()));
+				boardCopy.addChip(column, Config.SINGLEPLAYER_USERCOLOR);
+				Move nextMove = calculateComputerMove(depth-1, boardCopy, true, column);
+				if(nextMove.getScore() < move.getScore()) {
+					move = nextMove;
+				}
+			}
+			return move;
+		}
 	}
+	
 	
 	private ArrayList<Integer> getValidColumns(Board board) {
 		ArrayList<Integer> validColums = new ArrayList<Integer>();
@@ -63,7 +63,20 @@ public class MoveCalculator {
 		return validColums;
 	}
 	
-
+	private Chip[][] generateBoardCopy(Chip[][] board) {
+		if(board == null) {
+			return null;
+		}
+		Chip[][] boardCopy = new Chip[numberOfRows][numberOfColumns];
+		for(int i = 0; i < numberOfRows; i++) {
+			for(int j = 0; j < numberOfColumns; j++) {
+				if(!(board[i][j] == null)) {
+					boardCopy[i][j] = board[i][j].clone();
+				}
+			}
+		}
+		return boardCopy;
+	}
 
 	private int evaluateState(Chip[][] board, Color playedChipColor) {
 		int score = 0;
@@ -156,6 +169,9 @@ public class MoveCalculator {
 			if (isComputerColor(playedChipColor)) {
 				score += Config.FOUR_IN_A_ROW_SCORE;
 			} 
+			else {
+				score += Config.OPPONENT_FOUR_IN_A_ROW_PENALTY;
+			}
 		}
 		return score;
 	}
