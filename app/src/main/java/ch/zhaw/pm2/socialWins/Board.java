@@ -147,6 +147,44 @@ public class Board {
 		}
 		return false;
 	}
+	
+	/**
+	 * Creates a copy of the 2d Chip Array
+	 * 
+	 * @param board the 2d Chip Array
+	 * @return copy
+	 */
+	public Chip[][] generateBoardCopy(Chip[][] board) {
+		if(board == null) {
+			return null;
+		}
+		Chip[][] boardCopy = new Chip[rows][columns];
+		for(int i = 0; i < rows; i++) {
+			for(int j = 0; j < columns; j++) {
+				if(!(board[i][j] == null)) {
+					boardCopy[i][j] = board[i][j].clone();
+				}
+			}
+		}
+		return boardCopy;
+	}
+	
+	/**
+	 * Getter for the rows datafield
+	 * @return number of rows
+	 */
+	public int getNumberOfRows() {
+		return rows;
+	}
+	
+	/**
+	 * Getter for the columns datafield
+	 * @return number of columns
+	 */
+	public int getNumberOfColumns() {
+		return columns;
+	}
+
 
 	private boolean isPossibleAmount(int amount) {
 		return !(amount > rows || amount > columns || amount < 1);

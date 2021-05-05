@@ -28,7 +28,7 @@ public class MoveCalculator {
 		if(isMaximizing) {
 			Move move = new Move(setColumn,-100000);
 			for(int column: validColumns) {
-				Board boardCopy = new Board(generateBoardCopy(board.getBoard()));
+				Board boardCopy = new Board(board.generateBoardCopy(board.getBoard()));
 				boardCopy.addChip(column, Config.SINGLEPLAYER_COMPUTERCOLOR);
 				Move nextMove = calculateComputerMove(depth-1, boardCopy, false, column);
 				if(nextMove.getScore() > move.getScore()) {
@@ -40,7 +40,7 @@ public class MoveCalculator {
 		else {
 			Move move = new Move(setColumn,100000);
 			for(int column: validColumns) {
-				Board boardCopy = new Board(generateBoardCopy(board.getBoard()));
+				Board boardCopy = new Board(board.generateBoardCopy(board.getBoard()));
 				boardCopy.addChip(column, Config.SINGLEPLAYER_USERCOLOR);
 				Move nextMove = calculateComputerMove(depth-1, boardCopy, true, column);
 				if(nextMove.getScore() < move.getScore()) {
@@ -63,21 +63,6 @@ public class MoveCalculator {
 		return validColums;
 	}
 	
-	private Chip[][] generateBoardCopy(Chip[][] board) {
-		if(board == null) {
-			return null;
-		}
-		Chip[][] boardCopy = new Chip[numberOfRows][numberOfColumns];
-		for(int i = 0; i < numberOfRows; i++) {
-			for(int j = 0; j < numberOfColumns; j++) {
-				if(!(board[i][j] == null)) {
-					boardCopy[i][j] = board[i][j].clone();
-				}
-			}
-		}
-		return boardCopy;
-	}
-
 	private int evaluateState(Chip[][] board, Color playedChipColor) {
 		int score = 0;
 
