@@ -133,7 +133,7 @@ public class GameWindowController {
 		newGridElement.setMaxSize(buttonWidth, buttonHeight);
 		newGridElement.setMinSize(buttonWidth, buttonHeight);
 		newGridElement.setPrefSize(buttonWidth, buttonHeight);
-		newGridElement.setId(createIndex(columnIndex, rowIndex));
+		newGridElement.setId(createButtonIndex(columnIndex, rowIndex));
 		newGridElement.setBackground(new Background(new BackgroundFill(Config.DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD, CornerRadii.EMPTY, Insets.EMPTY)));
 		newGridElement.setBorder(new Border(Config.DEFAULT_BORDERSTROKE));
 		newGridElement.setOnAction(new EventHandler<ActionEvent>() {
@@ -149,7 +149,7 @@ public class GameWindowController {
 		setGameInformationText(Config.INFORMATION_TEXT);
 		ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
 		int columnIndexOfCurrentButton = Integer.parseInt(buttonToAdd.getId().substring(0, 2));
-		Color colorFromCurrentPlayer = getColor();
+		Color colorFromCurrentPlayer = getColorAsPaint();
 		if (game.nextMove(columnIndexOfCurrentButton)) { // game.nextMove(columnIndexOfCurrentButton)
 			for (Node node : gameAreaGridPane.getChildren()) {
 				if (node instanceof Button) {
@@ -185,7 +185,7 @@ public class GameWindowController {
 		}
 	}
 
-	private String createIndex(int z, int i) {
+	private String createButtonIndex(int z, int i) {
 		String columnIndex = String.valueOf(z);
 		if (z < Config.INDICATOR_FOR_MULTIPLE_DIGIT_NUMBER) {
 			columnIndex = "0" + String.valueOf(z);
@@ -198,7 +198,7 @@ public class GameWindowController {
 		return index;
 	}
 
-	private Color getColor() {
+	private Color getColorAsPaint() {
 		java.awt.Color colorFromCurrentPlayerAsColor = game.getColorFromCurrentPlayer();
 		int r = colorFromCurrentPlayerAsColor.getRed();
 		int g = colorFromCurrentPlayerAsColor.getGreen();
