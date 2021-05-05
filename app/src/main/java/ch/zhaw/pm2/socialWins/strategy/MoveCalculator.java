@@ -11,18 +11,19 @@ import ch.zhaw.pm2.socialWins.Config;
 public class MoveCalculator {
 	int numberOfColumns;
 	int numberOfRows;
+	int winningRowLength;
 
-	//TODO überall wo aktuell Config.POINT_BLOCK_SIZE müssti winning row stah
 	//TODO ich ha kei ahnig wie ich aktuell central row positions prüefe sött, machi spöter
 	
-	public MoveCalculator(Board board) {
-		numberOfColumns = board.getNumberOfColumns();
-		numberOfRows = board.getNumberOfRows();
+	public MoveCalculator(int numberOfRows, int numberOfColumns, int winningRowLength) {
+		this.numberOfColumns = numberOfColumns;
+		this.numberOfRows = numberOfRows;
+		this.winningRowLength = winningRowLength;
 	}
 	
 	public Move calculateComputerMove(int depth, Board board, Boolean isMaximizing, int setColumn) {
 		ArrayList<Integer> validColumns = getValidColumns(board);
-		if(depth == 0 || board.isBoardFull() || Config.SINGLEPLAYER_COMPUTERCOLOR.equals(board.getColorWithChipsInARow(Config.POINT_BLOCK_SIZE)) || Config.SINGLEPLAYER_USERCOLOR.equals(board.getColorWithChipsInARow(Config.POINT_BLOCK_SIZE))) {
+		if(depth == 0 || board.isBoardFull() || Config.SINGLEPLAYER_COMPUTERCOLOR.equals(board.getColorWithChipsInARow(winningRowLength)) || Config.SINGLEPLAYER_USERCOLOR.equals(board.getColorWithChipsInARow(winningRowLength))) {
 				return new Move(setColumn, evaluateState(board.getBoard(), Config.SINGLEPLAYER_COMPUTERCOLOR));
 		}
 		
@@ -89,15 +90,15 @@ public class MoveCalculator {
 
 	private int checkDiagonalBlocks(Chip[][] board, Color playedChipColor) {
 		int score = 0;
-		for (int i = 0; i < numberOfRows - (Config.POINT_BLOCK_SIZE - 1); i++) {
-			for (int j = 0; j < numberOfColumns - (Config.POINT_BLOCK_SIZE - 1); j++) {
-				Chip[] block = new Chip[Config.POINT_BLOCK_SIZE];
-				for (int k = 0; k < Config.POINT_BLOCK_SIZE; k++) {	
-					block[k] = board[i - k + (Config.POINT_BLOCK_SIZE - 1)][j + k];
+		for (int i = 0; i < numberOfRows - (winningRowLength - 1); i++) {
+			for (int j = 0; j < numberOfColumns - (winningRowLength - 1); j++) {
+				Chip[] block = new Chip[winningRowLength];
+				for (int k = 0; k < winningRowLength; k++) {	
+					block[k] = board[i - k + (winningRowLength - 1)][j + k];
 				}
 				score += evaluateBlock(block, playedChipColor);
-				block = new Chip[Config.POINT_BLOCK_SIZE];
-				for (int k = 0; k < Config.POINT_BLOCK_SIZE; k++) {	
+				block = new Chip[winningRowLength];
+				for (int k = 0; k < winningRowLength; k++) {	
 					block[k] = board[i + k][j + k];
 				}
 				score += evaluateBlock(block, playedChipColor);
@@ -109,9 +110,9 @@ public class MoveCalculator {
 	private int checkVerticalBlocks(Chip[][] board, Color playedChipColor) {
 		int score = 0;
 		for (int i = 0; i < numberOfColumns; i++) {
-			for (int j = 0; j < numberOfRows - (Config.POINT_BLOCK_SIZE - 1); j++) {
-				Chip[] block = new Chip[Config.POINT_BLOCK_SIZE];
-				for (int k = j; k < Config.POINT_BLOCK_SIZE; k++) {
+			for (int j = 0; j < numberOfRows - (winningRowLength - 1); j++) {
+				Chip[] block = new Chip[winningRowLength];
+				for (int k = j; k < winningRowLength; k++) {
 					block[k-j] = board[k][i];
 				}
 				score += evaluateBlock(block, playedChipColor);
@@ -123,9 +124,9 @@ public class MoveCalculator {
 	private int checkHorizontalBlocks(Chip[][] board, Color playedChipColor) {
 		int score = 0;
 		for (int i = 0; i < numberOfRows; i++) {
-			for (int j = 0; j < numberOfColumns - (Config.POINT_BLOCK_SIZE - 1); j++) {
-				Chip[] block = new Chip[Config.POINT_BLOCK_SIZE];
-				for (int k = j; k < Config.POINT_BLOCK_SIZE; k++) {
+			for (int j = 0; j < numberOfColumns - (winningRowLength - 1); j++) {
+				Chip[] block = new Chip[winningRowLength];
+				for (int k = j; k < winningRowLength; k++) {
 					block[k-j] = board[i][k];
 				}
 				score += evaluateBlock(block, playedChipColor);
@@ -168,7 +169,7 @@ public class MoveCalculator {
 
 	private int checkForElementsInBlock(Chip[] block, Color chipColor) {
 		int numberOfElements = 0;
-		for (int i = 0; i < Config.POINT_BLOCK_SIZE; i++) {
+		for (int i = 0; i < winningRowLength; i++) {
 			if (!(block[i] == null) && block[i].getColor().equals(chipColor)) {
 				numberOfElements += 1;
 			}
@@ -178,7 +179,7 @@ public class MoveCalculator {
 
 	private int checkForEmptyElements(Chip[] block) {
 		int numberOfElements = 0;
-		for (int i = 0; i < Config.POINT_BLOCK_SIZE; i++) {
+		for (int i = 0; i < winningRowLength; i++) {
 			if (block[i] == null) {
 				numberOfElements += 1;
 			}

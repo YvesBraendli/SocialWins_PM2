@@ -55,8 +55,4 @@ public class Config {
 	public static final int OPPONENT_THREE_IN_A_ROW_PENALTY = -100;
 	public static final int OPPONENT_FOUR_IN_A_ROW_PENALTY = -200;
 	
-	public static final int POINT_BLOCK_SIZE = 4;
-
-
-
 }
