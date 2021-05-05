@@ -150,7 +150,7 @@ public class GameWindowController {
 		ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
 		int columnIndexOfCurrentButton = Integer.parseInt(buttonToAdd.getId().substring(0, 2));
 		Color colorFromCurrentPlayer = getColor();
-		if (true) { // game.nextMove(columnIndexOfCurrentButton)
+		if (game.nextMove(columnIndexOfCurrentButton)) { // game.nextMove(columnIndexOfCurrentButton)
 			for (Node node : gameAreaGridPane.getChildren()) {
 				if (node instanceof Button) {
 					Button button = (Button) node;

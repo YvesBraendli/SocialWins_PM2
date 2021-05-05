@@ -24,6 +24,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
+
 /**
  * This class is the controller for the setup view.
  * 
@@ -182,7 +183,10 @@ public class SetupWindowController {
 		            (float) playerColorPickers.get(i).getValue().getBlue(),
 		            (float) playerColorPickers.get(i).getValue().getOpacity());
 			String playerName = playerNamesTextFields.get(i).getText();
-			
+			if (playerColor.equals(Color.WHITE)) {
+				errorMessageLabel.setText("Invalid colors");
+				return;
+			}
 			if(!playerName.matches(Config.ALLOWED_PLAYERNAME_PATTERN)) {
 				errorMessageLabel.setText("Invalid names");
 				return;
