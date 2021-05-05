@@ -15,12 +15,13 @@ public class MoveCalculator {
 	//TODO überall wo aktuell Config.POINT_BLOCK_SIZE müssti winning row stah
 	//TODO ich ha kei ahnig wie ich aktuell central row positions prüefe sött, machi spöter
 	
+	public MoveCalculator(Board board) {
+		numberOfColumns = board.getNumberOfColumns();
+		numberOfRows = board.getNumberOfRows();
+	}
+	
 	public Move calculateComputerMove(int depth, Board board, Boolean isMaximizing, int setColumn) {
-		numberOfColumns = board.getBoard()[0].length;
-		numberOfRows = board.getBoard().length;
 		ArrayList<Integer> validColumns = getValidColumns(board);
-		
-		System.out.println("Working in depth: "+depth);
 		if(depth == 0 || board.isBoardFull() || Config.SINGLEPLAYER_COMPUTERCOLOR.equals(board.getColorWithChipsInARow(Config.POINT_BLOCK_SIZE)) || Config.SINGLEPLAYER_USERCOLOR.equals(board.getColorWithChipsInARow(Config.POINT_BLOCK_SIZE))) {
 				return new Move(setColumn, evaluateState(board.getBoard(), Config.SINGLEPLAYER_COMPUTERCOLOR));
 		}
