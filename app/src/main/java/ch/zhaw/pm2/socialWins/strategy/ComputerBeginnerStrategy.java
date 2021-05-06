@@ -8,9 +8,10 @@ public class ComputerBeginnerStrategy implements Strategy {
 	private MoveCalculator moveCalculator;
 	private int depth;
 	
+	
 	public ComputerBeginnerStrategy(int numberOfRows, int numberOfColumns, int winningRowLength){
 		moveCalculator = new MoveCalculator(numberOfRows, numberOfColumns, winningRowLength);
-		depth = Config.BEGINNER_SEARCH_DEPTH;
+		depth = Config.BEGINNER_SEARCH_DEPTH+winningRowLength-Config.DEPTH_NEGATION_AMOUNT;
 	}
 	
 	@Override

@@ -10,7 +10,7 @@ public class ComputerIntermediateStrategy implements Strategy{
 	
 	public ComputerIntermediateStrategy(int numberOfRows, int numberOfColumns, int winningRowLength){
 		moveCalculator = new MoveCalculator(numberOfRows, numberOfColumns, winningRowLength);
-		depth = Config.INTERMEDIATE_SEARCH_DEPTH;
+		depth = Config.BEGINNER_SEARCH_DEPTH+winningRowLength-Config.DEPTH_NEGATION_AMOUNT;
 	}
 	
 	@Override

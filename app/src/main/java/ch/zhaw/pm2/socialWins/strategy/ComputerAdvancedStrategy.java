@@ -10,7 +10,7 @@ public class ComputerAdvancedStrategy implements Strategy{
 	
 	public ComputerAdvancedStrategy(int numberOfRows, int numberOfColumns, int winningRowLength){
 		moveCalculator = new MoveCalculator(numberOfRows, numberOfColumns, winningRowLength);
-		depth = Config.ADVANCED_SEARCH_DEPTH;
+		depth = Config.BEGINNER_SEARCH_DEPTH+winningRowLength-Config.DEPTH_NEGATION_AMOUNT;;
 	}
 	
 	@Override
