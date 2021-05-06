@@ -73,9 +73,10 @@ public class MoveCalculator {
 		score += checkVerticalBlocks(board, playedChipColor);
 		score += checkDiagonalBlocks(board, playedChipColor);
 
-		int centerColumn = (int) Math.floor(numberOfColumns / 2);
+		double halfOfBoardColumns = numberOfColumns / 2.00;
+		int centerColumn = (int) Math.floor(halfOfBoardColumns);
 		score += checkIfCenterColumn(board, playedColumn, centerColumn);
-		if(centerColumn % 2 != 0) {
+		if(halfOfBoardColumns % 1 == 0) {
 			score += checkIfCenterColumn(board, playedColumn, centerColumn-1);
 		}
 		
