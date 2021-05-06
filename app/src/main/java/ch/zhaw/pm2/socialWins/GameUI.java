@@ -79,7 +79,7 @@ public class GameUI extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("WinningView.fxml"));
 		Pane rootPane = loader.load();
 		WinningViewController winningViewController = loader.getController();
-		winningViewController.setUpWinningView(game, numberOfRows, numberOfColumns);
+		winningViewController.setUpWinningView(game, numberOfRows, numberOfColumns, buttonsOnGameField);
 		Scene scene = new Scene(rootPane);
 		Stage winningStage = new Stage();
 		winningStage.setScene(scene);

@@ -1,6 +1,8 @@
 package ch.zhaw.pm2.socialWins;
 
 
+import java.util.ArrayList;
+
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -15,6 +17,7 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 public class WinningViewController {
@@ -30,9 +33,9 @@ public class WinningViewController {
 	 * Sets up the winning view with the current parameters.
 	 * @param model The game class with the current game-status.
 	 */
-	public void setUpWinningView(Game model, int numberOfRows, int numberOfColumns) {
+	public void setUpWinningView(Game model, int numberOfRows, int numberOfColumns, ArrayList<Button> buttons) {
 		game = model;
-		showGameField(numberOfColumns,numberOfRows);
+		showGameField(numberOfColumns,numberOfRows, buttons);
 		showWinningText();
 	}
 	
@@ -48,16 +51,7 @@ public class WinningViewController {
 		stage.close();
 	}
 	
-	
-//	double gridPaneHeight = gameAreaGridPane.getPrefHeight() / numberOfColumns * numberOfColumns;
-//	double gridPaneWidth = gameAreaGridPane.getPrefWidth() / numberOfRows * numberOfRows;
-//	gameAreaGridPane.setPrefSize(gridPaneWidth, gridPaneHeight);
-//	gameAreaGridPane.setMaxSize(gridPaneWidth, gridPaneHeight);
-//	gameAreaGridPane.setMinSize(gridPaneWidth, gridPaneHeight);
-//	double gridElementWidth = gameAreaGridPane.getPrefHeight() / numberOfColumns;
-//	double gridElementHeight = gameAreaGridPane.getPrefWidth() / numberOfRows;
-	
-	private void showGameField(int numberOfColumns, int numberOfRows) {
+	private void showGameField(int numberOfColumns, int numberOfRows, ArrayList<Button> buttons) {
 		double gridPaneHeight = showGameFieldGridPane.getPrefHeight()/numberOfColumns*numberOfColumns;
 		double gridPaneWidth = showGameFieldGridPane.getPrefWidth()/numberOfRows*numberOfRows;
 		showGameFieldGridPane.setPrefSize(gridPaneWidth, gridPaneHeight);
@@ -65,20 +59,23 @@ public class WinningViewController {
 		showGameFieldGridPane.setMinSize(gridPaneWidth, gridPaneHeight);
 		double gridElementWidth = showGameFieldGridPane.getPrefHeight()/numberOfColumns;
 		double gridElementHeight = showGameFieldGridPane.getPrefWidth()/numberOfRows;
+		int counterForButtonArrayList = 0;
 		for (int i = 0; i<numberOfRows; i++) {
 			for(int z = 0; z<numberOfColumns; z++) {
+				Paint colorForCurrentLabel = buttons.get(counterForButtonArrayList).getBackground().getFills().get(0).getFill();
 				Label newGridElement = new Label("");
 				newGridElement.setMaxSize(gridElementWidth, gridElementHeight);
 				newGridElement.setMinSize(gridElementWidth, gridElementHeight);
-				newGridElement.setBackground(new Background(new BackgroundFill(Color.DEEPPINK, new CornerRadii(0.0), new javafx.geometry.Insets(0.0)))); // Get Color from game
+				newGridElement.setBackground(new Background(new BackgroundFill(colorForCurrentLabel, new CornerRadii(0.0), new javafx.geometry.Insets(0.0)))); // Get Color from game
 				newGridElement.setBorder(new Border(
 	                    new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
 				GridPane.setRowIndex(newGridElement, i);
 				GridPane.setColumnIndex(newGridElement, z);
 				showGameFieldGridPane.getChildren().add(newGridElement);
+				counterForButtonArrayList++;
 			}
 		}
-	}
+	}	
 	
 	private void showWinningText() {
 		winningTextLabel.setWrapText(true);
