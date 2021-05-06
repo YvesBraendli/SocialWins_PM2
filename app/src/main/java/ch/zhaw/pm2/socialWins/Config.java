@@ -61,4 +61,8 @@ public class Config {
 	public static final int OPPONENT_TWO_IN_A_ROW_PENALTY = -2;
 	public static final int OPPONENT_THREE_IN_A_ROW_PENALTY = -100;
 	public static final int OPPONENT_FOUR_IN_A_ROW_PENALTY = -200;
+	
+	public static final int BEGINNER_SEARCH_DEPTH = 1;
+	public static final int INTERMEDIATE_SEARCH_DEPTH = 3;
+	public static final int ADVANCED_SEARCH_DEPTH = 6;
 }
