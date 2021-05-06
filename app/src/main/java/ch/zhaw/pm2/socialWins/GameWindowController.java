@@ -150,7 +150,7 @@ public class GameWindowController {
 		ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
 		int columnIndexOfCurrentButton = Integer.parseInt(buttonToAdd.getId().substring(0, 2));
 		Color colorFromCurrentPlayer = getColorAsPaint();
-		if (game.nextMove(columnIndexOfCurrentButton)) { // game.nextMove(columnIndexOfCurrentButton)
+		if (true) { // game.nextMove(columnIndexOfCurrentButton)
 			for (Node node : gameAreaGridPane.getChildren()) {
 				if (node instanceof Button) {
 					Button button = (Button) node;
@@ -164,6 +164,11 @@ public class GameWindowController {
 			writeInPlayerPromptTextField();
 		} else {
 			setGameInformationText(Config.WRONG_QUEUE_TEXT);
+		}
+		if(true) {
+			gameUI.switchToWinningView();
+			Stage stage = (Stage) newGameButton.getScene().getWindow();
+			stage.close();
 		}
 	}
 

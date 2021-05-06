@@ -71,26 +71,22 @@ public class GameUI extends Application {
 			System.err.println("Error starting up UI" + e.getMessage());
 		}
 	}
+	
+	public void switchToWinningView() {
+		try {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("WinningView.fxml"));
+		Pane rootPane = loader.load();
+		WinningViewController winningViewController = loader.getController();
+		winningViewController.setUpWinningView(game);
+		Scene scene = new Scene(rootPane);
+		Stage winningStage = new Stage();
+		winningStage.setScene(scene);
+		winningStage.setMinWidth(600);
+		winningStage.setMinHeight(430);
+		winningStage.setTitle("SocialWins - Game ended");
+		winningStage.show();
+	} catch (Exception e) {
+		System.err.println("Error starting up UI" + e.getMessage());
+	}
+	}
 }
-
-//public void start(Stage primaryStage) {
-//	game = new Game(5); // Add method game.getWinningLineLength
-//	showWinningViewWindow(primaryStage);
-//}
-
-//private void showWinningViewWindow(Stage primaryStage) {
-//	try {
-//		FXMLLoader loader = new FXMLLoader(getClass().getResource("WinningView.fxml"));
-//		Pane rootPane = loader.load();
-//		WinningViewController winningViewController = loader.getController();
-//		winningViewController.setUpWinningView(game);
-//		Scene scene = new Scene(rootPane);
-//		primaryStage.setScene(scene);
-//		primaryStage.setMinWidth(600);
-//		primaryStage.setMinHeight(430);
-//		primaryStage.setTitle("SocialWins - Game ended");
-//		primaryStage.show();
-//	} catch (Exception e) {
-//		System.err.println("Error starting up UI" + e.getMessage());
-//	}
-//}
