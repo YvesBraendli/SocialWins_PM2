@@ -1,23 +1,15 @@
 package ch.zhaw.pm2.socialWins;
 
-import java.awt.color.*;
-import javafx.scene.control.TextArea;
-
 import java.io.IOException;
+
 import java.util.ArrayList;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,12 +17,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -58,6 +46,15 @@ public class GameWindowController {
 
 	private GameUI gameUI;
 
+	private int numberOfRows;
+
+	private int numberOfColumns;
+
+	/**
+	 * This method sets the private datafield for a GameUI-Object.
+	 * 
+	 * @param gameUI The current GameUI-Object, which should be set as datafield.
+	 */
 	public void setGameUI(GameUI gameUI) {
 		this.gameUI = gameUI;
 	}
@@ -70,10 +67,12 @@ public class GameWindowController {
 	 */
 	public void setUpGameView(Game model, int rowLength, int columnLength) {
 		game = model;
+		numberOfColumns = columnLength;
+		numberOfRows = rowLength;
 		setGameInformationText(Config.WELCOME_TEXT);
 		setWinningQueueText();
 		writeInPlayerPromptTextField();
-		setupGameField(rowLength, columnLength);
+		setupGameField();
 	}
 
 	@FXML
@@ -110,7 +109,7 @@ public class GameWindowController {
 
 	}
 
-	private void setupGameField(int numberOfRows, int numberOfColumns) {
+	private void setupGameField() {
 		double gridPaneHeight = gameAreaGridPane.getPrefHeight() / numberOfColumns * numberOfColumns;
 		double gridPaneWidth = gameAreaGridPane.getPrefWidth() / numberOfRows * numberOfRows;
 		gameAreaGridPane.setPrefSize(gridPaneWidth, gridPaneHeight);
@@ -134,7 +133,8 @@ public class GameWindowController {
 		newGridElement.setMinSize(buttonWidth, buttonHeight);
 		newGridElement.setPrefSize(buttonWidth, buttonHeight);
 		newGridElement.setId(createButtonIndex(columnIndex, rowIndex));
-		newGridElement.setBackground(new Background(new BackgroundFill(Config.DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD, CornerRadii.EMPTY, Insets.EMPTY)));
+		newGridElement.setBackground(new Background(
+				new BackgroundFill(Config.DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD, CornerRadii.EMPTY, Insets.EMPTY)));
 		newGridElement.setBorder(new Border(Config.DEFAULT_BORDERSTROKE));
 		newGridElement.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -165,6 +165,22 @@ public class GameWindowController {
 		} else {
 			setGameInformationText(Config.WRONG_QUEUE_TEXT);
 		}
+		if (game.getWinner() != null) {
+			changeToWinningView();
+		}
+	}
+
+	private void changeToWinningView() {
+		ArrayList<Button> buttonsOnGameField = new ArrayList<>();
+		for (Node node : gameAreaGridPane.getChildren()) {
+			if (node instanceof Button) {
+				Button button = (Button) node;
+				buttonsOnGameField.add(button);
+			}
+		}
+		gameUI.switchToWinningView(buttonsOnGameField, numberOfRows, numberOfColumns, game);
+		Stage stage = (Stage) newGameButton.getScene().getWindow();
+		stage.close();
 	}
 
 	private void addColorToLastFreeButtonInColumn(ArrayList<Button> buttonsInColumn, Color playerColor) {
@@ -172,7 +188,8 @@ public class GameWindowController {
 		for (int z = 0; z < buttonsInColumn.size(); z++) {
 			int previousButtonIndex = z - 1;
 			Button currentButton = buttonsInColumn.get(z);
-			if (currentButton.getBackground().getFills().get(0).getFill() != Config.DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD) {
+			if (currentButton.getBackground().getFills().get(0)
+					.getFill() != Config.DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD) {
 				buttonsInColumn.get(previousButtonIndex).setBackground(
 						new Background(new BackgroundFill(playerColor, CornerRadii.EMPTY, Insets.EMPTY)));
 				isFirstElementInRow = false;
@@ -212,12 +229,11 @@ public class GameWindowController {
 	private void writeInPlayerPromptTextField() {
 		gamePromptLabel.setBorder(new Border(Config.DEFAULT_BORDERSTROKE));
 		gamePromptLabel.setWrapText(true);
-		gamePromptLabel.setText(Config.PLAYER_PROMPT_TEXT_FRONT + game.getNameFromCurrentPlayer() + Config.PLAYER_PROMPT_TEXT_BACK);
+		gamePromptLabel.setText(Config.createPlayerPromptText(game.getNameFromCurrentPlayer()));
 	}
 
 	private void setWinningQueueText() {
-		winningQueueInformationLabel.setText(Config.WINNING_QUEUE_TEXT_FRONT + game.getWinningLineLength()
-				+ Config.WINNING_QUEUE_TEXT_BACK);
+		winningQueueInformationLabel.setText(Config.createWinningQueueText(game.getWinningLineLength()));
 		winningQueueInformationLabel.setBorder(new Border(Config.DEFAULT_BORDERSTROKE));
 		winningQueueInformationLabel.setWrapText(true);
 	}
