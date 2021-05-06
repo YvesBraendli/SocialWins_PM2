@@ -75,6 +75,10 @@ public class MoveCalculator {
 
 		int centerColumn = (int) Math.floor(numberOfColumns / 2);
 		score += checkIfCenterColumn(board, playedColumn, centerColumn);
+		if(centerColumn % 2 != 0) {
+			score += checkIfCenterColumn(board, playedColumn, centerColumn-1);
+		}
+		
 		
 		return score;
 	}
