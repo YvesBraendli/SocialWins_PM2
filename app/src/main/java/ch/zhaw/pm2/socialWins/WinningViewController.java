@@ -30,9 +30,9 @@ public class WinningViewController {
 	 * Sets up the winning view with the current parameters.
 	 * @param model The game class with the current game-status.
 	 */
-	public void setUpWinningView(Game model) {
+	public void setUpWinningView(Game model, int numberOfRows, int numberOfColumns) {
 		game = model;
-		showGameField(15,15);
+		showGameField(numberOfColumns,numberOfRows);
 		showWinningText();
 	}
 	
@@ -48,13 +48,23 @@ public class WinningViewController {
 		stage.close();
 	}
 	
+	
+//	double gridPaneHeight = gameAreaGridPane.getPrefHeight() / numberOfColumns * numberOfColumns;
+//	double gridPaneWidth = gameAreaGridPane.getPrefWidth() / numberOfRows * numberOfRows;
+//	gameAreaGridPane.setPrefSize(gridPaneWidth, gridPaneHeight);
+//	gameAreaGridPane.setMaxSize(gridPaneWidth, gridPaneHeight);
+//	gameAreaGridPane.setMinSize(gridPaneWidth, gridPaneHeight);
+//	double gridElementWidth = gameAreaGridPane.getPrefHeight() / numberOfColumns;
+//	double gridElementHeight = gameAreaGridPane.getPrefWidth() / numberOfRows;
+	
 	private void showGameField(int numberOfColumns, int numberOfRows) {
-		int gridPaneHeight = (int) showGameFieldGridPane.getPrefHeight()/numberOfColumns*numberOfColumns;
-		int gridPaneWidth = (int) showGameFieldGridPane.getPrefWidth()/numberOfColumns*numberOfColumns;
-		showGameFieldGridPane.setGridLinesVisible(true);
+		double gridPaneHeight = showGameFieldGridPane.getPrefHeight()/numberOfColumns*numberOfColumns;
+		double gridPaneWidth = showGameFieldGridPane.getPrefWidth()/numberOfRows*numberOfRows;
 		showGameFieldGridPane.setPrefSize(gridPaneWidth, gridPaneHeight);
-		double gridElementHeight = gridPaneHeight/numberOfColumns;
-		double gridElementWidth = gridPaneWidth/numberOfRows;
+		showGameFieldGridPane.setMaxSize(gridPaneWidth, gridPaneHeight);
+		showGameFieldGridPane.setMinSize(gridPaneWidth, gridPaneHeight);
+		double gridElementWidth = showGameFieldGridPane.getPrefHeight()/numberOfColumns;
+		double gridElementHeight = showGameFieldGridPane.getPrefWidth()/numberOfRows;
 		for (int i = 0; i<numberOfRows; i++) {
 			for(int z = 0; z<numberOfColumns; z++) {
 				Label newGridElement = new Label("");
