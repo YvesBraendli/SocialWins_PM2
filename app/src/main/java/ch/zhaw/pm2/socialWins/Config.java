@@ -55,12 +55,12 @@ public class Config {
 	
 	// AI Configurations
 	public static final int CENTER_COLUMS_SCORE = 4;
-	public static final int TWO_IN_A_ROW_SCORE = 2;
-	public static final int THREE_IN_A_ROW_SCORE = 6;
-	public static final int FOUR_IN_A_ROW_SCORE = 500;
-	public static final int OPPONENT_TWO_IN_A_ROW_PENALTY = -2;
-	public static final int OPPONENT_THREE_IN_A_ROW_PENALTY = -100;
-	public static final int OPPONENT_FOUR_IN_A_ROW_PENALTY = -200;
+	public static final int LOW_SCORE = 2;
+	public static final int MEDIUM_SCORE = 6;
+	public static final int HIGH_SCORE = 500;
+	public static final int OPPONENT_LOW_PENALTY = -2;
+	public static final int OPPONENT_MEDIUM_PENALTY = -100;
+	public static final int OPPONENT_HIGH_PENALTY = -200;
 	
 	public static final int BEGINNER_SEARCH_DEPTH = 1;
 	public static final int INTERMEDIATE_SEARCH_DEPTH = 3;

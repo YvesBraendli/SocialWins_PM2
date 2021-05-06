@@ -12,9 +12,10 @@ public class MoveCalculator {
 	int numberOfColumns;
 	int numberOfRows;
 	int winningRowLength;
-
-	//TODO Rename constants for higher winning row games 
 	
+	public static final int EMPTY_SPACES_FOR_LOW_SCORE = 2;
+	public static final int EMPTY_SPACES_FOR_MEDIUM_SCORE = 1;
+
 	public MoveCalculator(int numberOfRows, int numberOfColumns, int winningRowLength) {
 		this.numberOfColumns = numberOfColumns;
 		this.numberOfRows = numberOfRows;
@@ -138,24 +139,26 @@ public class MoveCalculator {
 		int elementsInBlock = checkForElementsInBlock(block, playedChipColor);
 		int emptyElementsInBlock = checkForEmptyElements(block);
 
-		if (elementsInBlock == 2 && emptyElementsInBlock == 2) {
+		if (elementsInBlock == (winningRowLength-EMPTY_SPACES_FOR_LOW_SCORE) && emptyElementsInBlock == EMPTY_SPACES_FOR_LOW_SCORE) {
 			if (isComputerColor(playedChipColor)) {
-				score += Config.TWO_IN_A_ROW_SCORE;
+				score += Config.LOW_SCORE;
 			} else {
-				score += Config.OPPONENT_TWO_IN_A_ROW_PENALTY;
+				score += Config.OPPONENT_LOW_PENALTY;
 			}
-		} else if (elementsInBlock == 3 && emptyElementsInBlock == 1) {
+		}
+		if (elementsInBlock == (winningRowLength-EMPTY_SPACES_FOR_MEDIUM_SCORE) && emptyElementsInBlock == EMPTY_SPACES_FOR_MEDIUM_SCORE) {
 			if (isComputerColor(playedChipColor)) {
-				score += Config.THREE_IN_A_ROW_SCORE;
+				score += Config.MEDIUM_SCORE;
 			} else {
-				score += Config.OPPONENT_THREE_IN_A_ROW_PENALTY;
+				score += Config.OPPONENT_MEDIUM_PENALTY;
 			}
-		} else if (elementsInBlock == 4) {
+		}
+		if (elementsInBlock == winningRowLength) {
 			if (isComputerColor(playedChipColor)) {
-				score += Config.FOUR_IN_A_ROW_SCORE;
+				score += Config.HIGH_SCORE;
 			} 
 			else {
-				score += Config.OPPONENT_FOUR_IN_A_ROW_PENALTY;
+				score += Config.OPPONENT_HIGH_PENALTY;
 			}
 		}
 		return score;
