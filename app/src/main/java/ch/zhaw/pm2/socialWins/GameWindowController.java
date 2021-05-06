@@ -165,7 +165,7 @@ public class GameWindowController {
 		} else {
 			setGameInformationText(Config.WRONG_QUEUE_TEXT);
 		}
-		if (game.getWinner()!=null) {
+		if (game.getWinner() != null) {
 			changeToWinningView();
 		}
 	}
@@ -229,13 +229,11 @@ public class GameWindowController {
 	private void writeInPlayerPromptTextField() {
 		gamePromptLabel.setBorder(new Border(Config.DEFAULT_BORDERSTROKE));
 		gamePromptLabel.setWrapText(true);
-		gamePromptLabel.setText(
-				Config.PLAYER_PROMPT_TEXT_FRONT + game.getNameFromCurrentPlayer() + Config.PLAYER_PROMPT_TEXT_BACK);
+		gamePromptLabel.setText(Config.createPlayerPromptText(game.getNameFromCurrentPlayer()));
 	}
 
 	private void setWinningQueueText() {
-		winningQueueInformationLabel.setText(
-				Config.WINNING_QUEUE_TEXT_FRONT + game.getWinningLineLength() + Config.WINNING_QUEUE_TEXT_BACK);
+		winningQueueInformationLabel.setText(Config.createWinningQueueText(game.getWinningLineLength()));
 		winningQueueInformationLabel.setBorder(new Border(Config.DEFAULT_BORDERSTROKE));
 		winningQueueInformationLabel.setWrapText(true);
 	}

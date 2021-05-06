@@ -107,7 +107,7 @@ public class GameUI extends Application {
 			winningStage.setScene(scene);
 			winningStage.setMinWidth(600);
 			winningStage.setMinHeight(430);
-			winningStage.setTitle("SocialWins - Game ended");
+			winningStage.setTitle(Config.WINNING_TITEL);
 			winningStage.show();
 		} catch (Exception e) {
 			System.err.println("Error starting up UI" + e.getMessage());

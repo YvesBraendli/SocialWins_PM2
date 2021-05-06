@@ -88,7 +88,7 @@ public class WinningViewController {
 		winningTextLabel.setWrapText(true);
 		winningTextLabel.setBorder(new Border(
 				new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(1))));
-		winningTextLabel.setText(Config.WINNING_TEXT_FRONT + game.getWinner().getName() + Config.WINNING_TEXT_BACK);
+		winningTextLabel.setText(Config.createWinningText(game.getWinner().getName()));
 	}
 
 }
