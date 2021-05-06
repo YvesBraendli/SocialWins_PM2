@@ -1,10 +1,12 @@
 package ch.zhaw.pm2.socialWins;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -72,7 +74,7 @@ public class GameUI extends Application {
 		}
 	}
 	
-	public void switchToWinningView() {
+	public void switchToWinningView(ArrayList<Button> buttonsOnGameField, int numberOfRows, int numberOfColumns) {
 		try {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("WinningView.fxml"));
 		Pane rootPane = loader.load();

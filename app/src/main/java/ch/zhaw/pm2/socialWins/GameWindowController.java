@@ -57,6 +57,10 @@ public class GameWindowController {
 	private GridPane gameAreaGridPane;
 
 	private GameUI gameUI;
+	
+	private int numberOfRows;
+	
+	private int numberOfColumns;
 
 	public void setGameUI(GameUI gameUI) {
 		this.gameUI = gameUI;
@@ -70,10 +74,12 @@ public class GameWindowController {
 	 */
 	public void setUpGameView(Game model, int rowLength, int columnLength) {
 		game = model;
+		numberOfColumns = columnLength;
+		numberOfRows = rowLength;
 		setGameInformationText(Config.WELCOME_TEXT);
 		setWinningQueueText();
 		writeInPlayerPromptTextField();
-		setupGameField(rowLength, columnLength);
+		setupGameField();
 	}
 
 	@FXML
@@ -110,7 +116,7 @@ public class GameWindowController {
 
 	}
 
-	private void setupGameField(int numberOfRows, int numberOfColumns) {
+	private void setupGameField() {
 		double gridPaneHeight = gameAreaGridPane.getPrefHeight() / numberOfColumns * numberOfColumns;
 		double gridPaneWidth = gameAreaGridPane.getPrefWidth() / numberOfRows * numberOfRows;
 		gameAreaGridPane.setPrefSize(gridPaneWidth, gridPaneHeight);
@@ -165,11 +171,22 @@ public class GameWindowController {
 		} else {
 			setGameInformationText(Config.WRONG_QUEUE_TEXT);
 		}
-		if(true) {
-			gameUI.switchToWinningView();
-			Stage stage = (Stage) newGameButton.getScene().getWindow();
-			stage.close();
+		if(true) { // game.getWinner()!=null
+			changeToWinningView();
 		}
+	}
+	
+	private void changeToWinningView() {
+		ArrayList<Button> buttonsOnGameField = new ArrayList<>();
+		for (Node node : gameAreaGridPane.getChildren()) {
+			if (node instanceof Button) {
+				Button button = (Button) node;
+				buttonsOnGameField.add(button);
+			}
+		}
+		gameUI.switchToWinningView(buttonsOnGameField, numberOfRows, numberOfColumns);
+		Stage stage = (Stage) newGameButton.getScene().getWindow();
+		stage.close();
 	}
 
 	private void addColorToLastFreeButtonInColumn(ArrayList<Button> buttonsInColumn, Color playerColor) {
