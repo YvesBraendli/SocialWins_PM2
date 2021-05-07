@@ -202,14 +202,14 @@ public class GameWindowController {
 		}
 	}
 
-	private String createButtonIndex(int z, int i) {
-		String columnIndex = String.valueOf(z);
-		if (z < Config.INDICATOR_FOR_MULTIPLE_DIGIT_NUMBER) {
-			columnIndex = "0" + String.valueOf(z);
+	private String createButtonIndex(int column, int row) {
+		String columnIndex = String.valueOf(column);
+		if (column < Config.INDICATOR_FOR_MULTIPLE_DIGIT_NUMBER) {
+			columnIndex = "0" + String.valueOf(column);
 		}
-		String rowIndex = String.valueOf(i);
-		if (i < Config.INDICATOR_FOR_MULTIPLE_DIGIT_NUMBER) {
-			rowIndex = "0" + String.valueOf(i);
+		String rowIndex = String.valueOf(row);
+		if (row < Config.INDICATOR_FOR_MULTIPLE_DIGIT_NUMBER) {
+			rowIndex = "0" + String.valueOf(row);
 		}
 		String index = columnIndex + rowIndex;
 		return index;
@@ -242,6 +242,20 @@ public class GameWindowController {
 		gameInformationLabel.setText(text);
 		gameInformationLabel.setBorder(new Border(Config.DEFAULT_BORDERSTROKE));
 		gameInformationLabel.setWrapText(true);
+	}
+	
+	private void colorButtonForComputerMove(int column, int row) {
+		Color colorFromCurrentPlayer = getColorAsPaint();
+		String index = createButtonIndex(column, row);
+		for (Node node : gameAreaGridPane.getChildren()) {
+			if (node instanceof Button) {
+				Button button = (Button) node;
+				if (index.equals(button.getId())) {
+					button.setBackground(new Background(new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));;
+				}
+			}
+		}
+		writeInPlayerPromptTextField();
 	}
 
 }
