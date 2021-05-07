@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -73,6 +75,7 @@ public class GameWindowController {
 		setWinningQueueText();
 		writeInPlayerPromptTextField();
 		setupGameField();
+//		createListenerForComputerMoves();
 	}
 
 	@FXML
@@ -243,7 +246,7 @@ public class GameWindowController {
 		gameInformationLabel.setBorder(new Border(Config.DEFAULT_BORDERSTROKE));
 		gameInformationLabel.setWrapText(true);
 	}
-	
+
 	private void colorButtonForComputerMove(int column, int row) {
 		Color colorFromCurrentPlayer = getColorAsPaint();
 		String index = createButtonIndex(column, row);
@@ -251,11 +254,25 @@ public class GameWindowController {
 			if (node instanceof Button) {
 				Button button = (Button) node;
 				if (index.equals(button.getId())) {
-					button.setBackground(new Background(new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));;
+					button.setBackground(new Background(
+							new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));
+					;
 				}
 			}
 		}
 		writeInPlayerPromptTextField();
 	}
+
+//	private void createListenerForComputerMoves() {
+//		game.resultBoundProperty().addListener(new ChangeListener<Integer>() { // resultBoundProperty --> Create getter
+//																				// for BoundProperty in game and connect
+//																				// it here.
+//			@Override
+//			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+//				colorButtonForComputerMove(newValue, row); // Add getter for row indexes, because Listener is just added
+//															// to column, can be changed if wanted.
+//			}
+//		});
+//	}
 
 }
