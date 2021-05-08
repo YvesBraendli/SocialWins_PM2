@@ -97,13 +97,10 @@ public class MoveCalculatorTests {
 	 * Expected result: 2
 	 */
 	@ParameterizedTest
-	@ValueSource(ints = {1,2,3,4})
+	@ValueSource(ints = {2,3,4})
 	public void evaluateState_lowScore(int numberOfChipsToPlace) {
 		// Arrange
 		switch(numberOfChipsToPlace) {
-		case 1:
-			setupThreeWinningRow();
-			break;
 		case 2:
 			setupFourWinningRow();
 			break;
@@ -129,18 +126,34 @@ public class MoveCalculatorTests {
 	}
 	
 	/**
+	 * Equivalence Partitioning: eS1
+	 * Checks if the returned score for a low score row is correct.
+	 * Expected result: 0
+	 */
+	@Test
+	public void evaluateState_lowScore_winningRowSizeThree() {
+		// Arrange
+		setupThreeWinningRow();
+		int expectedScore = 0;
+		depth = 0;
+		board.addChip(1, Config.SINGLEPLAYER_COMPUTERCOLOR);
+		
+		// Act
+		Move move = testCalculator.calculateComputerMove(depth, board, true, 0);
+		
+		// Assert
+		assertEquals(expectedScore, move.getScore());	
+	}
+	/**
 	 * Equivalence Partitioning: eS2
 	 * Checks if the returned score for a medium score row is correct.
 	 * Expected result: 2+6
 	 */
 	@ParameterizedTest
-	@ValueSource(ints = {2,3,4,5})
+	@ValueSource(ints = {3,4,5})
 	public void evaluateState_mediumScore(int numberOfChipsToPlace) {
 		// Arrange
 		switch(numberOfChipsToPlace) {
-		case 2:
-			setupThreeWinningRow();
-			break;
 		case 3:
 			setupFourWinningRow();
 			break;
@@ -164,6 +177,26 @@ public class MoveCalculatorTests {
 		// Assert
 		assertEquals(expectedScore, move.getScore());		
 	}
+	/**
+	 * Equivalence Partitioning: eS2
+	 * Checks if the returned score for a low score row is correct.
+	 * Expected result: 6
+	 */
+	@Test
+	public void evaluateState_mediumScore_winningRowSizeThree() {
+		// Arrange
+		setupThreeWinningRow();
+		int expectedScore = Config.MEDIUM_SCORE;
+		depth = 0;
+		board.addChip(1, Config.SINGLEPLAYER_COMPUTERCOLOR);
+		board.addChip(1, Config.SINGLEPLAYER_COMPUTERCOLOR);
+		
+		// Act
+		Move move = testCalculator.calculateComputerMove(depth, board, true, 0);
+		
+		// Assert
+		assertEquals(expectedScore, move.getScore());	
+	}
 	
 	/**
 	 * Equivalence Partitioning: eS3
@@ -171,13 +204,10 @@ public class MoveCalculatorTests {
 	 * Expected result: 2+6+500
 	 */
 	@ParameterizedTest
-	@ValueSource(ints = {3,4,5,6})
+	@ValueSource(ints = {4,5,6})
 	public void evaluateState_highScore(int numberOfChipsToPlace) {
 		// Arrange
 		switch(numberOfChipsToPlace) {
-		case 3:
-			setupThreeWinningRow();
-			break;
 		case 4:
 			setupFourWinningRow();
 			break;
@@ -200,6 +230,28 @@ public class MoveCalculatorTests {
 		
 		// Assert
 		assertEquals(expectedScore, move.getScore());		
+	}
+	
+	/**
+	 * Equivalence Partitioning: eS3
+	 * Checks if the returned score for a low score row is correct.
+	 * Expected result: 6
+	 */
+	@Test
+	public void evaluateState_highScore_winningRowSizeThree() {
+		// Arrange
+		setupThreeWinningRow();
+		int expectedScore = Config.MEDIUM_SCORE+Config.HIGH_SCORE;
+		depth = 0;
+		board.addChip(1, Config.SINGLEPLAYER_COMPUTERCOLOR);
+		board.addChip(1, Config.SINGLEPLAYER_COMPUTERCOLOR);
+		board.addChip(1, Config.SINGLEPLAYER_COMPUTERCOLOR);
+		
+		// Act
+		Move move = testCalculator.calculateComputerMove(depth, board, true, 0);
+		
+		// Assert
+		assertEquals(expectedScore, move.getScore());	
 	}
 	
 	/**
@@ -351,8 +403,8 @@ public class MoveCalculatorTests {
 		board.addChip(0, Config.SINGLEPLAYER_COMPUTERCOLOR);
 		board.addChip(4, Config.SINGLEPLAYER_USERCOLOR);
 		board.addChip(5, Config.SINGLEPLAYER_USERCOLOR);
-		depth = 1;
-		int expectedBestColumn = 3;
+		depth = 4;
+		int expectedBestColumn = 2;
 		
 		// Act
 		Move actualMove = testCalculator.calculateComputerMove(depth, board, true, 0);
