@@ -224,14 +224,26 @@ public class MoveCalculator {
 		int elementsInBlock = checkForElementsInBlock(block, playedChipColor);
 		int emptyElementsInBlock = checkForEmptyElements(block);
 
-		if (winningRowLength >= MINIMAL_WINNINGROW_SIZE_TO_EVAL_LOW_SCORE && 
-				elementsInBlock == (winningRowLength-EMPTY_SPACES_FOR_LOW_SCORE) && emptyElementsInBlock == EMPTY_SPACES_FOR_LOW_SCORE) {
+		score = lowScoreValidation(playedChipColor, score, elementsInBlock, emptyElementsInBlock);
+		score = mediumScoreValidation(playedChipColor, score, elementsInBlock, emptyElementsInBlock);
+		score = highScoreValidation(playedChipColor, score, elementsInBlock);
+		
+		return score;
+	}
+
+	private int highScoreValidation(Color playedChipColor, int score, int elementsInBlock) {
+		if (elementsInBlock == winningRowLength) {
 			if (isComputerColor(playedChipColor)) {
-				score += Config.LOW_SCORE;
-			} else {
-				score += Config.OPPONENT_LOW_PENALTY;
+				score += Config.HIGH_SCORE;
+			} 
+			else {
+				score += Config.OPPONENT_HIGH_PENALTY;
 			}
 		}
+		return score;
+	}
+
+	private int mediumScoreValidation(Color playedChipColor, int score, int elementsInBlock, int emptyElementsInBlock) {
 		if (elementsInBlock == (winningRowLength-EMPTY_SPACES_FOR_MEDIUM_SCORE) && emptyElementsInBlock == EMPTY_SPACES_FOR_MEDIUM_SCORE) {
 			if (isComputerColor(playedChipColor)) {
 				score += Config.MEDIUM_SCORE;
@@ -239,12 +251,16 @@ public class MoveCalculator {
 				score += Config.OPPONENT_MEDIUM_PENALTY;
 			}
 		}
-		if (elementsInBlock == winningRowLength) {
+		return score;
+	}
+
+	private int lowScoreValidation(Color playedChipColor, int score, int elementsInBlock, int emptyElementsInBlock) {
+		if (winningRowLength >= MINIMAL_WINNINGROW_SIZE_TO_EVAL_LOW_SCORE && 
+				elementsInBlock == (winningRowLength-EMPTY_SPACES_FOR_LOW_SCORE) && emptyElementsInBlock == EMPTY_SPACES_FOR_LOW_SCORE) {
 			if (isComputerColor(playedChipColor)) {
-				score += Config.HIGH_SCORE;
-			} 
-			else {
-				score += Config.OPPONENT_HIGH_PENALTY;
+				score += Config.LOW_SCORE;
+			} else {
+				score += Config.OPPONENT_LOW_PENALTY;
 			}
 		}
 		return score;
