@@ -29,6 +29,7 @@ public class MoveCalculator {
 	
 	private static final int EMPTY_SPACES_FOR_LOW_SCORE = 2;
 	private static final int EMPTY_SPACES_FOR_MEDIUM_SCORE = 1;
+	private static final int MINIMAL_WINNINGROW_SIZE_TO_EVAL_LOW_SCORE = 4;
 
 	/**
 	 *  Constructor of the Move Calculator Class
@@ -223,7 +224,8 @@ public class MoveCalculator {
 		int elementsInBlock = checkForElementsInBlock(block, playedChipColor);
 		int emptyElementsInBlock = checkForEmptyElements(block);
 
-		if (winningRowLength > 3 && elementsInBlock == (winningRowLength-EMPTY_SPACES_FOR_LOW_SCORE) && emptyElementsInBlock == EMPTY_SPACES_FOR_LOW_SCORE) {
+		if (winningRowLength >= MINIMAL_WINNINGROW_SIZE_TO_EVAL_LOW_SCORE && 
+				elementsInBlock == (winningRowLength-EMPTY_SPACES_FOR_LOW_SCORE) && emptyElementsInBlock == EMPTY_SPACES_FOR_LOW_SCORE) {
 			if (isComputerColor(playedChipColor)) {
 				score += Config.LOW_SCORE;
 			} else {
