@@ -14,10 +14,14 @@ public class Computer extends Player {
 	public Computer(String name, Color color, int level, Board board, int winningRowLength) {
 		super(name, color);
 		this.board = board;
-		setStrategy(level, board.getNumberOfRows(), board.getNumberOfColumns(), winningRowLength);
+		try {
+			setStrategy(level, board.getNumberOfRows(), board.getNumberOfColumns(), winningRowLength);
+		} catch (InvalidLevelException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private void setStrategy(int level, int numberOfRows, int numberOfColumns, int winningRowLength) {
+	private void setStrategy(int level, int numberOfRows, int numberOfColumns, int winningRowLength) throws InvalidLevelException {
 		switch (level) {
 		case 1:
 			strategy = new ComputerBeginnerStrategy(numberOfRows, numberOfColumns, winningRowLength);
@@ -30,7 +34,7 @@ public class Computer extends Player {
 			break;
 			
 		default:
-			// throw new exception, invalid level.
+			throw new InvalidLevelException("Invalid Level");
 		}
 	}
 	
