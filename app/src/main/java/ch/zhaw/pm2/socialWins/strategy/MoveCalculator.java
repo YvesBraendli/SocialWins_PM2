@@ -168,7 +168,7 @@ public class MoveCalculator {
 		for (int i = 0; i < numberOfColumns; i++) {
 			for (int j = 0; j < numberOfRows - (winningRowLength - 1); j++) {
 				Chip[] block = new Chip[winningRowLength];
-				for (int k = j; k < winningRowLength; k++) {
+				for (int k = j; k < j+winningRowLength; k++) {
 					block[k-j] = board[k][i];
 				}
 				score += evaluateBlock(block, playedChipColor);
@@ -188,7 +188,7 @@ public class MoveCalculator {
 		for (int i = 0; i < numberOfRows; i++) {
 			for (int j = 0; j < numberOfColumns - (winningRowLength - 1); j++) {
 				Chip[] block = new Chip[winningRowLength];
-				for (int k = j; k < winningRowLength; k++) {
+				for (int k = j; k < j+winningRowLength; k++) {
 					block[k-j] = board[i][k];
 				}
 				score += evaluateBlock(block, playedChipColor);
