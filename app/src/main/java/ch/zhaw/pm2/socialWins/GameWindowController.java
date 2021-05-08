@@ -75,7 +75,7 @@ public class GameWindowController {
 		setWinningQueueText();
 		writeInPlayerPromptTextField();
 		setupGameField();
-		//createListenerForComputerMoves();
+		createListenerForComputerMoves();
 	}
 
 	@FXML
@@ -152,7 +152,7 @@ public class GameWindowController {
 		setGameInformationText(Config.INFORMATION_TEXT);
 		ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
 		int columnIndexOfCurrentButton = Integer.parseInt(buttonToAdd.getId().substring(0, 2));
-		Color colorFromCurrentPlayer = getColorAsPaint();
+		Color colorFromCurrentPlayer = getColorAsPaint(game.getColorFromCurrentPlayer());
 		if (game.nextMove(columnIndexOfCurrentButton)) { // game.nextMove(columnIndexOfCurrentButton)
 			for (Node node : gameAreaGridPane.getChildren()) {
 				if (node instanceof Button) {
@@ -218,15 +218,14 @@ public class GameWindowController {
 		return index;
 	}
 
-	private Color getColorAsPaint() {
-		java.awt.Color colorFromCurrentPlayerAsColor = game.getColorFromCurrentPlayer();
-		int r = colorFromCurrentPlayerAsColor.getRed();
-		int g = colorFromCurrentPlayerAsColor.getGreen();
-		int b = colorFromCurrentPlayerAsColor.getBlue();
-		int a = colorFromCurrentPlayerAsColor.getAlpha();
+	private Color getColorAsPaint(java.awt.Color color) {
+		int r = color.getRed();
+		int g = color.getGreen();
+		int b = color.getBlue();
+		int a = color.getAlpha();
 		double opacity = a / 255.0;
-		Color colorFromCurrentPlayerAsPaint = javafx.scene.paint.Color.rgb(r, g, b, opacity);
-		return colorFromCurrentPlayerAsPaint;
+		Color colorAsPaint = javafx.scene.paint.Color.rgb(r, g, b, opacity);
+		return colorAsPaint;
 	}
 
 	private void writeInPlayerPromptTextField() {
@@ -247,15 +246,20 @@ public class GameWindowController {
 		gameInformationLabel.setWrapText(true);
 	}
 
-	private void colorButtonForComputerMove(int column, int row) {
-		Color colorFromCurrentPlayer = getColorAsPaint();
-		String index = createButtonIndex(column, row);
+	private void colorButtonForComputerMove(int column) {
+		System.out.println("new column : " + column);
+		if (column < 0) {
+			return;
+		}
+		
+		Color colorFromComputer = getColorAsPaint(Config.SINGLEPLAYER_COMPUTERCOLOR);
+		String index = createButtonIndex(column, getFreeRow(column));
 		for (Node node : gameAreaGridPane.getChildren()) {
 			if (node instanceof Button) {
 				Button button = (Button) node;
 				if (index.equals(button.getId())) {
 					button.setBackground(new Background(
-							new BackgroundFill(colorFromCurrentPlayer, CornerRadii.EMPTY, Insets.EMPTY)));
+							new BackgroundFill(colorFromComputer, CornerRadii.EMPTY, Insets.EMPTY)));
 					;
 				}
 			}
@@ -263,11 +267,40 @@ public class GameWindowController {
 		writeInPlayerPromptTextField();
 	}
 
-//	private void createListenerForComputerMoves() {
-//		game.NextComputerMoveBoundProperty().addListener( (obs, old, newValue) -> {
-//				colorButtonForComputerMove(newValue.intValue(), 0);	        
-//	    });
-//
-//	}
+	private void createListenerForComputerMoves() {
+		game.NextComputerMoveBoundProperty().addListener((obs, old, newValue) -> {
+			colorButtonForComputerMove(newValue.intValue());
+		});
+	}
+
+	private int getFreeRow(int column) {
+		ArrayList<Button> buttonsInOneColumn = new ArrayList<>();
+
+		for (Node node : gameAreaGridPane.getChildren()) {
+			if (node instanceof Button) {
+				Button button = (Button) node;
+				int columnIndexOfCheckedButton = Integer.parseInt(button.getId().substring(0, 2));
+				Color colorButton = (Color) button.getBackground().getFills().get(0).getFill();
+				System.out.println(button.getId());
+				if (columnIndexOfCheckedButton == column &&
+						colorButton == Config.DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD) {
+					buttonsInOneColumn.add(button);
+				}
+			}
+		}
+
+		int biggestPossibleRow = -1;
+		for (Button button : buttonsInOneColumn) {
+			
+			int row= Integer.parseInt(button.getId().substring(2, 4));
+			
+			System.out.println(row);
+			if(row > biggestPossibleRow) {
+				biggestPossibleRow = row;
+			}
+		}
+		System.out.println(biggestPossibleRow);
+		return biggestPossibleRow;
+	}
 
 }

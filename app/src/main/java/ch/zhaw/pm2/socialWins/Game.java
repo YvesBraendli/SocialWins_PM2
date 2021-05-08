@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  * Game class provides the logic for a social wins game. It works closely
@@ -23,7 +24,7 @@ public class Game {
 	private boolean isSinglePlay;
 	private int currentPlayerIndex;
 
-	private IntegerProperty nextComputerMove;
+	private IntegerProperty nextComputerMove = new SimpleIntegerProperty();
 
 	/**
 	 * Constructs a SinglePlayer Game for a social wins game.
@@ -144,7 +145,12 @@ public class Game {
 		if (isSinglePlay) {
 			boolean isValidComputerTurn = false;
 			while(!isValidComputerTurn) {	
-				isValidComputerTurn = board.addChip(((Computer) players[1]).nextMove(), Config.SINGLEPLAYER_COMPUTERCOLOR);
+				int nextMove = ((Computer) players[1]).nextMove();
+				isValidComputerTurn = board.addChip(nextMove, Config.SINGLEPLAYER_COMPUTERCOLOR);
+				if(isValidComputerTurn) {
+					nextComputerMove.set(nextMove);
+					nextComputerMove.set(-1);
+				}
 			}
 		} else {
 			switchToNextPlayer();

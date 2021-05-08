@@ -1,70 +1,43 @@
-<<<<<<< HEAD
 ch/zhaw/pm2/socialWins/Config.java
  ch.zhaw.pm2.socialWins.Config
-=======
-ch/zhaw/pm2/socialWins/GameUI.java
- ch.zhaw.pm2.socialWins.GameUI
->>>>>>> master
-ch/zhaw/pm2/socialWins/WinningViewController.java
- ch.zhaw.pm2.socialWins.WinningViewController
+ch/zhaw/pm2/socialWins/HumanPlayer.java
+ ch.zhaw.pm2.socialWins.HumanPlayer
 ch/zhaw/pm2/socialWins/strategy/Strategy.java
  ch.zhaw.pm2.socialWins.strategy.Strategy
 ch/zhaw/pm2/socialWins/strategy/ComputerBeginnerStrategy.java
  ch.zhaw.pm2.socialWins.strategy.ComputerBeginnerStrategy
 ch/zhaw/pm2/socialWins/strategy/ComputerIntermediateStrategy.java
  ch.zhaw.pm2.socialWins.strategy.ComputerIntermediateStrategy
-<<<<<<< HEAD
-ch/zhaw/pm2/socialWins/HelpWindowController.java
- ch.zhaw.pm2.socialWins.HelpWindowController
-=======
-ch/zhaw/pm2/socialWins/GameWindowController.java
- ch.zhaw.pm2.socialWins.GameWindowController
- ch.zhaw.pm2.socialWins.GameWindowController$1
+ch/zhaw/pm2/socialWins/strategy/ComputerAdvancedStrategy.java
+ ch.zhaw.pm2.socialWins.strategy.ComputerAdvancedStrategy
 ch/zhaw/pm2/socialWins/strategy/MoveCalculator.java
  ch.zhaw.pm2.socialWins.strategy.MoveCalculator
 ch/zhaw/pm2/socialWins/strategy/Move.java
  ch.zhaw.pm2.socialWins.strategy.Move
 ch/zhaw/pm2/socialWins/InvalidLevelException.java
  ch.zhaw.pm2.socialWins.InvalidLevelException
->>>>>>> master
 ch/zhaw/pm2/socialWins/GameStarter.java
  ch.zhaw.pm2.socialWins.GameStarter
-ch/zhaw/pm2/socialWins/SetupWindowController.java
- ch.zhaw.pm2.socialWins.SetupWindowController
+ch/zhaw/pm2/socialWins/Test.java
+ ch.zhaw.pm2.socialWins.Test
 ch/zhaw/pm2/socialWins/Chip.java
  ch.zhaw.pm2.socialWins.Chip
-<<<<<<< HEAD
-ch/zhaw/pm2/socialWins/strategy/UserInputStrategy.java
- ch.zhaw.pm2.socialWins.strategy.UserInputStrategy
-=======
->>>>>>> master
 ch/zhaw/pm2/socialWins/Computer.java
  ch.zhaw.pm2.socialWins.Computer
 ch/zhaw/pm2/socialWins/Board.java
  ch.zhaw.pm2.socialWins.Board
 ch/zhaw/pm2/socialWins/Player.java
  ch.zhaw.pm2.socialWins.Player
+ch/zhaw/pm2/socialWins/SetupWindowController.java
+ ch.zhaw.pm2.socialWins.SetupWindowController
+ch/zhaw/pm2/socialWins/WinningViewController.java
+ ch.zhaw.pm2.socialWins.WinningViewController
 ch/zhaw/pm2/socialWins/Game.java
  ch.zhaw.pm2.socialWins.Game
-ch/zhaw/pm2/socialWins/strategy/ComputerAdvancedStrategy.java
- ch.zhaw.pm2.socialWins.strategy.ComputerAdvancedStrategy
-<<<<<<< HEAD
-ch/zhaw/pm2/socialWins/HumanPlayer.java
- ch.zhaw.pm2.socialWins.HumanPlayer
-ch/zhaw/pm2/socialWins/Test.java
- ch.zhaw.pm2.socialWins.Test
+ch/zhaw/pm2/socialWins/HelpWindowController.java
+ ch.zhaw.pm2.socialWins.HelpWindowController
 ch/zhaw/pm2/socialWins/GameUI.java
  ch.zhaw.pm2.socialWins.GameUI
 ch/zhaw/pm2/socialWins/GameWindowController.java
  ch.zhaw.pm2.socialWins.GameWindowController
  ch.zhaw.pm2.socialWins.GameWindowController$1
-=======
-ch/zhaw/pm2/socialWins/Test.java
- ch.zhaw.pm2.socialWins.Test
-ch/zhaw/pm2/socialWins/HumanPlayer.java
- ch.zhaw.pm2.socialWins.HumanPlayer
-ch/zhaw/pm2/socialWins/HelpWindowController.java
- ch.zhaw.pm2.socialWins.HelpWindowController
-ch/zhaw/pm2/socialWins/Config.java
- ch.zhaw.pm2.socialWins.Config
->>>>>>> master
