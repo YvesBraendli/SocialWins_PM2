@@ -9,30 +9,36 @@ import ch.zhaw.pm2.socialWins.strategy.Strategy;
 
 public class Computer extends Player {
 	private Strategy strategy;
+	private Board board;
 
-	public Computer(String name, Color color, int level) {
+	public Computer(String name, Color color, int level, Board board, int winningRowLength) {
 		super(name, color);
-		setStrategy(level);
+		this.board = board;
+		try {
+			setStrategy(level, board.getNumberOfRows(), board.getNumberOfColumns(), winningRowLength);
+		} catch (InvalidLevelException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private void setStrategy(int level) {
+	private void setStrategy(int level, int numberOfRows, int numberOfColumns, int winningRowLength) throws InvalidLevelException {
 		switch (level) {
 		case 1:
-			strategy = new ComputerBeginnerStrategy();
+			strategy = new ComputerBeginnerStrategy(numberOfRows, numberOfColumns, winningRowLength);
 			break;
 		case 2: 
-			strategy = new ComputerIntermediateStrategy();
+			strategy = new ComputerIntermediateStrategy(numberOfRows, numberOfColumns, winningRowLength);
 			break;
 		case 3:
-			strategy = new ComputerAdvancedStrategy();
+			strategy = new ComputerAdvancedStrategy(numberOfRows, numberOfColumns, winningRowLength);
 			break;
 			
 		default:
-			// throw new exception, invalid level.
+			throw new InvalidLevelException("Invalid Level");
 		}
 	}
 	
-	public void nextMove() {
-		strategy.nextMove();
+	public int nextMove() {
+		return strategy.nextMove(board);
 	}
 }

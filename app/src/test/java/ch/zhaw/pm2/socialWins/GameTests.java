@@ -5,11 +5,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Color;
@@ -301,29 +301,42 @@ public class GameTests {
 	 * Expected result: returns player, the winner
 	 */
 	@Test
-	public void getWinner_hasWinner_returnsWinner() {
-		// Arrange
-		String name = "tim";
-		Color color = Color.YELLOW;
-		HashMap<Color, String> players = new HashMap<>();
-		players.put(color, name);
-		players.put(Color.BLUE, "max");
-		players.put(Color.BLACK, "laura");
-		players.put(Color.WHITE, "olga");
-		testGame = new Game(5, players, 6, 6);
+    public void getWinner_hasWinner_returnsWinner() {
+        // Arrange
+        HashMap<Color, String> players = new HashMap<>();
+        players.put(Color.YELLOW, "tim");
+        players.put(Color.BLUE, "max");
+        players.put(Color.BLACK, "laura");
+        players.put(Color.WHITE, "olga");
+        testGame = new Game(5, players, 6, 6);
 
-		for (int i = 0; i < 5; i++) {
-			testGame.nextMove(0);
-			testGame.nextMove(1);
-			testGame.nextMove(2);
-			testGame.nextMove(3);
-		}
+ 
 
-		// Act
-		Player winner = testGame.getWinner();
+        String name = testGame.getNameFromCurrentPlayer();
+        Color color = testGame.getColorFromCurrentPlayer();
+        
+        for (int i = 0; i < 5; i++) {
+            testGame.nextMove(0);
+            if (i % 2 == 0) {
+                testGame.nextMove(1);
+                testGame.nextMove(2);
+                testGame.nextMove(3);
+            } else {
+                testGame.nextMove(2);
+                testGame.nextMove(3);
+                testGame.nextMove(4);
+            }
+        }
 
-		// Assert
-		assertEquals(name, winner.getName());
-		assertEquals(color, winner.getColor());
-	}
+ 
+
+        // Act
+        Player winner = testGame.getWinner();
+
+ 
+
+        // Assert
+        assertEquals(name, winner.getName());
+        assertEquals(color, winner.getColor());
+    }
 }

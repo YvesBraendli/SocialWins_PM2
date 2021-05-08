@@ -11,6 +11,7 @@ plugins {
     id 'application'
     // Apply the javafx plugin to support javafx in the project.
     id 'org.openjfx.javafxplugin' version '0.0.9'
+    
 }
 
 repositories {
@@ -29,6 +30,10 @@ dependencies {
     implementation 'com.google.guava:guava:29.0-jre'
     testImplementation 'org.mockito:mockito-inline:3.7.7'
     testImplementation 'org.mockito:mockito-junit-jupiter:3.7.7' 
+    
+    // https://mvnrepository.com/artifact/org.javatuples/javatuples
+	implementation group: 'org.javatuples', name: 'javatuples', version: '1.2'
+    
 }
 
 application {

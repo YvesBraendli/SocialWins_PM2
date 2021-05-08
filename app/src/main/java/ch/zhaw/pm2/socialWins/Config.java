@@ -26,15 +26,14 @@ public class Config {
 
 	public static final String ALLOWED_PLAYERNAME_PATTERN = "^\\w+(-\\w+)*$";
 	public static final String SINGLEPLAYER_COMPUTERNAME = "George";
-	public static final String WRONG_QUEUE_TEXT = "Bitte wähle eine andere Spalte, diese ist schon gefüllt.";
-	public static final String INFORMATION_TEXT = "Bitte klicke auf ein Feld, welches sich in der Kolone befindet, in der du ein Spielstein hinzufügen möchtest.";
+	public static final String WRONG_QUEUE_TEXT = "Bitte wÃ¤hle eine andere Spalte, diese ist schon gefÃ¼llt.";
+	public static final String INFORMATION_TEXT = "Bitte klicke auf ein Feld, welches sich in der Kolone befindet, in der du ein Spielstein hinzufÃ¼gen mÃ¶chtest.";
 	public static final String HELP_TEXT = "Dieser Text muss noch genauer definiert werden";
 	public static final String SETUP_TITEL = "SocialWins - New Game";
 	public static final String GAME_TITEL = "Willkommen beim SocialWins - Viel Spass";
 	public static final String HELP_WINDOW_TITEL = "Help Window";
 	public static final String WINNING_TITEL = "SocialWins - Game ended";
 	public static final String WELCOME_TEXT = "Willkommen beim SocialWins, viel Spass beim Spiel. Um Hilfe zu erhalten, den Button links oben klicken.";
-
 	public static final Color SINGLEPLAYER_USERCOLOR = Color.RED;
 	public static final Color SINGLEPLAYER_COMPUTERCOLOR = Color.BLUE;
 	public static final javafx.scene.paint.Color DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD = javafx.scene.paint.Color.WHITE;
@@ -53,4 +52,18 @@ public class Config {
 	public static String createWinningText(String nameOfWinningPlayer) {
 		return "Spieler " + nameOfWinningPlayer + " hat das Spiel gewonnen. Herzliche Gratulation!";
 	}
+	
+	// AI Configurations
+	public static final int CENTER_COLUMS_SCORE = 4;
+	public static final int LOW_SCORE = 2;
+	public static final int MEDIUM_SCORE = 6;
+	public static final int HIGH_SCORE = 500;
+	public static final int OPPONENT_LOW_PENALTY = -2;
+	public static final int OPPONENT_MEDIUM_PENALTY = -100;
+	public static final int OPPONENT_HIGH_PENALTY = -200;
+	
+	public static final int BEGINNER_SEARCH_DEPTH = 1;
+	public static final int INTERMEDIATE_SEARCH_DEPTH = 3;
+	public static final int ADVANCED_SEARCH_DEPTH = 5;
+	public static final int DEPTH_NEGATION_AMOUNT = 4;
 }
