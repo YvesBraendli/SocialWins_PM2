@@ -50,7 +50,7 @@ public class Game {
 		Color computerColor = Config.SINGLEPLAYER_COMPUTERCOLOR;
 		String computerName = Config.SINGLEPLAYER_COMPUTERNAME;
 		addPlayer(userName, userColor);
-		players[1] = new Computer(computerName, computerColor, level);
+		players[1] = new Computer(computerName, computerColor, level, board, winningLineLength);
 
 	}
 
@@ -119,7 +119,10 @@ public class Game {
 		}
 
 		if (isSinglePlay) {
-			((Computer) players[1]).nextMove();
+			boolean isValidComputerTurn = false;
+			while(!isValidComputerTurn) {	
+				isValidComputerTurn = board.addChip(((Computer) players[1]).nextMove(), Config.SINGLEPLAYER_COMPUTERCOLOR);
+			}
 		} else {
 			switchToNextPlayer();
 		}

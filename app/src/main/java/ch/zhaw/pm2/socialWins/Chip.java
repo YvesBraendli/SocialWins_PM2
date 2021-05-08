@@ -13,4 +13,8 @@ public class Chip {
 	public Color getColor() {
 		return color;
 	}
+	
+	public Chip clone() {
+		return new Chip(getColor());
+	}
 }
