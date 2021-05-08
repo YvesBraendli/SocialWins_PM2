@@ -23,12 +23,12 @@ import ch.zhaw.pm2.socialWins.Config;
  *
  */
 public class MoveCalculator {
-	int numberOfColumns;
-	int numberOfRows;
-	int winningRowLength;
+	private int numberOfColumns;
+	private int numberOfRows;
+	private int winningRowLength;
 	
-	public static final int EMPTY_SPACES_FOR_LOW_SCORE = 2;
-	public static final int EMPTY_SPACES_FOR_MEDIUM_SCORE = 1;
+	private static final int EMPTY_SPACES_FOR_LOW_SCORE = 2;
+	private static final int EMPTY_SPACES_FOR_MEDIUM_SCORE = 1;
 
 	/**
 	 *  Constructor of the Move Calculator Class
@@ -46,7 +46,7 @@ public class MoveCalculator {
 	 * Implementation of the MiniMax Algorithm. 
 	 * The Method gets recursively called to try out every possible move the bot and the opponent can make.
 	 * The depth of the recursion is decided by the depth parameter. Warning: depth higher than 7 take a long time to calculate!
-	 * After the lowest depth has been reached, the move gets evaluated and and if it is better than the last, it gets stored in the return Move object.
+	 * After the lowest depth has been reached, the move gets evaluated and if it is better than the last, it gets stored in the return Move object.
 	 * @param depth how many iteration of the minimax algorithm should be applied
 	 * @param board the current state of the board
 	 * @param isMaximizing boolean which decides if the current simulated turn is the computer (maximizing) or the player (minimizing)
@@ -54,11 +54,10 @@ public class MoveCalculator {
 	 * @return a Move object containing a score and the corresponding move
 	 */
 	public Move calculateComputerMove(int depth, Board board, Boolean isMaximizing, int setColumn) {
-		ArrayList<Integer> validColumns = getValidColumns(board);
-		if(depth == 0 || board.isBoardFull() || Config.SINGLEPLAYER_COMPUTERCOLOR.equals(board.getColorWithChipsInARow(winningRowLength)) || Config.SINGLEPLAYER_USERCOLOR.equals(board.getColorWithChipsInARow(winningRowLength))) {
+		if(depth == 0 || isGameEnding(board)) {
 				return new Move(setColumn, evaluateState(board.getBoard(), Config.SINGLEPLAYER_COMPUTERCOLOR, setColumn));
 		}
-		
+		ArrayList<Integer> validColumns = getValidColumns(board);
 		if(isMaximizing) {
 			Move move = new Move(setColumn, Integer.MIN_VALUE);
 			for(int column: validColumns) {
@@ -85,6 +84,13 @@ public class MoveCalculator {
 		}
 	}
 	
+	private boolean isGameEnding(Board board) {
+		if(board.isBoardFull() || Config.SINGLEPLAYER_COMPUTERCOLOR.equals(board.getColorWithChipsInARow(winningRowLength)) 
+		|| Config.SINGLEPLAYER_USERCOLOR.equals(board.getColorWithChipsInARow(winningRowLength))) {
+			return true;
+		}
+		return false;
+	}
 	
 	private ArrayList<Integer> getValidColumns(Board board) {
 		ArrayList<Integer> validColums = new ArrayList<Integer>();
