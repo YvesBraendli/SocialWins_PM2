@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import javafx.beans.property.IntegerProperty;
+
 /**
  * Game class provides the logic for a social wins game. It works closely
  * together with the board class to update the current game board. the game
@@ -20,6 +22,8 @@ public class Game {
 	private Player winner;
 	private boolean isSinglePlay;
 	private int currentPlayerIndex;
+
+	private IntegerProperty nextComputerMove;
 
 	/**
 	 * Constructs a SinglePlayer Game for a social wins game.
@@ -87,8 +91,27 @@ public class Game {
 
 	}
 
+	/**
+	 * Gets ComputerMove the computer did last.
+	 * 
+	 * @return The next Move that the computer did in this game.
+	 */
+	public int getNextComputerMove() {
+		return this.nextComputerMove.get();
+	}
+
+	/**
+	 * Gets the current state bound property of the nextComputerMove.
+	 * 
+	 * @return the current nextComputerMove bound property of this game.
+	 */
+	public IntegerProperty NextComputerMoveBoundProperty() {
+		return nextComputerMove;
+	}
+
 	private boolean isValidWinningLineLength(int winningLineLength) {
-		return !(winningLineLength < Config.LOWEST_POSSIBLE_WINNINGROW || winningLineLength > Config.HIGHEST_POSSIBLE_WINNINGROW);
+		return !(winningLineLength < Config.LOWEST_POSSIBLE_WINNINGROW
+				|| winningLineLength > Config.HIGHEST_POSSIBLE_WINNINGROW);
 	}
 
 	private boolean isValidLevel(int level) {
@@ -156,9 +179,10 @@ public class Game {
 
 		return false;
 	}
-	
+
 	/**
-	 * getWinningLineLength() returns the number value of the line length, that is necessary for a player, to win the game.
+	 * getWinningLineLength() returns the number value of the line length, that is
+	 * necessary for a player, to win the game.
 	 * 
 	 * @return the length of the line, which a player has to build to win the game.
 	 */

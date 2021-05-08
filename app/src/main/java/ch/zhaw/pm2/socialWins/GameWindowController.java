@@ -75,7 +75,7 @@ public class GameWindowController {
 		setWinningQueueText();
 		writeInPlayerPromptTextField();
 		setupGameField();
-//		createListenerForComputerMoves();
+		//createListenerForComputerMoves();
 	}
 
 	@FXML
@@ -264,15 +264,10 @@ public class GameWindowController {
 	}
 
 //	private void createListenerForComputerMoves() {
-//		game.resultBoundProperty().addListener(new ChangeListener<Integer>() { // resultBoundProperty --> Create getter
-//																				// for BoundProperty in game and connect
-//																				// it here.
-//			@Override
-//			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
-//				colorButtonForComputerMove(newValue, row); // Add getter for row indexes, because Listener is just added
-//															// to column, can be changed if wanted.
-//			}
-//		});
+//		game.NextComputerMoveBoundProperty().addListener( (obs, old, newValue) -> {
+//				colorButtonForComputerMove(newValue.intValue(), 0);	        
+//	    });
+//
 //	}
 
 }
