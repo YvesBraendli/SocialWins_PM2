@@ -61,9 +61,7 @@ public class MoveCalculator {
 		if(isMaximizing) {
 			Move move = new Move(setColumn, Integer.MIN_VALUE);
 			for(int column: validColumns) {
-				Board boardCopy = new Board(board.generateBoardCopy(board.getBoard()));
-				boardCopy.addChip(column, Config.SINGLEPLAYER_COMPUTERCOLOR);
-				Move nextMove = calculateComputerMove(depth-1, boardCopy, false, column);
+				Move nextMove = runNextIteration(depth, board, column, Config.SINGLEPLAYER_COMPUTERCOLOR);
 				if(nextMove.getScore() > move.getScore()) {
 					move = nextMove;
 				}
@@ -73,15 +71,25 @@ public class MoveCalculator {
 		else {
 			Move move = new Move(setColumn, Integer.MAX_VALUE);
 			for(int column: validColumns) {
-				Board boardCopy = new Board(board.generateBoardCopy(board.getBoard()));
-				boardCopy.addChip(column, Config.SINGLEPLAYER_USERCOLOR);
-				Move nextMove = calculateComputerMove(depth-1, boardCopy, true, column);
+				Move nextMove = runNextIteration(depth, board, column, Config.SINGLEPLAYER_USERCOLOR);
 				if(nextMove.getScore() < move.getScore()) {
 					move = nextMove;
 				}
 			}
 			return move;
 		}
+	}
+
+	private Move runNextIteration(int depth, Board board, int column, Color color) {
+		boolean isMaximizing = false;
+		if(color.equals(Config.SINGLEPLAYER_COMPUTERCOLOR)) {
+			isMaximizing = true;
+		}
+		
+		Board boardCopy = new Board(board.generateBoardCopy(board.getBoard()));
+		boardCopy.addChip(column, color);
+		Move nextMove = calculateComputerMove(depth-1, boardCopy, isMaximizing, column);
+		return nextMove;
 	}
 	
 	private boolean isGameEnding(Board board) {
