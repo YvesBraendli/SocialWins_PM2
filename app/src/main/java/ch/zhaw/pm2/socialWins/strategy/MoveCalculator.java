@@ -129,16 +129,16 @@ public class MoveCalculator {
 
 		double halfOfBoardColumns = numberOfColumns / 2.00;
 		int centerColumn = (int) halfOfBoardColumns;
-		score += checkIfCenterColumn(board, playedColumn, centerColumn);
+		score += checkIfSetChipIsInCenterColumn(board, playedColumn, centerColumn);
 		if(halfOfBoardColumns % 1 == 0) {
-			score += checkIfCenterColumn(board, playedColumn, centerColumn-1);
+			score += checkIfSetChipIsInCenterColumn(board, playedColumn, centerColumn-1);
 		}
 		
 		
 		return score;
 	}
 
-	private int checkIfCenterColumn(Chip[][] board, int playerColumn, int centerColumn) {
+	private int checkIfSetChipIsInCenterColumn(Chip[][] board, int playerColumn, int centerColumn) {
 		int score = 0;
 		if (centerColumn == playerColumn) {
 				return score += Config.CENTER_COLUMS_SCORE;
