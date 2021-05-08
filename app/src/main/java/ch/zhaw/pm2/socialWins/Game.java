@@ -119,7 +119,10 @@ public class Game {
 		}
 
 		if (isSinglePlay) {
-			board.addChip(((Computer) players[1]).nextMove(), Config.SINGLEPLAYER_COMPUTERCOLOR);
+			boolean isValidComputerTurn = false;
+			while(!isValidComputerTurn) {	
+				board.addChip(((Computer) players[1]).nextMove(), Config.SINGLEPLAYER_COMPUTERCOLOR);
+			}
 		} else {
 			switchToNextPlayer();
 		}
