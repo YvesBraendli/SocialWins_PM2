@@ -209,7 +209,7 @@ public class MoveCalculator {
 		int elementsInBlock = checkForElementsInBlock(block, playedChipColor);
 		int emptyElementsInBlock = checkForEmptyElements(block);
 
-		if (elementsInBlock == (winningRowLength-EMPTY_SPACES_FOR_LOW_SCORE) && emptyElementsInBlock == EMPTY_SPACES_FOR_LOW_SCORE) {
+		if (winningRowLength > 3 && elementsInBlock == (winningRowLength-EMPTY_SPACES_FOR_LOW_SCORE) && emptyElementsInBlock == EMPTY_SPACES_FOR_LOW_SCORE) {
 			if (isComputerColor(playedChipColor)) {
 				score += Config.LOW_SCORE;
 			} else {
