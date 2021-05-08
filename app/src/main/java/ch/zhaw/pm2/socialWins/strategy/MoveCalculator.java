@@ -8,6 +8,20 @@ import ch.zhaw.pm2.socialWins.Board;
 import ch.zhaw.pm2.socialWins.Chip;
 import ch.zhaw.pm2.socialWins.Config;
 
+/**
+ * This Class is used to evaluate current board states and assign each possible position a score.
+ * It implements the MiniMax Algorithm to decide, which is the best possible move to make, 
+ * by brute forcing each possibility down to a specified depth. 
+ * The class is used for a Connect 4 Bot to decide, which move it will play.
+ * 
+ * Credit: This implementation is inspired by Keith Galli's Implementation in Python 
+ * but was also modified to allow winning rows 3-6.
+ * https://medium.com/analytics-vidhya/artificial-intelligence-at-play-connect-four-minimax-algorithm-explained-3b5fc32e4a4f
+ * 
+ * 
+ * @author yves braendli, robin meier, nadine moser
+ *
+ */
 public class MoveCalculator {
 	int numberOfColumns;
 	int numberOfRows;
@@ -16,12 +30,29 @@ public class MoveCalculator {
 	public static final int EMPTY_SPACES_FOR_LOW_SCORE = 2;
 	public static final int EMPTY_SPACES_FOR_MEDIUM_SCORE = 1;
 
+	/**
+	 *  Constructor of the Move Calculator Class
+	 * @param numberOfRows of the board
+	 * @param numberOfColumns of the board
+	 * @param winningRowLength number of chips in a row needed to win (3-6)
+	 */
 	public MoveCalculator(int numberOfRows, int numberOfColumns, int winningRowLength) {
 		this.numberOfColumns = numberOfColumns;
 		this.numberOfRows = numberOfRows;
 		this.winningRowLength = winningRowLength;
 	}
 	
+	/**
+	 * Implementation of the MiniMax Algorithm. 
+	 * The Method gets recursively called to try out every possible move the bot and the opponent can make.
+	 * The depth of the recursion is decided by the depth parameter. Warning: depth higher than 7 take a long time to calculate!
+	 * After the lowest depth has been reached, the move gets evaluated and and if it is better than the last, it gets stored in the return Move object.
+	 * @param depth how many iteration of the minimax algorithm should be applied
+	 * @param board the current state of the board
+	 * @param isMaximizing boolean which decides if the current simulated turn is the computer (maximizing) or the player (minimizing)
+	 * @param setColumn the column of the last chip that was set
+	 * @return a Move object containing a score and the corresponding move
+	 */
 	public Move calculateComputerMove(int depth, Board board, Boolean isMaximizing, int setColumn) {
 		ArrayList<Integer> validColumns = getValidColumns(board);
 		if(depth == 0 || board.isBoardFull() || Config.SINGLEPLAYER_COMPUTERCOLOR.equals(board.getColorWithChipsInARow(winningRowLength)) || Config.SINGLEPLAYER_USERCOLOR.equals(board.getColorWithChipsInARow(winningRowLength))) {
@@ -66,6 +97,15 @@ public class MoveCalculator {
 		return validColums;
 	}
 	
+	/**
+	 *  Evaluates the current board state
+	 * @param board the board
+	 * @param playedChipColor the color of the last chip played
+	 * @param playedColumn the column that the last chip was played in. 
+	 * This is only used for the center column check.
+	 * 
+	 * @return the score of the current board state
+	 */
 	private int evaluateState(Chip[][] board, Color playedChipColor, int playedColumn) {
 		int score = 0;
 
@@ -92,6 +132,12 @@ public class MoveCalculator {
 		return score;
 	}
 
+	/**
+	 *  generates all possible blocks in the two diagonal directions the size of the winning row length
+	 * @param board the current board state
+	 * @param playedChipColor the color of the last chip played
+	 * @return score
+	 */
 	private int checkDiagonalBlocks(Chip[][] board, Color playedChipColor) {
 		int score = 0;
 		for (int i = 0; i < numberOfRows - (winningRowLength - 1); i++) {
@@ -111,6 +157,12 @@ public class MoveCalculator {
 		return score;
 	}
 
+	/**
+	 * Generates all possible blocks in vertical direction the size of the winning row length
+	 * @param board the current board state
+	 * @param playedChipColor the color of the last chip played
+	 * @return score
+	 */
 	private int checkVerticalBlocks(Chip[][] board, Color playedChipColor) {
 		int score = 0;
 		for (int i = 0; i < numberOfColumns; i++) {
@@ -125,6 +177,12 @@ public class MoveCalculator {
 		return score;
 	}
 
+	/**
+	 * Generates all possible blocks in horizontal direction the size of the winning row length
+	 * @param board the current board state
+	 * @param playedChipColor the color of the last chip played
+	 * @return score
+	 */
 	private int checkHorizontalBlocks(Chip[][] board, Color playedChipColor) {
 		int score = 0;
 		for (int i = 0; i < numberOfRows; i++) {
@@ -139,6 +197,13 @@ public class MoveCalculator {
 		return score;
 	}
 
+	/**
+	 *  Checks a block if the conditions for a low, 
+	 *  medium or high score are met and adds the corresponding score.
+	 * @param block the current block to check
+	 * @param playedChipColor the color of the last chip played
+	 * @return score
+	 */
 	private int evaluateBlock(Chip[] block, Color playedChipColor) {
 		int score = 0;
 		int elementsInBlock = checkForElementsInBlock(block, playedChipColor);
