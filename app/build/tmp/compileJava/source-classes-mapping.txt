@@ -15,6 +15,8 @@ ch/zhaw/pm2/socialWins/strategy/MoveCalculator.java
  ch.zhaw.pm2.socialWins.strategy.MoveCalculator
 ch/zhaw/pm2/socialWins/strategy/Move.java
  ch.zhaw.pm2.socialWins.strategy.Move
+ch/zhaw/pm2/socialWins/InvalidLevelException.java
+ ch.zhaw.pm2.socialWins.InvalidLevelException
 ch/zhaw/pm2/socialWins/GameStarter.java
  ch.zhaw.pm2.socialWins.GameStarter
 ch/zhaw/pm2/socialWins/SetupWindowController.java

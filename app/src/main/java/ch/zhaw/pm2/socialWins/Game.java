@@ -121,7 +121,7 @@ public class Game {
 		if (isSinglePlay) {
 			boolean isValidComputerTurn = false;
 			while(!isValidComputerTurn) {	
-				board.addChip(((Computer) players[1]).nextMove(), Config.SINGLEPLAYER_COMPUTERCOLOR);
+				isValidComputerTurn = board.addChip(((Computer) players[1]).nextMove(), Config.SINGLEPLAYER_COMPUTERCOLOR);
 			}
 		} else {
 			switchToNextPlayer();
