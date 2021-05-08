@@ -16,8 +16,4 @@ public class Move {
 	public int getScore() {
 		return score;
 	}
-	
-	public void addScore(int additionalScore) {
-		score += additionalScore;
-	}
 }
