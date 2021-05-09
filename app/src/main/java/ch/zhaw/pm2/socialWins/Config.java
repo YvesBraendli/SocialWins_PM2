@@ -28,7 +28,25 @@ public class Config {
 	public static final String SINGLEPLAYER_COMPUTERNAME = "George";
 	public static final String WRONG_QUEUE_TEXT = "Bitte wähle eine andere Spalte, diese ist schon gefüllt.";
 	public static final String INFORMATION_TEXT = "Bitte klicke auf ein Feld, welches sich in der Kolone befindet, in der du ein Spielstein hinzufügen möchtest.";
-	public static final String HELP_TEXT = "Dieser Text muss noch genauer definiert werden";
+	public static final String HELP_TEXT = "Anleitung:\r\n"
+			+ "\r\n"
+			+ "Ziel des Spiels ist es eine bestimmt Anzahl an Chips in einer Reihe zu platzieren. Die Reihe kann vertikal, horizontal oder diagonal auf dem Feld liegen.\r\n"
+			+ "\r\n"
+			+ "Abwechslungsweise wählt jeder Spieler eine Spalte aus, in welcher der Chip in der Farbe des Spielers gesetzt werden soll. Der Chip selbst wird an der untersten möglichen Stelle in der Spalte platziert.\r\n"
+			+ "\r\n"
+			+ "Der erste Spieler, welcher die zu Beginn festgelegte Anzahl an Chips in einer Reihe hat, gewinnt.\r\n"
+			+ "\r\n"
+			+ "Programm:\r\n"
+			+ "\r\n"
+			+ "Neues Spiel : mit einem Klick auf \"Neues Spiel\" kann ein neues Spiel mit neuen Einstellungen gestartet werden. Der aktuelle Spielstand geht dabei verloren.\r\n"
+			+ "\r\n"
+			+ "Der Text oben rechts zeigt an, welcher Spieler an der Reihe ist um einen Chip zu platzieren.\r\n"
+			+ "\r\n"
+			+ "Der Text rechts in der mitte gibt eine Hilfestellung was als nächstes gemacht werden soll.\r\n"
+			+ "\r\n"
+			+ "Der Text unten rechts zeigt an wieviele Chips in einer Reihe platziert werden müssen, um das Spiel für sich zu entscheiden.\r\n"
+			+ "\r\n"
+			+ "Viel Spass beim Spielen!";
 	public static final String SETUP_TITEL = "SocialWins - New Game";
 	public static final String GAME_TITEL = "Willkommen beim SocialWins - Viel Spass";
 	public static final String HELP_WINDOW_TITEL = "Help Window";
