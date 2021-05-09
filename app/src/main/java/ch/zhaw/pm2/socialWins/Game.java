@@ -20,11 +20,12 @@ public class Game {
 	private Player[] players;
 	private Board board;
 	private int winningLineLength;
-	private Player winner;
+
 	private boolean isSinglePlay;
 	private int currentPlayerIndex;
 
 	private IntegerProperty nextComputerMove = new SimpleIntegerProperty();
+	private Player winner;
 
 	/**
 	 * Constructs a SinglePlayer Game for a social wins game.
@@ -94,6 +95,7 @@ public class Game {
 
 	/**
 	 * returns true if the game is a single play, false if multi player game
+	 * 
 	 * @return boolean if single play
 	 */
 	public boolean isSinglePlay() {
@@ -159,18 +161,17 @@ public class Game {
 
 	public void doComputerMove() {
 		boolean isValidComputerTurn = false;
-		while(!isValidComputerTurn) {	
+		while (!isValidComputerTurn) {
 			int nextMove = ((Computer) players[1]).nextMove();
 			isValidComputerTurn = board.addChip(nextMove, Config.SINGLEPLAYER_COMPUTERCOLOR);
-			if(isValidComputerTurn) {
+			if (isValidComputerTurn) {
 				nextComputerMove.set(nextMove);
 				nextComputerMove.set(-1);
 			}
 		}
 		updateWinner();
 	}
-	
-	
+
 	private void switchToNextPlayer() {
 		if (currentPlayerIndex == (players.length - 1)) {
 			currentPlayerIndex = 0;

@@ -209,6 +209,7 @@ public class GameWindowController {
 				return;
 			}
 		}
+		
 		if (isFirstElementInRow) {
 			int lastElementIndex = buttonsInColumn.size() - 1;
 			buttonsInColumn.get(lastElementIndex)
@@ -258,14 +259,11 @@ public class GameWindowController {
 	}
 
 	private void colorButtonForComputerMove(int column) {
-		
-		System.out.println("new column : " + column);
 		if (column < 0) {
 			return;
 		}
 		
 		Color colorFromComputer = getColorAsPaint(Config.SINGLEPLAYER_COMPUTERCOLOR);
-		System.out.println(colorFromComputer.getBlue());
 		String index = createButtonIndex(column, getFreeRow(column));
 		for (Node node : gameAreaGridPane.getChildren()) {
 			if (node instanceof Button) {
@@ -311,7 +309,6 @@ public class GameWindowController {
 				biggestPossibleRow = row;
 			}
 		}
-		System.out.println(biggestPossibleRow);
 		return biggestPossibleRow;
 	}
 
