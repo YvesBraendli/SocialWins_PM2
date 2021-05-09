@@ -187,6 +187,7 @@ public class GameWindowController {
 	}
 
 	private void addColorToLastFreeButtonInColumn(ArrayList<Button> buttonsInColumn, Color playerColor) {
+		
 		boolean isFirstElementInRow = true;
 		for (int z = 0; z < buttonsInColumn.size(); z++) {
 			int previousButtonIndex = z - 1;
@@ -196,6 +197,7 @@ public class GameWindowController {
 				buttonsInColumn.get(previousButtonIndex).setBackground(
 						new Background(new BackgroundFill(playerColor, CornerRadii.EMPTY, Insets.EMPTY)));
 				isFirstElementInRow = false;
+				return;
 			}
 		}
 		if (isFirstElementInRow) {
@@ -253,6 +255,7 @@ public class GameWindowController {
 		}
 		
 		Color colorFromComputer = getColorAsPaint(Config.SINGLEPLAYER_COMPUTERCOLOR);
+		System.out.println(colorFromComputer.getBlue());
 		String index = createButtonIndex(column, getFreeRow(column));
 		for (Node node : gameAreaGridPane.getChildren()) {
 			if (node instanceof Button) {
@@ -281,7 +284,6 @@ public class GameWindowController {
 				Button button = (Button) node;
 				int columnIndexOfCheckedButton = Integer.parseInt(button.getId().substring(0, 2));
 				Color colorButton = (Color) button.getBackground().getFills().get(0).getFill();
-				System.out.println(button.getId());
 				if (columnIndexOfCheckedButton == column &&
 						colorButton == Config.DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD) {
 					buttonsInOneColumn.add(button);
