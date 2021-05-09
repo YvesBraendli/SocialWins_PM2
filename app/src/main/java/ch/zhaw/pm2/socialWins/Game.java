@@ -116,7 +116,7 @@ public class Game {
 	 * 
 	 * @return the current nextComputerMove bound property of this game.
 	 */
-	public IntegerProperty NextComputerMoveBoundProperty() {
+	public IntegerProperty nextComputerMoveBoundProperty() {
 		return nextComputerMove;
 	}
 

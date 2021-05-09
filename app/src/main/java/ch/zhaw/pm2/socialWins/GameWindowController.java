@@ -279,7 +279,7 @@ public class GameWindowController {
 	}
 
 	private void createListenerForComputerMoves() {
-		game.NextComputerMoveBoundProperty().addListener((obs, old, newValue) -> {
+		game.nextComputerMoveBoundProperty().addListener((obs, old, newValue) -> {
 			colorButtonForComputerMove(newValue.intValue());
 		});
 	}
