@@ -163,20 +163,19 @@ public class GameWindowController {
 			}
 			addColorToLastFreeButtonInColumn(buttonsInOneColumn, colorFromCurrentPlayer);
 			writeInPlayerPromptTextField();
+			if (game.isSinglePlay()) {
+				game.doComputerMove();
+
+				if (game.getWinner() != null) {
+					changeToWinningView();
+				}
+			}
 		} else {
 			setGameInformationText(Config.WRONG_QUEUE_TEXT);
 		}
 		if (game.getWinner() != null) {
 			changeToWinningView();
 			return;
-		}
-		
-		if(game.isSinglePlay()) {
-			game.doComputerMove();
-			
-			if (game.getWinner() != null) {
-				changeToWinningView();
-			}
 		}
 	}
 
@@ -194,7 +193,7 @@ public class GameWindowController {
 	}
 
 	private void addColorToLastFreeButtonInColumn(ArrayList<Button> buttonsInColumn, Color playerColor) {
-		
+
 		boolean isFirstElementInRow = true;
 		for (int z = 0; z < buttonsInColumn.size(); z++) {
 			int previousButtonIndex = z - 1;
@@ -207,7 +206,7 @@ public class GameWindowController {
 				return;
 			}
 		}
-		
+
 		if (isFirstElementInRow) {
 			int lastElementIndex = buttonsInColumn.size() - 1;
 			buttonsInColumn.get(lastElementIndex)
@@ -260,15 +259,15 @@ public class GameWindowController {
 		if (column < 0) {
 			return;
 		}
-		
+
 		Color colorFromComputer = getColorAsPaint(Config.SINGLEPLAYER_COMPUTERCOLOR);
 		String index = createButtonIndex(column, getFreeRow(column));
 		for (Node node : gameAreaGridPane.getChildren()) {
 			if (node instanceof Button) {
 				Button button = (Button) node;
 				if (index.equals(button.getId())) {
-					button.setBackground(new Background(
-							new BackgroundFill(colorFromComputer, CornerRadii.EMPTY, Insets.EMPTY)));
+					button.setBackground(
+							new Background(new BackgroundFill(colorFromComputer, CornerRadii.EMPTY, Insets.EMPTY)));
 					;
 				}
 			}
@@ -290,8 +289,8 @@ public class GameWindowController {
 				Button button = (Button) node;
 				int columnIndexOfCheckedButton = Integer.parseInt(button.getId().substring(0, 2));
 				Color colorButton = (Color) button.getBackground().getFills().get(0).getFill();
-				if (columnIndexOfCheckedButton == column &&
-						colorButton == Config.DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD) {
+				if (columnIndexOfCheckedButton == column
+						&& colorButton == Config.DEFAULT_BACKGROUND_COLOR_OF_GAMEFIELD) {
 					buttonsInOneColumn.add(button);
 				}
 			}
@@ -299,11 +298,10 @@ public class GameWindowController {
 
 		int biggestPossibleRow = -1;
 		for (Button button : buttonsInOneColumn) {
-			
-			int row= Integer.parseInt(button.getId().substring(2, 4));
-			
-			System.out.println(row);
-			if(row > biggestPossibleRow) {
+
+			int row = Integer.parseInt(button.getId().substring(2, 4));
+
+			if (row > biggestPossibleRow) {
 				biggestPossibleRow = row;
 			}
 		}
