@@ -302,7 +302,7 @@ public class GameWindowController {
 			
 			int row= Integer.parseInt(button.getId().substring(2, 4));
 			
-			System.out.println(row);
+			//System.out.println(row);
 			if(row > biggestPossibleRow) {
 				biggestPossibleRow = row;
 			}
