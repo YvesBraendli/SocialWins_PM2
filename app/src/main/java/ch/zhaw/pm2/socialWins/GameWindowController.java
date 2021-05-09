@@ -163,20 +163,19 @@ public class GameWindowController {
 			}
 			addColorToLastFreeButtonInColumn(buttonsInOneColumn, colorFromCurrentPlayer);
 			writeInPlayerPromptTextField();
+			if(game.isSinglePlay()) {
+				game.doComputerMove();
+				
+				if (game.getWinner() != null) {
+					changeToWinningView();
+				}
+			}
 		} else {
 			setGameInformationText(Config.WRONG_QUEUE_TEXT);
 		}
 		if (game.getWinner() != null) {
 			changeToWinningView();
 			return;
-		}
-		
-		if(game.isSinglePlay()) {
-			game.doComputerMove();
-			
-			if (game.getWinner() != null) {
-				changeToWinningView();
-			}
 		}
 	}
 
