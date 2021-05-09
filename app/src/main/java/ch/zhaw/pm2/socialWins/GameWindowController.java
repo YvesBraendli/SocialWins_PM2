@@ -163,9 +163,8 @@ public class GameWindowController {
 			}
 			addColorToLastFreeButtonInColumn(buttonsInOneColumn, colorFromCurrentPlayer);
 			writeInPlayerPromptTextField();
-			if (game.isSinglePlay()) {
+			if(game.isSinglePlay()) {
 				game.doComputerMove();
-
 				if (game.getWinner() != null) {
 					changeToWinningView();
 				}
