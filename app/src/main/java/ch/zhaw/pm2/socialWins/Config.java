@@ -26,8 +26,8 @@ public class Config {
 
 	public static final String ALLOWED_PLAYERNAME_PATTERN = "^\\w+(-\\w+)*$";
 	public static final String SINGLEPLAYER_COMPUTERNAME = "George";
-	public static final String WRONG_QUEUE_TEXT = "Bitte wÃ¤hle eine andere Spalte, diese ist schon gefÃ¼llt.";
-	public static final String INFORMATION_TEXT = "Bitte klicke auf ein Feld, welches sich in der Kolone befindet, in der du ein Spielstein hinzufÃ¼gen mÃ¶chtest.";
+	public static final String WRONG_QUEUE_TEXT = "Bitte wähle eine andere Spalte, diese ist schon gefüllt.";
+	public static final String INFORMATION_TEXT = "Bitte klicke auf ein Feld, welches sich in der Kolone befindet, in der du ein Spielstein hinzufügen möchtest.";
 	public static final String HELP_TEXT = "Dieser Text muss noch genauer definiert werden";
 	public static final String SETUP_TITEL = "SocialWins - New Game";
 	public static final String GAME_TITEL = "Willkommen beim SocialWins - Viel Spass";
