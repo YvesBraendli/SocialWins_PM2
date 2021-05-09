@@ -83,5 +83,5 @@ public class Config {
 	public static final int BEGINNER_SEARCH_DEPTH = 1;
 	public static final int INTERMEDIATE_SEARCH_DEPTH = 3;
 	public static final int ADVANCED_SEARCH_DEPTH = 5;
-	public static final int DEPTH_NEGATION_AMOUNT = 4;
+	public static final int DEPTH_NEGATION_AMOUNT = 3;
 }
