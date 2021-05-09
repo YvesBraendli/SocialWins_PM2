@@ -93,6 +93,14 @@ public class Game {
 	}
 
 	/**
+	 * returns true if the game is a single play, false if multi player game
+	 * @return boolean if single play
+	 */
+	public boolean isSinglePlay() {
+		return isSinglePlay;
+	}
+
+	/**
 	 * Gets ComputerMove the computer did last.
 	 * 
 	 * @return The next Move that the computer did in this game.
@@ -142,23 +150,27 @@ public class Game {
 			return false;
 		}
 
-		if (isSinglePlay) {
-			boolean isValidComputerTurn = false;
-			while(!isValidComputerTurn) {	
-				int nextMove = ((Computer) players[1]).nextMove();
-				isValidComputerTurn = board.addChip(nextMove, Config.SINGLEPLAYER_COMPUTERCOLOR);
-				if(isValidComputerTurn) {
-					nextComputerMove.set(nextMove);
-					nextComputerMove.set(-1);
-				}
-			}
-		} else {
+		if (!isSinglePlay) {
 			switchToNextPlayer();
 		}
 		updateWinner();
 		return true;
 	}
 
+	public void doComputerMove() {
+		boolean isValidComputerTurn = false;
+		while(!isValidComputerTurn) {	
+			int nextMove = ((Computer) players[1]).nextMove();
+			isValidComputerTurn = board.addChip(nextMove, Config.SINGLEPLAYER_COMPUTERCOLOR);
+			if(isValidComputerTurn) {
+				nextComputerMove.set(nextMove);
+				nextComputerMove.set(-1);
+			}
+		}
+		updateWinner();
+	}
+	
+	
 	private void switchToNextPlayer() {
 		if (currentPlayerIndex == (players.length - 1)) {
 			currentPlayerIndex = 0;

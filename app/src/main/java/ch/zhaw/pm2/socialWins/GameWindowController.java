@@ -170,6 +170,15 @@ public class GameWindowController {
 		}
 		if (game.getWinner() != null) {
 			changeToWinningView();
+			return;
+		}
+		
+		if(game.isSinglePlay()) {
+			game.doComputerMove();
+			
+			if (game.getWinner() != null) {
+				changeToWinningView();
+			}
 		}
 	}
 
@@ -249,6 +258,7 @@ public class GameWindowController {
 	}
 
 	private void colorButtonForComputerMove(int column) {
+		
 		System.out.println("new column : " + column);
 		if (column < 0) {
 			return;
