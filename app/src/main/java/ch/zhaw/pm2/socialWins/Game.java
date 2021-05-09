@@ -78,7 +78,7 @@ public class Game {
 			throw new IllegalArgumentException();
 		}
 		players = new Player[users.size()];
-		board = new Board(columns, rows);
+		board = new Board(rows, columns);
 		isSinglePlay = false;
 
 		this.winningLineLength = winningLineLength;
