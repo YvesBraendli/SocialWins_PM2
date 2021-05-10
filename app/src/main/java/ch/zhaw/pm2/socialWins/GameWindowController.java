@@ -111,13 +111,13 @@ public class GameWindowController {
 	}
 
 	private void setupGameField() {
-		double gridPaneHeight = gameAreaGridPane.getPrefHeight() / numberOfColumns * numberOfColumns;
-		double gridPaneWidth = gameAreaGridPane.getPrefWidth() / numberOfRows * numberOfRows;
+		double gridPaneHeight = (int) gameAreaGridPane.getPrefHeight() / numberOfRows * numberOfRows;
+		double gridPaneWidth = (int) gameAreaGridPane.getPrefWidth() / numberOfColumns * numberOfColumns;
 		gameAreaGridPane.setPrefSize(gridPaneWidth, gridPaneHeight);
 		gameAreaGridPane.setMaxSize(gridPaneWidth, gridPaneHeight);
 		gameAreaGridPane.setMinSize(gridPaneWidth, gridPaneHeight);
-		double gridElementWidth = gameAreaGridPane.getPrefHeight() / numberOfColumns;
-		double gridElementHeight = gameAreaGridPane.getPrefWidth() / numberOfRows;
+		double gridElementHeight = gameAreaGridPane.getPrefHeight() / numberOfRows;
+		double gridElementWidth = gameAreaGridPane.getPrefWidth() / numberOfColumns;
 		for (int i = 0; i < numberOfRows; i++) {
 			for (int z = 0; z < numberOfColumns; z++) {
 				Button newGridElement = createAndManipulateButton(gridElementHeight, gridElementWidth, z, i);
@@ -163,7 +163,7 @@ public class GameWindowController {
 			}
 			addColorToLastFreeButtonInColumn(buttonsInOneColumn, colorFromCurrentPlayer);
 			writeInPlayerPromptTextField();
-			if(game.isSinglePlay()) {
+			if (game.isSinglePlay()) {
 				game.doComputerMove();
 				if (game.getWinner() != null) {
 					changeToWinningView();
