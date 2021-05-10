@@ -63,7 +63,9 @@ public class GameWindowController {
 	 * Is called from GameUI to connect the Controller to the game model. And to set
 	 * the game view with the basic inserted parameters by the user.
 	 * 
-	 * @param model The current model of the game class.
+	 * @param model the current model of the game class.
+	 * @param rowLength the number of rows for the game field.
+	 * @param columnLength the number of columns for the game field.
 	 */
 	public void setUpGameView(Game model, int rowLength, int columnLength) {
 		game = model;

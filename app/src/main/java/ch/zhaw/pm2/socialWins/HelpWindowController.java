@@ -12,6 +12,11 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+/**
+ * The controller for the help window, which is displayed, if a player clicks on the help button.
+ * @author Meier Robin, Braendli Yves, Moser Nadine
+ *
+ */
 
 public class HelpWindowController {
 	
