@@ -72,8 +72,6 @@ public class GameTests {
 	@Test
 	public void game_SinglePlayerValidArguments_NoExceptionIsThrown() {
 		// Act
-		testGame = new Game(5, "max", 2, 6, 2);
-
 		try {
 			testGame = new Game(5, "max", 2, 6, 2);
 		} catch (Exception e) {
@@ -108,11 +106,11 @@ public class GameTests {
 		players.put(Color.BLUE, "max");
 		players.put(Color.BLACK, "laura");
 		players.put(Color.WHITE, "olga");
-		
+
 		// Act & Assert
 		assertThrows(IllegalArgumentException.class, () -> new Game(5, players, 5, 5));
 	}
-	
+
 	/**
 	 * Equivalence Partitioning G2<br>
 	 * if game constructor for MultiPlayer is called with invalid userName argument
@@ -126,22 +124,22 @@ public class GameTests {
 		players.put(Color.BLUE, "max");
 		players.put(Color.BLACK, "laura");
 		players.put(Color.WHITE, "olga");
-		
+
 		// Act & Assert
 		assertThrows(IllegalArgumentException.class, () -> new Game(5, players, 5, 5));
 	}
-	
+
 	/**
 	 * Equivalence Partitioning G1<br>
-	 * if game constructor for MultiPlayer is called with invalid amount of users argument
-	 * and exception is thrown.<br>
+	 * if game constructor for MultiPlayer is called with invalid amount of users
+	 * argument and exception is thrown.<br>
 	 * Expected result: throws an illegal argument exception
 	 */
 	@Test
 	public void game_MultiPlayerInvalidPlayerAmount_ThrowsIllegalArgumentException() {
 		HashMap<Color, String> players = new HashMap<>();
 		players.put(Color.YELLOW, "tim");
-		
+
 		// Act & Assert
 		assertThrows(IllegalArgumentException.class, () -> new Game(5, players, 5, 5));
 	}
@@ -167,7 +165,7 @@ public class GameTests {
 			fail();
 		}
 	}
-	
+
 	/**
 	 * Equivalence Partitioning S3<br>
 	 * if player added and method gets called, the return value is the color from
@@ -178,6 +176,7 @@ public class GameTests {
 	public void getColorFromCurrentPlayer_PlayerAdded_returnColor() {
 		// Arrange
 		testGame = new Game(5, "max", 2, 6, 6);
+			
 		Color expectedColor = Config.SINGLEPLAYER_USERCOLOR;
 
 		// Act
@@ -301,42 +300,36 @@ public class GameTests {
 	 * Expected result: returns player, the winner
 	 */
 	@Test
-    public void getWinner_hasWinner_returnsWinner() {
-        // Arrange
-        HashMap<Color, String> players = new HashMap<>();
-        players.put(Color.YELLOW, "tim");
-        players.put(Color.BLUE, "max");
-        players.put(Color.BLACK, "laura");
-        players.put(Color.WHITE, "olga");
-        testGame = new Game(5, players, 6, 6);
+	public void getWinner_hasWinner_returnsWinner() {
+		// Arrange
+		HashMap<Color, String> players = new HashMap<>();
+		players.put(Color.YELLOW, "tim");
+		players.put(Color.BLUE, "max");
+		players.put(Color.BLACK, "laura");
+		players.put(Color.WHITE, "olga");
+		testGame = new Game(5, players, 6, 6);
 
- 
+		String name = testGame.getNameFromCurrentPlayer();
+		Color color = testGame.getColorFromCurrentPlayer();
 
-        String name = testGame.getNameFromCurrentPlayer();
-        Color color = testGame.getColorFromCurrentPlayer();
-        
-        for (int i = 0; i < 5; i++) {
-            testGame.nextMove(0);
-            if (i % 2 == 0) {
-                testGame.nextMove(1);
-                testGame.nextMove(2);
-                testGame.nextMove(3);
-            } else {
-                testGame.nextMove(2);
-                testGame.nextMove(3);
-                testGame.nextMove(4);
-            }
-        }
+		for (int i = 0; i < 5; i++) {
+			testGame.nextMove(0);
+			if (i % 2 == 0) {
+				testGame.nextMove(1);
+				testGame.nextMove(2);
+				testGame.nextMove(3);
+			} else {
+				testGame.nextMove(2);
+				testGame.nextMove(3);
+				testGame.nextMove(4);
+			}
+		}
 
- 
+		// Act
+		Player winner = testGame.getWinner();
 
-        // Act
-        Player winner = testGame.getWinner();
-
- 
-
-        // Assert
-        assertEquals(name, winner.getName());
-        assertEquals(color, winner.getColor());
-    }
+		// Assert
+		assertEquals(name, winner.getName());
+		assertEquals(color, winner.getColor());
+	}
 }

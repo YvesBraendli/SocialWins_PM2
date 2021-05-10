@@ -2,42 +2,40 @@ package ch.zhaw.pm2.socialWins;
 
 import java.awt.Color;
 
-import ch.zhaw.pm2.socialWins.strategy.ComputerAdvancedStrategy;
-import ch.zhaw.pm2.socialWins.strategy.ComputerBeginnerStrategy;
-import ch.zhaw.pm2.socialWins.strategy.ComputerIntermediateStrategy;
 import ch.zhaw.pm2.socialWins.strategy.Strategy;
 
+/**
+ * A computer is a Player that uses a strategy to calculate the next move.
+ * 
+ * @author robin meier, yves braendli, nadine moser
+ *
+ */
 public class Computer extends Player {
 	private Strategy strategy;
 	private Board board;
 
-	public Computer(String name, Color color, int level, Board board, int winningRowLength) {
+	/**
+	 * Constructor to instantiate a computer with the following arguments.
+	 * 
+	 * @param name             name of the computer
+	 * @param color            color of the computer
+	 * @param strategy         strategy for the computer
+	 * @param board            board with current game state
+	 * @param winningRowLength number to win the game
+	 * @throws IllegalArgumentException if the arguments are null or the winning
+	 *                                  length is lower than 3 or higher than 6
+	 */
+	public Computer(String name, Color color, Strategy strategy, Board board, int winningRowLength) {
 		super(name, color);
-		this.board = board;
-		try {
-			setStrategy(level, board.getNumberOfRows(), board.getNumberOfColumns(), winningRowLength);
-		} catch (InvalidLevelException e) {
-			e.printStackTrace();
+		if (name == null || color == null || strategy == null || board == null
+				|| winningRowLength < Config.LOWEST_POSSIBLE_WINNINGROW
+				|| winningRowLength > Config.HIGHEST_POSSIBLE_WINNINGROW) {
+			throw new IllegalArgumentException();
 		}
+		this.board = board;
+		this.strategy = strategy;
 	}
 
-	private void setStrategy(int level, int numberOfRows, int numberOfColumns, int winningRowLength) throws InvalidLevelException {
-		switch (level) {
-		case 1:
-			strategy = new ComputerBeginnerStrategy(numberOfRows, numberOfColumns, winningRowLength);
-			break;
-		case 2: 
-			strategy = new ComputerIntermediateStrategy(numberOfRows, numberOfColumns, winningRowLength);
-			break;
-		case 3:
-			strategy = new ComputerAdvancedStrategy(numberOfRows, numberOfColumns, winningRowLength);
-			break;
-			
-		default:
-			throw new InvalidLevelException("Invalid Level");
-		}
-	}
-	
 	public int nextMove() {
 		return strategy.nextMove(board);
 	}

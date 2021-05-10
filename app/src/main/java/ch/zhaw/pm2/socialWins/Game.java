@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import ch.zhaw.pm2.socialWins.strategy.ComputerAdvancedStrategy;
+import ch.zhaw.pm2.socialWins.strategy.ComputerBeginnerStrategy;
+import ch.zhaw.pm2.socialWins.strategy.ComputerIntermediateStrategy;
+import ch.zhaw.pm2.socialWins.strategy.Strategy;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -36,6 +40,7 @@ public class Game {
 	 * @param level             difficulty for the computer strategy
 	 * @param columns           width of the board
 	 * @param rows              height of the board
+	 * @throws InvalidLevelException 
 	 * @throws IllegalArgumentsException if winning line is not between 3 and 6 or
 	 *                                   userName is null or empty or computer level
 	 *                                   is not between 1 and 3
@@ -56,10 +61,24 @@ public class Game {
 		Color computerColor = Config.SINGLEPLAYER_COMPUTERCOLOR;
 		String computerName = Config.SINGLEPLAYER_COMPUTERNAME;
 		addPlayer(userName, userColor);
-		players[1] = new Computer(computerName, computerColor, level, board, winningLineLength);
+		Strategy strategy = getStrategy(level, board.getNumberOfRows(), board.getNumberOfColumns(), winningLineLength);
+		players[1] = new Computer(computerName, computerColor, strategy, board, winningLineLength);
 
 	}
 
+	private Strategy getStrategy(int level, int numberOfRows, int numberOfColumns, int winningRowLength) {
+		switch (level) {
+		case 1:
+			return new ComputerBeginnerStrategy(numberOfRows, numberOfColumns, winningRowLength);
+		case 2: 
+			return new ComputerIntermediateStrategy(numberOfRows, numberOfColumns, winningRowLength);
+		case 3:
+			return new ComputerAdvancedStrategy(numberOfRows, numberOfColumns, winningRowLength);		
+		default:
+			return new ComputerIntermediateStrategy(numberOfRows, numberOfColumns, winningRowLength);
+		}
+	}
+	
 	/**
 	 * Constructs a MultiPlayer game for a social wins game.
 	 * 

@@ -172,7 +172,8 @@ public class SetupWindowController {
 		
 		RadioButton selectedAiDifficulty = (RadioButton) aiDifficulty.getSelectedToggle();
 		int level = Integer.parseInt(selectedAiDifficulty.getText());
-		game = new Game(selectedWinningRowSize, playerName, level, (int) columnSize, (int) rowSize);
+			game = new Game(selectedWinningRowSize, playerName, level, (int) columnSize, (int) rowSize);
+		
 	}
 
 	private void startMultiplayerGame(int selectedPlayerNumber, int selectedWinningRowSize) {
