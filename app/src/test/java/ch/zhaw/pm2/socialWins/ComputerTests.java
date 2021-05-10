@@ -2,7 +2,6 @@ package ch.zhaw.pm2.socialWins;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -25,7 +24,6 @@ public class ComputerTests {
 
 	@BeforeEach
 	public void setup() {
-		//MockitoAnnotations.initMocks(this);
 		strategy = mock(Strategy.class);
 		name = "tim";
 		color = Color.RED;
@@ -101,7 +99,7 @@ public class ComputerTests {
 		testComputer.nextMove();
 		
 		// Assert
-    	verify(testComputer, times(1)).nextMove();
+    	verify(strategy, times(1)).nextMove(any());
 	}
 	
 }
